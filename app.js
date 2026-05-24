@@ -201,7 +201,7 @@ function renderDashboard() {
   const rank = Progress.getRank();
   const accuracy = s.totalAttempted ? Math.round((s.totalCorrect / s.totalAttempted) * 100) : 0;
 
-  const masteryItems = TOPICS.slice(0, 8).map(t => {
+  const masteryItems = TOPICS.slice(0, 6).map(t => {
     const pct = Progress.getMastery(t.id);
     const color = pct >= 80 ? 'green' : pct >= 50 ? 'gradient' : 'blue';
     return `
@@ -228,13 +228,13 @@ function renderDashboard() {
   document.getElementById('page-content').innerHTML = `
     <div class="page">
       <div class="dashboard-hero">
-        <div class="hero-greeting">¡Bienvenido de vuelta! 👋</div>
+        <div class="hero-greeting">// Bienvenido de vuelta 👋</div>
         <h1 class="hero-title"><span class="gradient-text">CalcQuest</span></h1>
-        <p>Rango actual: <strong>${rank.icon} ${rank.name}</strong> · ${s.totalXP} XP total · Racha de ${s.streak} día${s.streak !== 1 ? 's' : ''} 🔥</p>
+        <p>Rango: <strong>${rank.icon} ${rank.name}</strong> &nbsp;·&nbsp; ${s.totalXP} XP &nbsp;·&nbsp; Racha de ${s.streak} día${s.streak !== 1 ? 's' : ''} 🔥</p>
         <div class="hero-actions">
           <button class="btn btn-primary btn-lg" onclick="navigate('practica')">🎮 Practicar Ahora</button>
-          <button class="btn btn-secondary btn-lg" onclick="navigate('examen')">📝 Simulacro de Examen</button>
-          <button class="btn btn-ghost btn-lg" onclick="navigate('mapa')">🗺️ Ver Progreso</button>
+          <button class="btn btn-secondary btn-lg" onclick="navigate('examen')">📝 Simulacro</button>
+          <button class="btn btn-ghost btn-lg" onclick="navigate('mapa')">🗺️ Progreso</button>
         </div>
       </div>
 
@@ -242,7 +242,7 @@ function renderDashboard() {
         <div class="stat-card">
           <div class="stat-icon">✅</div>
           <div class="stat-value">${s.totalCorrect}</div>
-          <div class="stat-label">Ejercicios Correctos</div>
+          <div class="stat-label">Correctas</div>
         </div>
         <div class="stat-card">
           <div class="stat-icon">🎯</div>
@@ -252,14 +252,17 @@ function renderDashboard() {
         <div class="stat-card">
           <div class="stat-icon">🔥</div>
           <div class="stat-value">${s.streak}</div>
-          <div class="stat-label">Días de Racha</div>
+          <div class="stat-label">Días Racha</div>
         </div>
         <div class="stat-card">
           <div class="stat-icon">⚔️</div>
           <div class="stat-value">${s.bossesBeaten}</div>
-          <div class="stat-label">Jefes Vencidos</div>
+          <div class="stat-label">Jefes</div>
         </div>
       </div>
+
+      <!-- Quick Practice Widget -->
+      <div id="dash-quick-ex" style="margin-bottom:28px"></div>
 
       <div class="grid-2" style="gap:24px">
         <div class="card">
@@ -271,7 +274,7 @@ function renderDashboard() {
           <h3 style="margin-bottom:16px">⚡ Acceso Rápido</h3>
           <div class="grid-2">${quickCards}</div>
           <div class="mt-4" style="display:flex;gap:12px;flex-direction:column">
-            <button class="btn btn-secondary w-full" onclick="navigate('flashcards')">🃏 Repasar Flashcards</button>
+            <button class="btn btn-secondary w-full" onclick="navigate('flashcards')">🃏 Flashcards</button>
             <button class="btn btn-secondary w-full" onclick="navigate('formulario')">📚 Formulario</button>
             <button class="btn btn-gold w-full" onclick="startDailyChallenge()">⭐ Desafío Diario</button>
           </div>
@@ -280,6 +283,167 @@ function renderDashboard() {
     </div>
   `;
   renderMath(document.getElementById('page-content'));
+  renderDashboardQuickEx();
+}
+
+// ══════════════════════════════════════════════
+//  Dashboard Quick Exercise Widget
+// ══════════════════════════════════════════════
+function renderDashboardQuickEx() {
+  const area = document.getElementById('dash-quick-ex');
+  if (!area) return;
+
+  // Pick a random exercise from unlocked topics
+  const unlocked = TOPICS.filter(t => Progress.isTopicUnlocked(t.id));
+  const pool = unlocked.flatMap(t => App.exercises[t.id] || []);
+  if (!pool.length) return;
+
+  const ex = pool[Math.floor(Math.random() * pool.length)];
+  const topic = TOPICS.find(t => t.id === ex.topic);
+  App.currentExercise = ex;
+
+  const diffLabel = ['','Fácil','Medio','Difícil','Experto'][ex.difficulty] || 'Medio';
+  const diffTag   = `tag-diff-${ex.difficulty}`;
+
+  area.innerHTML = `
+    <div class="quick-ex-card">
+      <div class="quick-ex-label">⚡ Ejercicio Rápido — practica ahora mismo</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <span style="font-size:1.6rem">${topic?.icon || '∫'}</span>
+        <div>
+          <div style="font-weight:700;font-size:1rem;color:var(--text)">${topic?.name || ex.topic}</div>
+          <span class="tag ${diffTag}">${diffLabel}</span>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="renderDashboardQuickEx()" title="Nuevo ejercicio">🔀 Otro</button>
+      </div>
+
+      <div class="exercise-question" id="dash-ex-q">\\[${ex.questionLatex}\\]</div>
+
+      <div id="dash-ex-tech" style="margin-bottom:12px">
+        <div style="font-size:0.82rem;color:var(--text3);margin-bottom:10px;font-family:var(--font-mono)">→ Identifica la técnica correcta:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          ${TECHNIQUES.map(t => `
+            <button class="btn btn-ghost btn-sm dash-tech-btn" data-tech="${t.id}"
+              onclick="dashSelectTech(this,'${t.id}','${ex.method}','${ex.id}')">
+              ${t.icon} ${t.name}
+            </button>`).join('')}
+        </div>
+      </div>
+
+      <div id="dash-ex-solve" class="hidden">
+        <div class="answer-area">
+          <input type="text" class="answer-input" id="dash-ex-input"
+            placeholder="Escribe tu respuesta…" style="font-size:0.9rem" />
+          <button class="btn btn-primary" onclick="dashCheckAnswer('${ex.id}','${ex.topic}')">✓ Verificar</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="dashShowHint(0)" id="dash-hint-btn">💡 Pista</button>
+          <button class="btn btn-ghost btn-sm" onclick="dashRevealAnswer('${ex.id}')">👁️ Respuesta</button>
+        </div>
+        <div id="dash-hint-area"></div>
+      </div>
+      <div id="dash-ex-feedback" class="mt-4"></div>
+    </div>
+  `;
+
+  renderMath(area);
+}
+
+let dashHintIdx = 0;
+
+function dashSelectTech(btn, techId, correctMethod, exId) {
+  document.querySelectorAll('.dash-tech-btn').forEach(b => b.classList.remove('btn-primary'));
+
+  const isCorrect = techId === correctMethod ||
+    (correctMethod.includes('fracciones') && techId === 'fracciones-parciales') ||
+    (correctMethod === 'cambio-variable' && techId === 'cambio-variable') ||
+    (correctMethod === 'teorema-fundamental' && techId === 'teorema-fundamental') ||
+    (correctMethod === 'area-entre-curvas' && techId === 'area-entre-curvas');
+
+  if (isCorrect) {
+    btn.classList.add('btn-primary');
+    showToast('¡Técnica correcta! Ahora resuelve.', 'success', '✅');
+    document.getElementById('dash-ex-tech').classList.add('hidden');
+    document.getElementById('dash-ex-solve').classList.remove('hidden');
+    dashHintIdx = 0;
+  } else {
+    btn.style.borderColor = 'var(--error)';
+    btn.style.color = 'var(--error)';
+    setTimeout(() => {
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 1200);
+    showToast('Técnica incorrecta. Intenta otra.', 'error', '❌');
+  }
+}
+
+function dashCheckAnswer(exId, topicId) {
+  const ex = App.currentExercise;
+  if (!ex) return;
+  const val = (document.getElementById('dash-ex-input')?.value || '').trim();
+  if (!val) return;
+
+  const correct = normalizeAnswer(val) === normalizeAnswer(ex.answerLatex) ||
+    normalizeAnswer(ex.answerLatex).includes(normalizeAnswer(val));
+
+  const fb = document.getElementById('dash-ex-feedback');
+  const input = document.getElementById('dash-ex-input');
+
+  if (correct) {
+    input?.classList.add('correct');
+    fb.innerHTML = `<div class="feedback-correct"><span>🎉</span><div><strong>¡Correcto!</strong><br><span style="font-size:0.82rem">Respuesta: \\(${ex.answerLatex}\\)</span></div></div>`;
+    const xp = [0,10,20,35,50][ex.difficulty] || 10;
+    const newAchs = Progress.recordExercise(exId, topicId, true, ex.difficulty);
+    updateSidebarStats();
+    newAchs.forEach(a => showAchievement(a));
+    showToast(`+${xp} XP ganados 🌟`, 'xp', '⭐');
+    // Load new exercise after delay
+    setTimeout(() => renderDashboardQuickEx(), 2500);
+  } else {
+    input?.classList.add('incorrect');
+    fb.innerHTML = `<div class="feedback-incorrect"><span>❌</span><strong>Incorrecto. ¡Inténtalo de nuevo!</strong></div>`;
+    Progress.recordExercise(exId, topicId, false, ex.difficulty);
+    updateSidebarStats();
+    setTimeout(() => {
+      input?.classList.remove('incorrect');
+      fb.innerHTML = '';
+    }, 1800);
+  }
+  renderMath(fb);
+}
+
+function dashShowHint(idx) {
+  const ex = App.currentExercise;
+  if (!ex?.hints?.length) return;
+  const hint = ex.hints[dashHintIdx];
+  if (!hint) return;
+  dashHintIdx++;
+
+  const area = document.getElementById('dash-hint-area');
+  const box = document.createElement('div');
+  box.className = 'hint-box mt-2';
+  box.innerHTML = `<div class="hint-title">Pista ${dashHintIdx}</div><div>${hint}</div>`;
+  area?.appendChild(box);
+
+  const btn = document.getElementById('dash-hint-btn');
+  if (btn && dashHintIdx >= ex.hints.length) { btn.disabled = true; btn.textContent = '💡 Sin más pistas'; }
+
+  renderMath(area);
+}
+
+function dashRevealAnswer(exId) {
+  const ex = App.currentExercise;
+  if (!ex) return;
+  const fb = document.getElementById('dash-ex-feedback');
+  fb.innerHTML = `
+    <div class="card" style="margin-top:12px;padding:16px">
+      <div style="font-size:0.8rem;color:var(--text3);font-family:var(--font-mono);margin-bottom:8px">RESPUESTA</div>
+      <div class="math-display">\\[${ex.answerLatex}\\]</div>
+      <button class="btn btn-ghost btn-sm mt-4" onclick="renderDashboardQuickEx()">🔀 Siguiente ejercicio</button>
+    </div>`;
+  renderMath(fb);
+  Progress.recordExercise(exId, ex.topic, false, ex.difficulty);
+  updateSidebarStats();
 }
 
 // ══════════════════════════════════════════════
