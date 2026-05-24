@@ -1,0 +1,145 @@
+[
+  {
+    "id": "sub_001",
+    "difficulty": 2,
+    "topic": "sustitucion",
+    "questionLatex": "\\int 2x(x^2+1)^5\\,dx",
+    "answerLatex": "\\dfrac{(x^2+1)^6}{6}+C",
+    "method": "sustitucion",
+    "hints": [
+      "Identifica la función interna compuesta",
+      "Haz u = x^2+1",
+      "Calcula du = 2x\\,dx y sustituye"
+    ],
+    "commonMistakes": [
+      "Olvidar reemplazar dx en términos de du",
+      "No sustituir de vuelta a la variable original al final",
+      "Dejar términos en x después de la sustitución"
+    ],
+    "steps": [
+      "\\text{Sea } u = x^2+1",
+      "du = 2x\\,dx",
+      "\\int u^5\\,du",
+      "\\frac{u^6}{6}+C",
+      "\\frac{(x^2+1)^6}{6}+C"
+    ]
+  },
+  {
+    "id": "sub_002",
+    "difficulty": 2,
+    "topic": "sustitucion",
+    "questionLatex": "\\int \\dfrac{3x^2}{(x^3+5)^4}\\,dx",
+    "answerLatex": "-\\dfrac{1}{3(x^3+5)^3}+C",
+    "method": "sustitucion",
+    "hints": [
+      "La función interna es x^3+5",
+      "Sea u = x^3+5",
+      "du = 3x^2\\,dx está presente en el numerador"
+    ],
+    "commonMistakes": [
+      "No identificar que 3x^2 dx = du",
+      "Errores al integrar potencias negativas"
+    ],
+    "steps": [
+      "\\text{Sea } u = x^3+5",
+      "du = 3x^2\\,dx",
+      "\\int \\frac{du}{u^4} = \\int u^{-4}\\,du",
+      "\\frac{u^{-3}}{-3}+C",
+      "-\\frac{1}{3u^3}+C",
+      "-\\frac{1}{3(x^3+5)^3}+C"
+    ]
+  },
+  {
+    "id": "sub_003",
+    "difficulty": 2,
+    "topic": "sustitucion",
+    "questionLatex": "\\int e^{3x}\\,dx",
+    "answerLatex": "\\dfrac{e^{3x}}{3}+C",
+    "method": "sustitucion",
+    "hints": [
+      "Sea u = 3x",
+      "du = 3\\,dx, entonces dx = du/3",
+      "Integra e^u y sustituye"
+    ],
+    "commonMistakes": [
+      "Olvidar dividir por 3 al despejar dx"
+    ],
+    "steps": [
+      "\\text{Sea } u = 3x",
+      "du = 3\\,dx \\Rightarrow dx = \\frac{du}{3}",
+      "\\frac{1}{3}\\int e^u\\,du",
+      "\\frac{e^u}{3}+C",
+      "\\frac{e^{3x}}{3}+C"
+    ]
+  },
+  {
+    "id": "sub_004",
+    "difficulty": 3,
+    "topic": "sustitucion",
+    "questionLatex": "\\int x\\sqrt{x^2-4}\\,dx",
+    "answerLatex": "\\dfrac{1}{3}(x^2-4)^{3/2}+C",
+    "method": "sustitucion",
+    "hints": [
+      "La expresión debajo de la raíz sugiere la sustitución",
+      "Sea u = x^2-4",
+      "du = 2x\\,dx, por lo que x\\,dx = du/2"
+    ],
+    "commonMistakes": [
+      "Olvidar el factor 1/2 de x dx = du/2"
+    ],
+    "steps": [
+      "\\text{Sea } u = x^2-4",
+      "du = 2x\\,dx \\Rightarrow x\\,dx = \\frac{du}{2}",
+      "\\frac{1}{2}\\int \\sqrt{u}\\,du = \\frac{1}{2}\\int u^{1/2}\\,du",
+      "\\frac{1}{2}\\cdot\\frac{u^{3/2}}{3/2}+C",
+      "\\frac{1}{3}u^{3/2}+C",
+      "\\frac{1}{3}(x^2-4)^{3/2}+C"
+    ]
+  },
+  {
+    "id": "sub_005",
+    "difficulty": 3,
+    "topic": "sustitucion",
+    "questionLatex": "\\int \\dfrac{\\ln x}{x}\\,dx",
+    "answerLatex": "\\dfrac{(\\ln x)^2}{2}+C",
+    "method": "sustitucion",
+    "hints": [
+      "Observa que la derivada de \\ln x es 1/x",
+      "Sea u = \\ln x",
+      "du = \\frac{dx}{x}"
+    ],
+    "commonMistakes": [
+      "No reconocer que \\frac{1}{x}dx = du"
+    ],
+    "steps": [
+      "\\text{Sea } u = \\ln x",
+      "du = \\frac{1}{x}\\,dx",
+      "\\int u\\,du",
+      "\\frac{u^2}{2}+C",
+      "\\frac{(\\ln x)^2}{2}+C"
+    ]
+  },
+  {
+    "id": "sub_006",
+    "difficulty": 3,
+    "topic": "sustitucion",
+    "questionLatex": "\\int \\sin^3 x \\cos x\\,dx",
+    "answerLatex": "\\dfrac{\\sin^4 x}{4}+C",
+    "method": "sustitucion",
+    "hints": [
+      "Observa que \\cos x es la derivada de \\sin x",
+      "Sea u = \\sin x",
+      "du = \\cos x\\,dx"
+    ],
+    "commonMistakes": [
+      "Confundir cuál función hacer u y cuál es du"
+    ],
+    "steps": [
+      "\\text{Sea } u = \\sin x",
+      "du = \\cos x\\,dx",
+      "\\int u^3\\,du",
+      "\\frac{u^4}{4}+C",
+      "\\frac{\\sin^4 x}{4}+C"
+    ]
+  }
+]

@@ -1,0 +1,194 @@
+{
+  "antiderivadas": [
+    {
+      "id": "f_anti_001",
+      "nombre": "Regla de Potencias",
+      "formulaLatex": "\\int x^n\\,dx = \\frac{x^{n+1}}{n+1}+C, \\quad n \\neq -1",
+      "descripcion": "Para integrar una potencia de x, suma 1 al exponente y divide entre el nuevo exponente.",
+      "ejemplo": "\\int x^4\\,dx = \\frac{x^5}{5}+C",
+      "temasRelacionados": ["antiderivativas", "integrales-inmediatas"]
+    },
+    {
+      "id": "f_anti_002",
+      "nombre": "Regla de la Constante",
+      "formulaLatex": "\\int k\\,dx = kx+C",
+      "descripcion": "La integral de una constante es la constante multiplicada por x.",
+      "ejemplo": "\\int 7\\,dx = 7x+C",
+      "temasRelacionados": ["antiderivativas"]
+    },
+    {
+      "id": "f_anti_003",
+      "nombre": "Regla del Factor Constante",
+      "formulaLatex": "\\int k\\cdot f(x)\\,dx = k\\int f(x)\\,dx",
+      "descripcion": "Una constante puede sacarse fuera de la integral.",
+      "ejemplo": "\\int 5x^3\\,dx = 5\\int x^3\\,dx = \\frac{5x^4}{4}+C",
+      "temasRelacionados": ["antiderivativas"]
+    },
+    {
+      "id": "f_anti_004",
+      "nombre": "Regla de la Suma",
+      "formulaLatex": "\\int [f(x) \\pm g(x)]\\,dx = \\int f(x)\\,dx \\pm \\int g(x)\\,dx",
+      "descripcion": "La integral de una suma es la suma de las integrales.",
+      "ejemplo": "\\int (x^2+\\sin x)\\,dx = \\frac{x^3}{3} - \\cos x+C",
+      "temasRelacionados": ["antiderivativas", "integrales-inmediatas"]
+    }
+  ],
+  "integralesInmediatas": [
+    {
+      "id": "f_imm_001",
+      "nombre": "Exponencial",
+      "formulaLatex": "\\int e^x\\,dx = e^x+C",
+      "descripcion": "La función exponencial es su propia antiderivada.",
+      "ejemplo": "\\int e^x\\,dx = e^x+C",
+      "temasRelacionados": ["integrales-inmediatas"]
+    },
+    {
+      "id": "f_imm_002",
+      "nombre": "Logaritmo Natural",
+      "formulaLatex": "\\int \\frac{1}{x}\\,dx = \\ln|x|+C",
+      "descripcion": "Caso especial de la regla de potencias cuando n = -1.",
+      "ejemplo": "\\int \\frac{1}{x}\\,dx = \\ln|x|+C",
+      "temasRelacionados": ["integrales-inmediatas"]
+    },
+    {
+      "id": "f_imm_003",
+      "nombre": "Seno",
+      "formulaLatex": "\\int \\sin x\\,dx = -\\cos x+C",
+      "descripcion": "La antiderivada del seno es el coseno negativo.",
+      "ejemplo": "\\int \\sin(3x)\\,dx = -\\frac{\\cos(3x)}{3}+C",
+      "temasRelacionados": ["integrales-inmediatas"]
+    },
+    {
+      "id": "f_imm_004",
+      "nombre": "Coseno",
+      "formulaLatex": "\\int \\cos x\\,dx = \\sin x+C",
+      "descripcion": "La antiderivada del coseno es el seno.",
+      "ejemplo": "\\int \\cos(2x)\\,dx = \\frac{\\sin(2x)}{2}+C",
+      "temasRelacionados": ["integrales-inmediatas"]
+    },
+    {
+      "id": "f_imm_005",
+      "nombre": "Secante al Cuadrado",
+      "formulaLatex": "\\int \\sec^2 x\\,dx = \\tan x+C",
+      "descripcion": "Antiderivada de sec²x.",
+      "ejemplo": "\\int \\sec^2 x\\,dx = \\tan x+C",
+      "temasRelacionados": ["integrales-inmediatas"]
+    }
+  ],
+  "inversionTrigonometrica": [
+    {
+      "id": "f_itrig_001",
+      "nombre": "Arcoseno",
+      "formulaLatex": "\\int \\frac{du}{\\sqrt{a^2-u^2}} = \\arcsin\\frac{u}{a}+C",
+      "descripcion": "Integral que da como resultado arcoseno.",
+      "ejemplo": "\\int \\frac{dx}{\\sqrt{9-x^2}} = \\arcsin\\frac{x}{3}+C",
+      "temasRelacionados": ["inversas-trigonometricas"]
+    },
+    {
+      "id": "f_itrig_002",
+      "nombre": "Arcotangente",
+      "formulaLatex": "\\int \\frac{du}{a^2+u^2} = \\frac{1}{a}\\arctan\\frac{u}{a}+C",
+      "descripcion": "Integral que da como resultado arcotangente.",
+      "ejemplo": "\\int \\frac{dx}{4+x^2} = \\frac{1}{2}\\arctan\\frac{x}{2}+C",
+      "temasRelacionados": ["inversas-trigonometricas"]
+    },
+    {
+      "id": "f_itrig_003",
+      "nombre": "Arcosecante",
+      "formulaLatex": "\\int \\frac{du}{u\\sqrt{u^2-a^2}} = \\frac{1}{a}\\text{arcsec}\\frac{|u|}{a}+C",
+      "descripcion": "Integral que da como resultado arcosecante.",
+      "ejemplo": "\\int \\frac{dx}{x\\sqrt{x^2-1}} = \\text{arcsec}|x|+C",
+      "temasRelacionados": ["inversas-trigonometricas"]
+    }
+  ],
+  "integracionPorPartes": [
+    {
+      "id": "f_ibp_001",
+      "nombre": "Fórmula de Integración por Partes",
+      "formulaLatex": "\\int u\\,dv = uv - \\int v\\,du",
+      "descripcion": "Técnica para integrar productos de funciones. Recuerda LIATE para elegir u: Logarítmica, Inversa trig, Algebraica, Trigonométrica, Exponencial.",
+      "ejemplo": "\\int x e^x\\,dx: \\; u=x,\\; dv=e^x dx \\Rightarrow xe^x - e^x+C",
+      "temasRelacionados": ["integracion-por-partes"]
+    }
+  ],
+  "concavidad": [
+    {
+      "id": "f_conc_001",
+      "nombre": "Criterio de la Segunda Derivada",
+      "formulaLatex": "f''(x) > 0 \\Rightarrow \\text{cóncava arriba} \\quad f''(x) < 0 \\Rightarrow \\text{cóncava abajo}",
+      "descripcion": "La segunda derivada determina la concavidad de una función.",
+      "ejemplo": "f(x)=x^2 \\Rightarrow f''(x)=2>0 \\Rightarrow \\text{siempre cóncava arriba}",
+      "temasRelacionados": ["concavidad"]
+    },
+    {
+      "id": "f_conc_002",
+      "nombre": "Puntos de Inflexión",
+      "formulaLatex": "\\text{Inflexión en } x_0 \\text{ si } f''(x_0)=0 \\text{ y } f'' \\text{ cambia de signo}",
+      "descripcion": "Un punto de inflexión es donde la concavidad cambia. NO basta con f''(x₀)=0; debe cambiar de signo.",
+      "ejemplo": "f(x)=x^3 \\Rightarrow f''(x)=6x=0 \\text{ en } x=0, \\text{ cambia signo} \\Rightarrow \\text{inflexión}",
+      "temasRelacionados": ["concavidad"]
+    }
+  ],
+  "optimizacion": [
+    {
+      "id": "f_opt_001",
+      "nombre": "Criterio de la Primera Derivada",
+      "formulaLatex": "f'(c)=0 \\text{ y } f' \\text{ cambia de } + \\text{ a } - \\Rightarrow \\text{máximo local}",
+      "descripcion": "Un punto crítico es máximo si la derivada cambia de positiva a negativa.",
+      "ejemplo": "f(x) = -x^2+4x: \\; f'(x)=0 \\Rightarrow x=2 \\Rightarrow \\text{máximo}",
+      "temasRelacionados": ["optimizacion"]
+    },
+    {
+      "id": "f_opt_002",
+      "nombre": "Criterio de la Segunda Derivada",
+      "formulaLatex": "f'(c)=0 \\text{ y } f''(c)<0 \\Rightarrow \\text{máximo} \\quad f''(c)>0 \\Rightarrow \\text{mínimo}",
+      "descripcion": "Usa la segunda derivada para clasificar puntos críticos sin analizar el signo de f'.",
+      "ejemplo": "f(x)=x^3-3x: \\; f'(x)=3x^2-3=0 \\Rightarrow x=\\pm1; \\; f''(1)=6>0 \\Rightarrow \\text{mínimo}",
+      "temasRelacionados": ["optimizacion"]
+    }
+  ],
+  "fraccionesParciales": [
+    {
+      "id": "f_fp_001",
+      "nombre": "Caso 1: Factores Lineales Distintos",
+      "formulaLatex": "\\frac{P(x)}{(x-a)(x-b)} = \\frac{A}{x-a}+\\frac{B}{x-b}",
+      "descripcion": "Cuando el denominador tiene factores lineales distintos, se descompone con una constante por cada factor.",
+      "ejemplo": "\\frac{1}{(x-1)(x+2)} = \\frac{A}{x-1}+\\frac{B}{x+2}",
+      "temasRelacionados": ["fracciones-parciales-caso1"]
+    },
+    {
+      "id": "f_fp_002",
+      "nombre": "Caso 2: Factores Lineales Repetidos",
+      "formulaLatex": "\\frac{P(x)}{(x-a)^n} = \\frac{A_1}{x-a}+\\frac{A_2}{(x-a)^2}+\\cdots+\\frac{A_n}{(x-a)^n}",
+      "descripcion": "Para factores lineales repetidos, se incluye una fracción por cada potencia.",
+      "ejemplo": "\\frac{1}{(x-1)^2(x+3)}: \\frac{A}{x-1}+\\frac{B}{(x-1)^2}+\\frac{C}{x+3}",
+      "temasRelacionados": ["fracciones-parciales-caso2"]
+    },
+    {
+      "id": "f_fp_003",
+      "nombre": "Caso 3: Factor Cuadrático Irreducible",
+      "formulaLatex": "\\frac{P(x)}{(x^2+bx+c)(\\ldots)} = \\frac{Ax+B}{x^2+bx+c}+\\cdots",
+      "descripcion": "Factores cuadráticos irreducibles (discriminante < 0) requieren numerador lineal.",
+      "ejemplo": "\\frac{1}{(x^2+4)(x-1)} = \\frac{Ax+B}{x^2+4}+\\frac{C}{x-1}",
+      "temasRelacionados": ["fracciones-parciales-caso3"]
+    }
+  ],
+  "integralesDefinidas": [
+    {
+      "id": "f_def_001",
+      "nombre": "Teorema Fundamental del Cálculo",
+      "formulaLatex": "\\int_a^b f(x)\\,dx = F(b) - F(a), \\quad F'(x)=f(x)",
+      "descripcion": "La integral definida se evalúa como la diferencia de la antiderivada en los límites.",
+      "ejemplo": "\\int_0^1 x^2\\,dx = \\left[\\frac{x^3}{3}\\right]_0^1 = \\frac{1}{3}",
+      "temasRelacionados": ["integrales-definidas"]
+    },
+    {
+      "id": "f_def_002",
+      "nombre": "Área entre curvas",
+      "formulaLatex": "A = \\int_a^b [f(x)-g(x)]\\,dx, \\quad f(x) \\geq g(x) \\text{ en } [a,b]",
+      "descripcion": "El área entre dos curvas es la integral de la diferencia (superior menos inferior).",
+      "ejemplo": "\\text{Área entre } y=x \\text{ y } y=x^2: \\int_0^1(x-x^2)\\,dx = \\frac{1}{6}",
+      "temasRelacionados": ["aplicaciones-integrales-definidas"]
+    }
+  ]
+}

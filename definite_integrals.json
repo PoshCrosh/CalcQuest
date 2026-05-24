@@ -1,0 +1,189 @@
+[
+  {
+    "id": "def_001",
+    "difficulty": 1,
+    "topic": "integrales-definidas",
+    "questionLatex": "\\int_0^2 x^2\\,dx",
+    "answerLatex": "\\dfrac{8}{3}",
+    "method": "teorema-fundamental",
+    "hints": [
+      "Aplica el Teorema Fundamental del Cálculo",
+      "Antiderivada de \\(x^2\\) es \\(\\frac{x^3}{3}\\)",
+      "Evalúa: \\(F(2)-F(0)\\)"
+    ],
+    "commonMistakes": ["No restar \\(F(a)\\) correctamente"],
+    "steps": [
+      "\\int_0^2 x^2\\,dx = \\left[\\frac{x^3}{3}\\right]_0^2",
+      "= \\frac{8}{3} - 0 = \\frac{8}{3}"
+    ]
+  },
+  {
+    "id": "def_002",
+    "difficulty": 1,
+    "topic": "integrales-definidas",
+    "questionLatex": "\\int_1^4 \\sqrt{x}\\,dx",
+    "answerLatex": "\\dfrac{14}{3}",
+    "method": "teorema-fundamental",
+    "hints": [
+      "Reescribe \\(\\sqrt{x} = x^{1/2}\\)",
+      "Antiderivada: \\(\\frac{x^{3/2}}{3/2} = \\frac{2}{3}x^{3/2}\\)"
+    ],
+    "commonMistakes": ["Error al calcular \\(4^{3/2}\\)"],
+    "steps": [
+      "\\int_1^4 x^{1/2}\\,dx = \\left[\\frac{2}{3}x^{3/2}\\right]_1^4",
+      "= \\frac{2}{3}(8) - \\frac{2}{3}(1)",
+      "= \\frac{16}{3} - \\frac{2}{3} = \\frac{14}{3}"
+    ]
+  },
+  {
+    "id": "def_003",
+    "difficulty": 2,
+    "topic": "integrales-definidas",
+    "questionLatex": "\\int_0^{\\pi} \\sin x\\,dx",
+    "answerLatex": "2",
+    "method": "teorema-fundamental",
+    "hints": [
+      "Antiderivada de \\(\\sin x\\) es \\(-\\cos x\\)",
+      "Evalúa entre 0 y \\(\\pi\\)"
+    ],
+    "commonMistakes": ["Confundir el signo de \\(-\\cos\\)"],
+    "steps": [
+      "\\int_0^{\\pi}\\sin x\\,dx = [-\\cos x]_0^{\\pi}",
+      "= (-\\cos\\pi) - (-\\cos 0)",
+      "= -(-1) - (-1) = 1+1 = 2"
+    ]
+  },
+  {
+    "id": "def_004",
+    "difficulty": 2,
+    "topic": "integrales-definidas",
+    "questionLatex": "\\int_0^1 2xe^{x^2}\\,dx",
+    "answerLatex": "e - 1",
+    "method": "sustitucion",
+    "hints": [
+      "Sea \\(u=x^2\\), \\(du=2x\\,dx\\)",
+      "Cambia los límites: \\(u(0)=0\\), \\(u(1)=1\\)",
+      "\\(\\int_0^1 e^u\\,du\\)"
+    ],
+    "commonMistakes": ["No cambiar los límites de integración"],
+    "steps": [
+      "u=x^2, \\; du=2x\\,dx",
+      "\\int_0^1 e^u\\,du = [e^u]_0^1",
+      "= e^1 - e^0 = e-1"
+    ]
+  },
+  {
+    "id": "def_005",
+    "difficulty": 2,
+    "topic": "integrales-definidas",
+    "questionLatex": "\\int_{-1}^{1} (3x^2 - 2)\\,dx",
+    "answerLatex": "-2",
+    "method": "teorema-fundamental",
+    "hints": [
+      "Integra término a término",
+      "\\(F(x) = x^3-2x\\)"
+    ],
+    "commonMistakes": ["Error al evaluar con el límite negativo"],
+    "steps": [
+      "F(x) = x^3-2x",
+      "F(1)-F(-1) = (1-2)-(-1+2)",
+      "= -1 - 1 = -2"
+    ]
+  },
+  {
+    "id": "app_001",
+    "difficulty": 2,
+    "topic": "aplicaciones-integrales-definidas",
+    "questionLatex": "\\text{Área entre } f(x)=x^2 \\text{ y } g(x)=x \\text{ en } [0,1]",
+    "answerLatex": "\\dfrac{1}{6}",
+    "method": "area-entre-curvas",
+    "hints": [
+      "Área = \\(\\int_0^1 [g(x)-f(x)]\\,dx\\) si \\(g\\geq f\\)",
+      "En \\([0,1]\\): \\(x \\geq x^2\\)",
+      "Integra la diferencia"
+    ],
+    "commonMistakes": ["No verificar cuál función es mayor en el intervalo"],
+    "steps": [
+      "A = \\int_0^1 (x-x^2)\\,dx",
+      "= \\left[\\frac{x^2}{2}-\\frac{x^3}{3}\\right]_0^1",
+      "= \\frac{1}{2}-\\frac{1}{3} = \\frac{1}{6}"
+    ]
+  },
+  {
+    "id": "app_002",
+    "difficulty": 2,
+    "topic": "aplicaciones-integrales-definidas",
+    "questionLatex": "\\text{Área bajo } f(x)=4-x^2 \\text{ sobre el eje } x",
+    "answerLatex": "\\dfrac{32}{3}",
+    "method": "area-entre-curvas",
+    "hints": [
+      "La función corta el eje en \\(x=\\pm 2\\)",
+      "Área = \\(\\int_{-2}^{2}(4-x^2)\\,dx\\)"
+    ],
+    "commonMistakes": ["No encontrar los límites correctos (raíces)"],
+    "steps": [
+      "4-x^2=0 \\Rightarrow x=\\pm 2",
+      "A=\\int_{-2}^{2}(4-x^2)\\,dx",
+      "=\\left[4x-\\frac{x^3}{3}\\right]_{-2}^{2}",
+      "=(8-\\frac{8}{3})-(-8+\\frac{8}{3}) = \\frac{32}{3}"
+    ]
+  },
+  {
+    "id": "app_003",
+    "difficulty": 3,
+    "topic": "aplicaciones-integrales-definidas",
+    "questionLatex": "\\text{Área entre } y=x \\text{ y } y=x^2-2x",
+    "answerLatex": "\\dfrac{9}{2}",
+    "method": "area-entre-curvas",
+    "hints": [
+      "Encuentra los puntos de intersección: \\(x = x^2-2x\\)",
+      "\\(x^2-3x=0 \\Rightarrow x=0, x=3\\)",
+      "En \\([0,3]\\): \\(x \\geq x^2-2x\\)"
+    ],
+    "commonMistakes": ["Error al encontrar los puntos de intersección"],
+    "steps": [
+      "x = x^2-2x \\Rightarrow x^2-3x=0 \\Rightarrow x(x-3)=0",
+      "x=0, x=3",
+      "A=\\int_0^3[x-(x^2-2x)]\\,dx = \\int_0^3(3x-x^2)\\,dx",
+      "=\\left[\\frac{3x^2}{2}-\\frac{x^3}{3}\\right]_0^3 = \\frac{27}{2}-9 = \\frac{9}{2}"
+    ]
+  },
+  {
+    "id": "app_004",
+    "difficulty": 3,
+    "topic": "aplicaciones-integrales-definidas",
+    "questionLatex": "\\text{Volumen del sólido girando } y=x^2 \\text{ en } [0,2] \\text{ alrededor del eje } x",
+    "answerLatex": "\\dfrac{32\\pi}{5}",
+    "method": "area-entre-curvas",
+    "hints": [
+      "Método de discos: \\(V = \\pi\\int_a^b [f(x)]^2\\,dx\\)",
+      "\\(V = \\pi\\int_0^2 x^4\\,dx\\)"
+    ],
+    "commonMistakes": ["Olvidar elevar al cuadrado el radio"],
+    "steps": [
+      "V = \\pi\\int_0^2(x^2)^2\\,dx = \\pi\\int_0^2 x^4\\,dx",
+      "=\\pi\\left[\\frac{x^5}{5}\\right]_0^2",
+      "=\\pi \\cdot \\frac{32}{5} = \\frac{32\\pi}{5}"
+    ]
+  },
+  {
+    "id": "app_005",
+    "difficulty": 3,
+    "topic": "aplicaciones-integrales-definidas",
+    "questionLatex": "\\text{Área entre } y=\\sin x \\text{ y } y=\\cos x \\text{ en } [0,\\pi/2]",
+    "answerLatex": "2(\\sqrt{2}-1)",
+    "method": "area-entre-curvas",
+    "hints": [
+      "Encuentra dónde se cruzan: \\(\\sin x = \\cos x \\Rightarrow x=\\pi/4\\)",
+      "En \\([0,\\pi/4]\\): \\(\\cos x \\geq \\sin x\\)",
+      "En \\([\\pi/4, \\pi/2]\\): \\(\\sin x \\geq \\cos x\\)"
+    ],
+    "commonMistakes": ["No dividir el intervalo en el punto de cruce"],
+    "steps": [
+      "A = \\int_0^{\\pi/4}(\\cos x-\\sin x)\\,dx + \\int_{\\pi/4}^{\\pi/2}(\\sin x-\\cos x)\\,dx",
+      "= [\\sin x+\\cos x]_0^{\\pi/4} + [-\\cos x-\\sin x]_{\\pi/4}^{\\pi/2}",
+      "= (\\sqrt{2}-1) + (-(0+1)+\\sqrt{2})",
+      "= (\\sqrt{2}-1) + (\\sqrt{2}-1) = 2(\\sqrt{2}-1)"
+    ]
+  }
+]

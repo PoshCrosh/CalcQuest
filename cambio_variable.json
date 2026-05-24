@@ -1,0 +1,161 @@
+[
+  {
+    "id": "cv_001",
+    "difficulty": 1,
+    "topic": "cambio-variable",
+    "questionLatex": "\\int 2x(x^2+1)^5\\,dx",
+    "answerLatex": "\\dfrac{(x^2+1)^6}{6}+C",
+    "method": "cambio-variable",
+    "hints": [
+      "Elige la función interna como sustitución",
+      "Sea \\(u = x^2+1\\)",
+      "Entonces \\(du = 2x\\,dx\\) — que ya aparece en la integral"
+    ],
+    "commonMistakes": [
+      "Olvidar reemplazar \\(dx\\) por \\(du\\)",
+      "No sustituir de vuelta a la variable original"
+    ],
+    "steps": [
+      "u = x^2+1",
+      "du = 2x\\,dx",
+      "\\int u^5\\,du",
+      "\\dfrac{u^6}{6}+C",
+      "\\dfrac{(x^2+1)^6}{6}+C"
+    ]
+  },
+  {
+    "id": "cv_002",
+    "difficulty": 1,
+    "topic": "cambio-variable",
+    "questionLatex": "\\int 3x^2(x^3-4)^7\\,dx",
+    "answerLatex": "\\dfrac{(x^3-4)^8}{8}+C",
+    "method": "cambio-variable",
+    "hints": [
+      "La función interna es \\(x^3-4\\)",
+      "Sea \\(u = x^3-4\\)",
+      "\\(du = 3x^2\\,dx\\) — que ya aparece"
+    ],
+    "commonMistakes": [
+      "Confundir cuál es la función interna"
+    ],
+    "steps": [
+      "u = x^3-4",
+      "du = 3x^2\\,dx",
+      "\\int u^7\\,du",
+      "\\dfrac{u^8}{8}+C",
+      "\\dfrac{(x^3-4)^8}{8}+C"
+    ]
+  },
+  {
+    "id": "cv_003",
+    "difficulty": 2,
+    "topic": "cambio-variable",
+    "questionLatex": "\\int \\dfrac{4x}{(x^2+3)^2}\\,dx",
+    "answerLatex": "-\\dfrac{2}{x^2+3}+C",
+    "method": "cambio-variable",
+    "hints": [
+      "Sea \\(u = x^2+3\\)",
+      "\\(du = 2x\\,dx\\), entonces \\(4x\\,dx = 2\\,du\\)",
+      "La integral se convierte en \\(2\\int u^{-2}\\,du\\)"
+    ],
+    "commonMistakes": [
+      "No ajustar la constante al cambiar de \\(4x\\,dx\\) a \\(du\\)"
+    ],
+    "steps": [
+      "u = x^2+3, \\quad du = 2x\\,dx",
+      "4x\\,dx = 2\\,du",
+      "2\\int u^{-2}\\,du",
+      "2 \\cdot \\dfrac{u^{-1}}{-1}+C",
+      "-\\dfrac{2}{x^2+3}+C"
+    ]
+  },
+  {
+    "id": "cv_004",
+    "difficulty": 2,
+    "topic": "cambio-variable",
+    "questionLatex": "\\int \\sin^4 x \\cos x\\,dx",
+    "answerLatex": "\\dfrac{\\sin^5 x}{5}+C",
+    "method": "cambio-variable",
+    "hints": [
+      "Identifica que \\(\\cos x\\) es la derivada de \\(\\sin x\\)",
+      "Sea \\(u = \\sin x\\)",
+      "\\(du = \\cos x\\,dx\\)"
+    ],
+    "commonMistakes": [
+      "Intentar una identidad trigonométrica innecesaria"
+    ],
+    "steps": [
+      "u = \\sin x, \\quad du = \\cos x\\,dx",
+      "\\int u^4\\,du",
+      "\\dfrac{u^5}{5}+C",
+      "\\dfrac{\\sin^5 x}{5}+C"
+    ]
+  },
+  {
+    "id": "cv_005",
+    "difficulty": 2,
+    "topic": "cambio-variable",
+    "questionLatex": "\\int \\dfrac{e^x}{e^x+1}\\,dx",
+    "answerLatex": "\\ln(e^x+1)+C",
+    "method": "cambio-variable",
+    "hints": [
+      "El numerador es casi la derivada del denominador",
+      "Sea \\(u = e^x+1\\)",
+      "\\(du = e^x\\,dx\\)"
+    ],
+    "commonMistakes": [
+      "Agregar el valor absoluto cuando no es necesario (\\(e^x+1 > 0\\) siempre)"
+    ],
+    "steps": [
+      "u = e^x+1, \\quad du = e^x\\,dx",
+      "\\int \\dfrac{du}{u}",
+      "\\ln|u|+C",
+      "\\ln(e^x+1)+C"
+    ]
+  },
+  {
+    "id": "cv_006",
+    "difficulty": 3,
+    "topic": "cambio-variable",
+    "questionLatex": "\\int x\\sqrt{x^2-9}\\,dx",
+    "answerLatex": "\\dfrac{1}{3}(x^2-9)^{3/2}+C",
+    "method": "cambio-variable",
+    "hints": [
+      "Sea \\(u = x^2-9\\)",
+      "\\(du = 2x\\,dx\\), entonces \\(x\\,dx = \\frac{du}{2}\\)",
+      "\\(\\sqrt{x^2-9} = u^{1/2}\\)"
+    ],
+    "commonMistakes": [
+      "Olvidar el factor \\(\\frac{1}{2}\\) al convertir \\(x\\,dx\\)"
+    ],
+    "steps": [
+      "u = x^2-9, \\quad du = 2x\\,dx \\Rightarrow x\\,dx = \\dfrac{du}{2}",
+      "\\dfrac{1}{2}\\int u^{1/2}\\,du",
+      "\\dfrac{1}{2} \\cdot \\dfrac{u^{3/2}}{3/2}+C",
+      "\\dfrac{1}{3}u^{3/2}+C",
+      "\\dfrac{1}{3}(x^2-9)^{3/2}+C"
+    ]
+  },
+  {
+    "id": "cv_007",
+    "difficulty": 3,
+    "topic": "cambio-variable",
+    "questionLatex": "\\int \\dfrac{\\ln x}{x}\\,dx",
+    "answerLatex": "\\dfrac{(\\ln x)^2}{2}+C",
+    "method": "cambio-variable",
+    "hints": [
+      "Sea \\(u = \\ln x\\)",
+      "\\(du = \\frac{1}{x}\\,dx\\)",
+      "La integral se reduce a \\(\\int u\\,du\\)"
+    ],
+    "commonMistakes": [
+      "Intentar integración por partes cuando la sustitución es más directa"
+    ],
+    "steps": [
+      "u = \\ln x, \\quad du = \\dfrac{dx}{x}",
+      "\\int u\\,du",
+      "\\dfrac{u^2}{2}+C",
+      "\\dfrac{(\\ln x)^2}{2}+C"
+    ]
+  }
+]

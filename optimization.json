@@ -1,0 +1,238 @@
+[
+  {
+    "id": "opt_001",
+    "difficulty": 1,
+    "topic": "optimizacion",
+    "questionLatex": "f(x) = -x^2 + 4x - 1. \\text{ Encuentra el máximo.}",
+    "answerLatex": "x=2, \\; f(2)=3 \\text{ (máximo)}",
+    "method": "optimizacion",
+    "hints": [
+      "La derivada en el máximo es cero: \\(f'(x)=0\\)",
+      "Calcula \\(f'(x) = -2x+4\\)",
+      "Verifica con \\(f''(x)\\) que es máximo"
+    ],
+    "commonMistakes": [
+      "No verificar con la segunda derivada",
+      "Confundir máximo con mínimo"
+    ],
+    "steps": [
+      "f'(x) = -2x+4",
+      "-2x+4 = 0 \\Rightarrow x=2",
+      "f''(x)=-2 < 0 \\Rightarrow \\text{máximo}",
+      "f(2)= -4+8-1 = 3"
+    ]
+  },
+  {
+    "id": "opt_002",
+    "difficulty": 2,
+    "topic": "optimizacion",
+    "questionLatex": "\\text{Rectángulo de perímetro 20. Maximiza el área.}",
+    "answerLatex": "x=5, \\; A=25 \\text{ (cuadrado)}",
+    "method": "optimizacion",
+    "hints": [
+      "Perímetro: \\(2x+2y=20 \\Rightarrow y=10-x\\)",
+      "Área: \\(A = x(10-x)\\)",
+      "Maximiza \\(A(x) = 10x-x^2\\)"
+    ],
+    "commonMistakes": [
+      "No expresar el área en términos de una sola variable",
+      "Olvidar verificar que es un máximo"
+    ],
+    "steps": [
+      "y = 10-x",
+      "A(x) = x(10-x) = 10x-x^2",
+      "A'(x) = 10-2x = 0 \\Rightarrow x=5",
+      "y=5, \\; A=25"
+    ]
+  },
+  {
+    "id": "opt_003",
+    "difficulty": 2,
+    "topic": "optimizacion",
+    "questionLatex": "f(x) = x^3 - 6x^2 + 9x + 1. \\text{ Extremos locales.}",
+    "answerLatex": "\\text{Máximo local: } x=1, \\; \\text{mínimo local: } x=3",
+    "method": "optimizacion",
+    "hints": [
+      "Deriva e iguala a cero",
+      "\\(f'(x) = 3x^2-12x+9 = 3(x-1)(x-3)\\)",
+      "Usa la segunda derivada para clasificar"
+    ],
+    "commonMistakes": [
+      "No factorizar correctamente",
+      "No aplicar la prueba de la segunda derivada"
+    ],
+    "steps": [
+      "f'(x) = 3x^2-12x+9 = 3(x-1)(x-3)",
+      "x=1 \\text{ y } x=3",
+      "f''(x) = 6x-12",
+      "f''(1)=-6<0 \\Rightarrow \\text{máximo}",
+      "f''(3)=6>0 \\Rightarrow \\text{mínimo}"
+    ]
+  },
+  {
+    "id": "opt_004",
+    "difficulty": 3,
+    "topic": "optimizacion",
+    "questionLatex": "\\text{Caja abierta de base cuadrada, volumen 32 m}^3\\text{. Minimiza la superficie.}",
+    "answerLatex": "x=4 \\text{ m (base)}, \\; h=2 \\text{ m (altura)}",
+    "method": "optimizacion",
+    "hints": [
+      "Volumen: \\(x^2 h = 32 \\Rightarrow h = 32/x^2\\)",
+      "Superficie: \\(S = x^2 + 4xh\\)",
+      "Sustituye \\(h\\) y minimiza \\(S(x)\\)"
+    ],
+    "commonMistakes": [
+      "No incluir las 4 caras laterales en la superficie",
+      "Olvidar que la caja es abierta (sin tapa)"
+    ],
+    "steps": [
+      "h = \\dfrac{32}{x^2}",
+      "S(x) = x^2 + 4x \\cdot \\dfrac{32}{x^2} = x^2 + \\dfrac{128}{x}",
+      "S'(x) = 2x - \\dfrac{128}{x^2} = 0",
+      "2x^3 = 128 \\Rightarrow x^3 = 64 \\Rightarrow x=4",
+      "h = \\dfrac{32}{16} = 2"
+    ]
+  },
+  {
+    "id": "opt_005",
+    "difficulty": 2,
+    "topic": "optimizacion",
+    "questionLatex": "f(x) = 2x^3 - 3x^2 - 12x + 1. \\text{ Clasifica extremos.}",
+    "answerLatex": "\\text{Máximo: } x=-1, \\; \\text{Mínimo: } x=2",
+    "method": "optimizacion",
+    "hints": [
+      "\\(f'(x) = 6x^2-6x-12 = 6(x+1)(x-2)\\)",
+      "Puntos críticos: \\(x=-1\\) y \\(x=2\\)",
+      "\\(f''(-1) < 0\\) → máximo; \\(f''(2) > 0\\) → mínimo"
+    ],
+    "commonMistakes": [
+      "Error al factorizar la derivada",
+      "Confundir el signo de la segunda derivada"
+    ],
+    "steps": [
+      "f'(x) = 6x^2-6x-12",
+      "6(x+1)(x-2)=0 \\Rightarrow x=-1, x=2",
+      "f''(x) = 12x-6",
+      "f''(-1)=-18<0 \\Rightarrow \\text{máximo local}",
+      "f''(2)=18>0 \\Rightarrow \\text{mínimo local}"
+    ]
+  },
+  {
+    "id": "conc_001",
+    "difficulty": 1,
+    "topic": "concavidad",
+    "questionLatex": "f(x) = x^3 - 3x. \\text{ Analiza la concavidad.}",
+    "answerLatex": "\\text{Cóncava abajo: } x<0; \\text{ cóncava arriba: } x>0; \\text{ inflexión en } x=0",
+    "method": "concavidad",
+    "hints": [
+      "La concavidad se determina con la segunda derivada",
+      "\\(f''(x) > 0\\) → cóncava arriba; \\(f''(x) < 0\\) → cóncava abajo",
+      "El punto de inflexión es donde \\(f''(x) = 0\\) y cambia de signo"
+    ],
+    "commonMistakes": [
+      "Confundir la primera y segunda derivada",
+      "No verificar el cambio de signo en el punto de inflexión"
+    ],
+    "steps": [
+      "f'(x) = 3x^2-3",
+      "f''(x) = 6x",
+      "f''(x)=0 \\Rightarrow x=0",
+      "f''(x)<0 \\text{ para } x<0 \\Rightarrow \\text{cóncava abajo}",
+      "f''(x)>0 \\text{ para } x>0 \\Rightarrow \\text{cóncava arriba}",
+      "x=0 \\text{ es punto de inflexión}"
+    ]
+  },
+  {
+    "id": "conc_002",
+    "difficulty": 2,
+    "topic": "concavidad",
+    "questionLatex": "f(x) = x^4 - 2x^2. \\text{ Encuentra puntos de inflexión.}",
+    "answerLatex": "x = \\pm\\dfrac{1}{\\sqrt{3}} \\approx \\pm 0.577",
+    "method": "concavidad",
+    "hints": [
+      "Calcula \\(f''(x)\\)",
+      "Iguala \\(f''(x) = 0\\)",
+      "Verifica el cambio de signo"
+    ],
+    "commonMistakes": [
+      "No verificar que haya cambio de signo en \\(f''\\)"
+    ],
+    "steps": [
+      "f'(x) = 4x^3-4x",
+      "f''(x) = 12x^2-4",
+      "12x^2-4=0 \\Rightarrow x^2=\\dfrac{1}{3}",
+      "x = \\pm\\dfrac{1}{\\sqrt{3}}",
+      "\\text{Verificar cambio de signo: puntos de inflexión confirmados}"
+    ]
+  },
+  {
+    "id": "conc_003",
+    "difficulty": 2,
+    "topic": "concavidad",
+    "questionLatex": "f(x) = x^3 - 6x^2 + 12x - 4. \\text{ Concavidad y puntos de inflexión.}",
+    "answerLatex": "\\text{Inflexión en } x=2; \\text{ cóncava abajo para } x<2, \\text{ arriba para } x>2",
+    "method": "concavidad",
+    "hints": [
+      "\\(f''(x) = 6x-12\\)",
+      "\\(f''(x)=0 \\Rightarrow x=2\\)",
+      "Analiza el signo de \\(f''\\) a cada lado de \\(x=2\\)"
+    ],
+    "commonMistakes": [
+      "Error al calcular la segunda derivada"
+    ],
+    "steps": [
+      "f'(x) = 3x^2-12x+12",
+      "f''(x) = 6x-12",
+      "6x-12=0 \\Rightarrow x=2",
+      "f''(1)=-6<0 \\Rightarrow \\text{cóncava abajo en } x<2",
+      "f''(3)=6>0 \\Rightarrow \\text{cóncava arriba en } x>2",
+      "x=2 \\text{ es punto de inflexión}"
+    ]
+  },
+  {
+    "id": "conc_004",
+    "difficulty": 2,
+    "topic": "concavidad",
+    "questionLatex": "f(x) = \\sin x \\text{ en } [0, 2\\pi]. \\text{ Puntos de inflexión.}",
+    "answerLatex": "x = \\pi \\text{ (inflexión)}",
+    "method": "concavidad",
+    "hints": [
+      "\\(f''(x) = -\\sin x\\)",
+      "\\(f''(x) = 0\\) cuando \\(\\sin x = 0\\) en \\([0,2\\pi]\\)",
+      "Verifica que haya cambio de signo"
+    ],
+    "commonMistakes": [
+      "Incluir \\(x=0\\) y \\(x=2\\pi\\) que son extremos del intervalo, no interiores"
+    ],
+    "steps": [
+      "f'(x) = \\cos x",
+      "f''(x) = -\\sin x",
+      "-\\sin x = 0 \\Rightarrow x = 0, \\pi, 2\\pi",
+      "\\text{Sólo } x=\\pi \\text{ es interior y hay cambio de signo}",
+      "x=\\pi \\text{ es el único punto de inflexión}"
+    ]
+  },
+  {
+    "id": "conc_005",
+    "difficulty": 3,
+    "topic": "concavidad",
+    "questionLatex": "f(x) = x^5 - 5x^4. \\text{ Encuentra e clasifica puntos críticos e inflexión.}",
+    "answerLatex": "\\text{Mínimo: } x=4; \\text{ inflexión en } x=0 \\text{ y } x=3",
+    "method": "concavidad",
+    "hints": [
+      "\\(f'(x) = 5x^4-20x^3 = 5x^3(x-4)\\)",
+      "\\(f''(x) = 20x^3-60x^2 = 20x^2(x-3)\\)",
+      "Analiza signos para cada punto crítico"
+    ],
+    "commonMistakes": [
+      "Confundir los puntos de \\(f'=0\\) con los de \\(f''=0\\)"
+    ],
+    "steps": [
+      "f'(x) = 5x^4-20x^3 = 5x^3(x-4)",
+      "\\text{Críticos: } x=0 (\\text{no extremo}), x=4",
+      "f''(x) = 20x^3-60x^2 = 20x^2(x-3)",
+      "f''(4)=20(64)(1)>0 \\Rightarrow \\text{mínimo en } x=4",
+      "f''=0: x=0 \\text{ y } x=3 \\text{ (inflexiones)}"
+    ]
+  }
+]

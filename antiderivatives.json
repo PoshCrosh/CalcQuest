@@ -1,0 +1,158 @@
+[
+  {
+    "id": "anti_001",
+    "difficulty": 1,
+    "topic": "antiderivativas",
+    "questionLatex": "\\int x^3\\,dx",
+    "answerLatex": "\\dfrac{x^4}{4}+C",
+    "method": "regla-potencia",
+    "hints": [
+      "Recuerda la regla de potencias: \\int x^n dx = \\frac{x^{n+1}}{n+1}+C",
+      "Aquí n = 3, así que n+1 = 4",
+      "Divide por el nuevo exponente"
+    ],
+    "commonMistakes": [
+      "Olvidar sumar 1 al exponente",
+      "Olvidar dividir por el nuevo exponente",
+      "Olvidar la constante de integración +C"
+    ],
+    "steps": [
+      "\\int x^3\\,dx",
+      "\\text{Aplica la regla de potencias: } \\int x^n dx = \\frac{x^{n+1}}{n+1}+C",
+      "\\frac{x^{3+1}}{3+1}+C",
+      "\\frac{x^4}{4}+C"
+    ]
+  },
+  {
+    "id": "anti_002",
+    "difficulty": 1,
+    "topic": "antiderivativas",
+    "questionLatex": "\\int 5x^4\\,dx",
+    "answerLatex": "x^5+C",
+    "method": "regla-potencia",
+    "hints": [
+      "Saca la constante 5 fuera de la integral",
+      "Aplica la regla de potencias a x^4",
+      "Simplifica el resultado"
+    ],
+    "commonMistakes": [
+      "No simplificar la fracción resultante",
+      "Olvidar la constante +C"
+    ],
+    "steps": [
+      "5\\int x^4\\,dx",
+      "5 \\cdot \\frac{x^5}{5}+C",
+      "x^5+C"
+    ]
+  },
+  {
+    "id": "anti_003",
+    "difficulty": 1,
+    "topic": "antiderivativas",
+    "questionLatex": "\\int 6\\,dx",
+    "answerLatex": "6x+C",
+    "method": "regla-constante",
+    "hints": [
+      "La integral de una constante k es k·x",
+      "\\int k\\,dx = kx + C"
+    ],
+    "commonMistakes": [
+      "Olvidar multiplicar por x",
+      "Olvidar +C"
+    ],
+    "steps": [
+      "\\int 6\\,dx",
+      "6x+C"
+    ]
+  },
+  {
+    "id": "anti_004",
+    "difficulty": 2,
+    "topic": "antiderivativas",
+    "questionLatex": "\\int (3x^2 - 4x + 7)\\,dx",
+    "answerLatex": "x^3 - 2x^2 + 7x+C",
+    "method": "regla-suma",
+    "hints": [
+      "Integra término por término",
+      "Aplica la regla de potencias a cada término",
+      "Combina todos los resultados"
+    ],
+    "commonMistakes": [
+      "Olvidar aplicar la regla de potencias a cada término por separado",
+      "Errores al simplificar las fracciones"
+    ],
+    "steps": [
+      "\\int 3x^2\\,dx - \\int 4x\\,dx + \\int 7\\,dx",
+      "3\\cdot\\frac{x^3}{3} - 4\\cdot\\frac{x^2}{2} + 7x+C",
+      "x^3 - 2x^2 + 7x+C"
+    ]
+  },
+  {
+    "id": "anti_005",
+    "difficulty": 2,
+    "topic": "antiderivativas",
+    "questionLatex": "\\int \\sqrt{x}\\,dx",
+    "answerLatex": "\\dfrac{2}{3}x^{3/2}+C",
+    "method": "regla-potencia",
+    "hints": [
+      "Reescribe \\sqrt{x} como x^{1/2}",
+      "Aplica la regla de potencias con n = 1/2",
+      "Simplifica la fracción resultante"
+    ],
+    "commonMistakes": [
+      "No convertir la raíz a forma exponencial",
+      "Errores al sumar fracciones en el exponente"
+    ],
+    "steps": [
+      "\\int x^{1/2}\\,dx",
+      "\\frac{x^{1/2+1}}{1/2+1}+C",
+      "\\frac{x^{3/2}}{3/2}+C",
+      "\\frac{2}{3}x^{3/2}+C"
+    ]
+  },
+  {
+    "id": "anti_006",
+    "difficulty": 2,
+    "topic": "antiderivativas",
+    "questionLatex": "\\int \\dfrac{1}{x^2}\\,dx",
+    "answerLatex": "-\\dfrac{1}{x}+C",
+    "method": "regla-potencia",
+    "hints": [
+      "Reescribe \\frac{1}{x^2} como x^{-2}",
+      "Aplica la regla de potencias con n = -2",
+      "Simplifica el resultado"
+    ],
+    "commonMistakes": [
+      "No convertir la fracción a potencia negativa",
+      "Errores de signo al dividir por el nuevo exponente"
+    ],
+    "steps": [
+      "\\int x^{-2}\\,dx",
+      "\\frac{x^{-2+1}}{-2+1}+C",
+      "\\frac{x^{-1}}{-1}+C",
+      "-x^{-1}+C",
+      "-\\frac{1}{x}+C"
+    ]
+  },
+  {
+    "id": "anti_007",
+    "difficulty": 3,
+    "topic": "antiderivativas",
+    "questionLatex": "\\int \\left(2x^3 - \\dfrac{3}{x^2} + 5\\sqrt{x}\\right)\\,dx",
+    "answerLatex": "\\dfrac{x^4}{2} + \\dfrac{3}{x} + \\dfrac{10}{3}x^{3/2}+C",
+    "method": "regla-suma",
+    "hints": [
+      "Integra cada término por separado",
+      "Convierte \\frac{3}{x^2} = 3x^{-2} y \\sqrt{x} = x^{1/2}",
+      "Aplica la regla de potencias a cada término"
+    ],
+    "commonMistakes": [
+      "Errores al manejar potencias negativas y fraccionarias simultáneamente"
+    ],
+    "steps": [
+      "\\int 2x^3\\,dx - \\int 3x^{-2}\\,dx + \\int 5x^{1/2}\\,dx",
+      "\\frac{2x^4}{4} - \\frac{3x^{-1}}{-1} + \\frac{5x^{3/2}}{3/2}+C",
+      "\\frac{x^4}{2} + \\frac{3}{x} + \\frac{10}{3}x^{3/2}+C"
+    ]
+  }
+]

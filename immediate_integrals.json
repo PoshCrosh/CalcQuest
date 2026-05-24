@@ -1,0 +1,72 @@
+[
+  {
+    "id": "imm_001",
+    "difficulty": 1,
+    "topic": "integrales-inmediatas",
+    "questionLatex": "\\int e^x\\,dx",
+    "answerLatex": "e^x+C",
+    "method": "formula-inmediata",
+    "hints": ["La exponencial es su propia antiderivada"],
+    "commonMistakes": ["Olvidar +C"],
+    "steps": ["\\int e^x\\,dx = e^x+C"]
+  },
+  {
+    "id": "imm_002",
+    "difficulty": 1,
+    "topic": "integrales-inmediatas",
+    "questionLatex": "\\int \\cos x\\,dx",
+    "answerLatex": "\\sin x+C",
+    "method": "formula-inmediata",
+    "hints": ["Recuerda las antiderivadas trigonométricas básicas"],
+    "commonMistakes": ["Escribir -\\sin x (que sería la derivada de \\cos x, no la antiderivada)"],
+    "steps": ["\\int \\cos x\\,dx = \\sin x+C"]
+  },
+  {
+    "id": "imm_003",
+    "difficulty": 1,
+    "topic": "integrales-inmediatas",
+    "questionLatex": "\\int \\sin x\\,dx",
+    "answerLatex": "-\\cos x+C",
+    "method": "formula-inmediata",
+    "hints": ["La antiderivada de \\sin x tiene signo negativo"],
+    "commonMistakes": ["Olvidar el signo negativo", "Escribir \\cos x en vez de -\\cos x"],
+    "steps": ["\\int \\sin x\\,dx = -\\cos x+C"]
+  },
+  {
+    "id": "imm_004",
+    "difficulty": 1,
+    "topic": "integrales-inmediatas",
+    "questionLatex": "\\int \\dfrac{1}{x}\\,dx",
+    "answerLatex": "\\ln|x|+C",
+    "method": "formula-inmediata",
+    "hints": ["Esta es la excepción a la regla de potencias (n = -1)"],
+    "commonMistakes": ["Olvidar el valor absoluto en \\ln|x|"],
+    "steps": ["\\int x^{-1}\\,dx = \\ln|x|+C"]
+  },
+  {
+    "id": "imm_005",
+    "difficulty": 1,
+    "topic": "integrales-inmediatas",
+    "questionLatex": "\\int \\sec^2 x\\,dx",
+    "answerLatex": "\\tan x+C",
+    "method": "formula-inmediata",
+    "hints": ["Recuerda que \\frac{d}{dx}(\\tan x) = \\sec^2 x"],
+    "commonMistakes": ["Confundir con \\sec x \\tan x"],
+    "steps": ["\\int \\sec^2 x\\,dx = \\tan x+C"]
+  },
+  {
+    "id": "imm_006",
+    "difficulty": 2,
+    "topic": "integrales-inmediatas",
+    "questionLatex": "\\int (e^x + \\sin x - 3x^2)\\,dx",
+    "answerLatex": "e^x - \\cos x - x^3+C",
+    "method": "formula-inmediata",
+    "hints": ["Integra cada término por separado"],
+    "commonMistakes": ["Olvidar el signo negativo de \\int \\sin x = -\\cos x"],
+    "steps": [
+      "\\int e^x\\,dx + \\int \\sin x\\,dx - 3\\int x^2\\,dx",
+      "e^x + (-\\cos x) - x^3+C",
+      "e^x - \\cos x - x^3+C"
+    ]
+  }
+]

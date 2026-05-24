@@ -1,0 +1,133 @@
+[
+  {
+    "id": "tab_001",
+    "difficulty": 2,
+    "topic": "metodo-tabular",
+    "questionLatex": "\\int x^2 e^x\\,dx",
+    "answerLatex": "x^2 e^x - 2x e^x + 2e^x + C",
+    "method": "metodo-tabular",
+    "hints": [
+      "El método tabular es ideal cuando hay una potencia de \\(x\\) multiplicada por \\(e^x\\)",
+      "Deriva repetidamente \\(x^2\\) y antideriiva \\(e^x\\) en columnas",
+      "Alterna signos: +, -, +, - ..."
+    ],
+    "commonMistakes": [
+      "No alternar los signos correctamente",
+      "Detenerse antes de que la columna de derivadas llegue a cero"
+    ],
+    "steps": [
+      "\\begin{array}{c|c|c} \\text{Signo} & D & I \\\\ \\hline + & x^2 & e^x \\\\ - & 2x & e^x \\\\ + & 2 & e^x \\\\ - & 0 & e^x \\end{array}",
+      "= (+)x^2 e^x + (-) 2x e^x + (+)2 e^x + C",
+      "x^2 e^x - 2xe^x + 2e^x + C"
+    ]
+  },
+  {
+    "id": "tab_002",
+    "difficulty": 2,
+    "topic": "metodo-tabular",
+    "questionLatex": "\\int x^3 e^x\\,dx",
+    "answerLatex": "e^x(x^3 - 3x^2 + 6x - 6) + C",
+    "method": "metodo-tabular",
+    "hints": [
+      "Aplica la tabla: deriva \\(x^3\\) hasta 0, antideriiva \\(e^x\\) en cada paso",
+      "Necesitarás 4 filas (hasta que \\(D=0\\))",
+      "Los signos alternan: +, -, +, -"
+    ],
+    "commonMistakes": [
+      "Error al alternar los signos",
+      "Olvidar la última fila cuando la derivada llega a cero"
+    ],
+    "steps": [
+      "\\begin{array}{c|c|c} \\text{Signo} & D & I \\\\ \\hline + & x^3 & e^x \\\\ - & 3x^2 & e^x \\\\ + & 6x & e^x \\\\ - & 6 & e^x \\\\ + & 0 & e^x \\end{array}",
+      "x^3 e^x - 3x^2 e^x + 6x e^x - 6e^x + C",
+      "e^x(x^3 - 3x^2 + 6x - 6) + C"
+    ]
+  },
+  {
+    "id": "tab_003",
+    "difficulty": 2,
+    "topic": "metodo-tabular",
+    "questionLatex": "\\int x^2 \\sin x\\,dx",
+    "answerLatex": "-x^2\\cos x + 2x\\sin x + 2\\cos x + C",
+    "method": "metodo-tabular",
+    "hints": [
+      "Columna D: \\(x^2\\), columna I: \\(\\sin x\\)",
+      "Antiderivadas de \\(\\sin x\\): \\(-\\cos x\\), \\(-\\sin x\\), \\(\\cos x\\)...",
+      "Alterna signos: +, -, +"
+    ],
+    "commonMistakes": [
+      "Error en la secuencia de antiderivadas de \\(\\sin x\\)",
+      "Confundir los signos de \\(\\sin x\\) y \\(\\cos x\\)"
+    ],
+    "steps": [
+      "\\begin{array}{c|c|c} + & x^2 & \\sin x \\\\ - & 2x & -\\cos x \\\\ + & 2 & -\\sin x \\\\ - & 0 & \\cos x \\end{array}",
+      "(+)x^2(-\\cos x) + (-)(2x)(-\\sin x) + (+)(2)(\\cos x) + C",
+      "-x^2\\cos x + 2x\\sin x + 2\\cos x + C"
+    ]
+  },
+  {
+    "id": "tab_004",
+    "difficulty": 3,
+    "topic": "metodo-tabular",
+    "questionLatex": "\\int x^2 \\cos x\\,dx",
+    "answerLatex": "x^2\\sin x + 2x\\cos x - 2\\sin x + C",
+    "method": "metodo-tabular",
+    "hints": [
+      "Columna D: \\(x^2\\) → \\(2x\\) → \\(2\\) → \\(0\\)",
+      "Columna I: \\(\\cos x\\) → \\(\\sin x\\) → \\(-\\cos x\\) → ...",
+      "Alterna signos desde +"
+    ],
+    "commonMistakes": [
+      "Confundir antiderivadas de cos con las de sin"
+    ],
+    "steps": [
+      "\\begin{array}{c|c|c} + & x^2 & \\cos x \\\\ - & 2x & \\sin x \\\\ + & 2 & -\\cos x \\\\ - & 0 & -\\sin x \\end{array}",
+      "x^2\\sin x - (2x)(-\\cos x) + 2(-\\sin x) + C",
+      "x^2\\sin x + 2x\\cos x - 2\\sin x + C"
+    ]
+  },
+  {
+    "id": "tab_005",
+    "difficulty": 3,
+    "topic": "metodo-tabular",
+    "questionLatex": "\\int x^3 \\cos x\\,dx",
+    "answerLatex": "x^3\\sin x + 3x^2\\cos x - 6x\\sin x - 6\\cos x + C",
+    "method": "metodo-tabular",
+    "hints": [
+      "Necesitas 4 filas de derivación",
+      "Columna D: \\(x^3, 3x^2, 6x, 6, 0\\)",
+      "Recuerda los signos alternantes"
+    ],
+    "commonMistakes": [
+      "Olvidar una fila al tener 4 integraciones"
+    ],
+    "steps": [
+      "\\begin{array}{c|c|c} + & x^3 & \\cos x \\\\ - & 3x^2 & \\sin x \\\\ + & 6x & -\\cos x \\\\ - & 6 & -\\sin x \\\\ + & 0 & \\cos x \\end{array}",
+      "x^3\\sin x - 3x^2(-\\cos x) + 6x(-\\sin x) - 6\\cos x + C",
+      "x^3\\sin x + 3x^2\\cos x - 6x\\sin x - 6\\cos x + C"
+    ]
+  },
+  {
+    "id": "tab_006",
+    "difficulty": 4,
+    "topic": "metodo-tabular",
+    "questionLatex": "\\int e^x \\sin x\\,dx",
+    "answerLatex": "\\dfrac{e^x(\\sin x - \\cos x)}{2}+C",
+    "method": "metodo-tabular",
+    "hints": [
+      "Este caso es circular: la tabla nunca llega a 0",
+      "Deriva hasta que aparezca la integral original",
+      "Despeja la integral original del lado derecho"
+    ],
+    "commonMistakes": [
+      "Continuar la tabla indefinidamente en lugar de reconocer el ciclo",
+      "Error al despejar la integral"
+    ],
+    "steps": [
+      "\\begin{array}{c|c|c} + & \\sin x & e^x \\\\ - & \\cos x & e^x \\\\ + & -\\sin x & e^x \\end{array}",
+      "\\int e^x \\sin x\\,dx = e^x\\sin x - e^x\\cos x - \\int e^x\\sin x\\,dx",
+      "2\\int e^x\\sin x\\,dx = e^x(\\sin x - \\cos x)",
+      "\\int e^x\\sin x\\,dx = \\dfrac{e^x(\\sin x - \\cos x)}{2}+C"
+    ]
+  }
+]

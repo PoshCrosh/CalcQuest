@@ -1,0 +1,123 @@
+[
+  {
+    "id": "ibp_001",
+    "difficulty": 2,
+    "topic": "integracion-por-partes",
+    "questionLatex": "\\int xe^x\\,dx",
+    "answerLatex": "xe^x - e^x + C",
+    "method": "integracion-por-partes",
+    "hints": [
+      "Usa la fórmula: \\int u\\,dv = uv - \\int v\\,du",
+      "Elige u = x (se simplifica al derivar) y dv = e^x dx",
+      "Deriva u y antideriva dv"
+    ],
+    "commonMistakes": [
+      "Elegir dv = x dx (más complicado)",
+      "Olvidar el signo negativo en - \\int v du",
+      "No integrar dv correctamente"
+    ],
+    "steps": [
+      "\\text{Fórmula: } \\int u\\,dv = uv - \\int v\\,du",
+      "u = x \\Rightarrow du = dx",
+      "dv = e^x\\,dx \\Rightarrow v = e^x",
+      "xe^x - \\int e^x\\,dx",
+      "xe^x - e^x + C"
+    ]
+  },
+  {
+    "id": "ibp_002",
+    "difficulty": 2,
+    "topic": "integracion-por-partes",
+    "questionLatex": "\\int x\\ln x\\,dx",
+    "answerLatex": "\\dfrac{x^2\\ln x}{2} - \\dfrac{x^2}{4}+C",
+    "method": "integracion-por-partes",
+    "hints": [
+      "Elige u = \\ln x (su derivada simplifica la integral)",
+      "dv = x\\,dx",
+      "du = \\frac{1}{x}dx \\text{ y } v = \\frac{x^2}{2}"
+    ],
+    "commonMistakes": [
+      "Elegir u = x en vez de u = ln x",
+      "Errores al multiplicar \\frac{x^2}{2} \\cdot \\frac{1}{x}"
+    ],
+    "steps": [
+      "u = \\ln x \\Rightarrow du = \\frac{1}{x}\\,dx",
+      "dv = x\\,dx \\Rightarrow v = \\frac{x^2}{2}",
+      "\\frac{x^2 \\ln x}{2} - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x}\\,dx",
+      "\\frac{x^2 \\ln x}{2} - \\frac{1}{2}\\int x\\,dx",
+      "\\frac{x^2 \\ln x}{2} - \\frac{x^2}{4}+C"
+    ]
+  },
+  {
+    "id": "ibp_003",
+    "difficulty": 3,
+    "topic": "integracion-por-partes",
+    "questionLatex": "\\int x^2 e^x\\,dx",
+    "answerLatex": "x^2e^x - 2xe^x + 2e^x+C",
+    "method": "integracion-por-partes",
+    "hints": [
+      "Necesitarás aplicar integración por partes dos veces",
+      "Primera vez: u = x^2, dv = e^x dx",
+      "Segunda vez: u = x, dv = e^x dx"
+    ],
+    "commonMistakes": [
+      "No aplicar por partes la segunda vez",
+      "Errores de signo en la segunda aplicación"
+    ],
+    "steps": [
+      "\\text{1ª vez: } u = x^2,\\; dv = e^x\\,dx",
+      "du = 2x\\,dx,\\; v = e^x",
+      "x^2e^x - 2\\int xe^x\\,dx",
+      "\\text{2ª vez sobre } \\int xe^x\\,dx\\text{: } u=x,\\; dv=e^x\\,dx",
+      "x^2e^x - 2(xe^x - e^x) + C",
+      "x^2e^x - 2xe^x + 2e^x+C"
+    ]
+  },
+  {
+    "id": "ibp_004",
+    "difficulty": 2,
+    "topic": "integracion-por-partes",
+    "questionLatex": "\\int x\\sin x\\,dx",
+    "answerLatex": "-x\\cos x + \\sin x+C",
+    "method": "integracion-por-partes",
+    "hints": [
+      "u = x, dv = \\sin x\\,dx",
+      "du = dx, v = -\\cos x",
+      "Aplica la fórmula uv - \\int v\\,du"
+    ],
+    "commonMistakes": [
+      "Olvidar el signo negativo de \\int \\sin x\\,dx = -\\cos x",
+      "Doble negativo al calcular -\\int(-\\cos x)dx"
+    ],
+    "steps": [
+      "u = x \\Rightarrow du = dx",
+      "dv = \\sin x\\,dx \\Rightarrow v = -\\cos x",
+      "-x\\cos x - \\int(-\\cos x)\\,dx",
+      "-x\\cos x + \\int \\cos x\\,dx",
+      "-x\\cos x + \\sin x+C"
+    ]
+  },
+  {
+    "id": "ibp_005",
+    "difficulty": 3,
+    "topic": "metodo-tabular",
+    "questionLatex": "\\int x^3 e^x\\,dx",
+    "answerLatex": "e^x(x^3 - 3x^2 + 6x - 6)+C",
+    "method": "metodo-tabular",
+    "hints": [
+      "Usa el método tabular (LIATE): deriva el polinomio, integra la exponencial",
+      "Columna D: x^3, 3x^2, 6x, 6, 0",
+      "Columna I: e^x, e^x, e^x, e^x",
+      "Alterna los signos: +, -, +, -"
+    ],
+    "commonMistakes": [
+      "No llevar el método hasta que la columna D llegue a 0",
+      "Errores en la alternancia de signos"
+    ],
+    "steps": [
+      "\\begin{array}{c|c|c} \\text{Signo} & D & I \\\\ \\hline + & x^3 & e^x \\\\ - & 3x^2 & e^x \\\\ + & 6x & e^x \\\\ - & 6 & e^x \\\\ + & 0 & e^x \\end{array}",
+      "x^3e^x - 3x^2e^x + 6xe^x - 6e^x+C",
+      "e^x(x^3 - 3x^2 + 6x - 6)+C"
+    ]
+  }
+]

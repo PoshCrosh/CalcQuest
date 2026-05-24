@@ -1,0 +1,197 @@
+[
+  {
+    "id": "pf1_001",
+    "difficulty": 2,
+    "topic": "fracciones-parciales-caso1",
+    "questionLatex": "\\int \\dfrac{1}{(x-1)(x+2)}\\,dx",
+    "answerLatex": "\\dfrac{1}{3}\\ln|x-1| - \\dfrac{1}{3}\\ln|x+2|+C",
+    "method": "fracciones-parciales-caso1",
+    "hints": [
+      "Factores lineales distintos → Caso 1",
+      "\\(\\frac{1}{(x-1)(x+2)} = \\frac{A}{x-1} + \\frac{B}{x+2}\\)",
+      "Sustituye \\(x=1\\) y \\(x=-2\\) para hallar \\(A\\) y \\(B\\)"
+    ],
+    "commonMistakes": [
+      "Olvidar el valor absoluto en el logaritmo"
+    ],
+    "steps": [
+      "\\frac{1}{(x-1)(x+2)} = \\frac{A}{x-1} + \\frac{B}{x+2}",
+      "x=1: 1=3A \\Rightarrow A=\\frac{1}{3}",
+      "x=-2: 1=-3B \\Rightarrow B=-\\frac{1}{3}",
+      "\\frac{1}{3}\\ln|x-1| - \\frac{1}{3}\\ln|x+2|+C"
+    ]
+  },
+  {
+    "id": "pf1_002",
+    "difficulty": 2,
+    "topic": "fracciones-parciales-caso1",
+    "questionLatex": "\\int \\dfrac{5x-3}{(x-2)(x+1)}\\,dx",
+    "answerLatex": "\\dfrac{7}{3}\\ln|x-2| + \\dfrac{8}{3}\\ln|x+1|+C",
+    "method": "fracciones-parciales-caso1",
+    "hints": [
+      "Descompón: \\(\\frac{5x-3}{(x-2)(x+1)} = \\frac{A}{x-2} + \\frac{B}{x+1}\\)",
+      "Sustituye valores convenientes de \\(x\\)"
+    ],
+    "commonMistakes": ["Errores aritméticos al sustituir"],
+    "steps": [
+      "5x-3 = A(x+1) + B(x-2)",
+      "x=2: 7=3A \\Rightarrow A=\\frac{7}{3}",
+      "x=-1: -8=-3B \\Rightarrow B=\\frac{8}{3}",
+      "\\frac{7}{3}\\ln|x-2| + \\frac{8}{3}\\ln|x+1|+C"
+    ]
+  },
+  {
+    "id": "pf1_003",
+    "difficulty": 2,
+    "topic": "fracciones-parciales-caso1",
+    "questionLatex": "\\int \\dfrac{1}{x^2-1}\\,dx",
+    "answerLatex": "\\dfrac{1}{2}\\ln|x-1| - \\dfrac{1}{2}\\ln|x+1|+C",
+    "method": "fracciones-parciales-caso1",
+    "hints": [
+      "Factoriza: \\(x^2-1 = (x-1)(x+1)\\)",
+      "\\(\\frac{1}{(x-1)(x+1)} = \\frac{A}{x-1}+\\frac{B}{x+1}\\)"
+    ],
+    "commonMistakes": ["No factorizar el denominador antes de descomponer"],
+    "steps": [
+      "x^2-1=(x-1)(x+1)",
+      "1=A(x+1)+B(x-1)",
+      "x=1: 1=2A \\Rightarrow A=\\frac{1}{2}",
+      "x=-1: 1=-2B \\Rightarrow B=-\\frac{1}{2}",
+      "\\frac{1}{2}\\ln|x-1| - \\frac{1}{2}\\ln|x+1|+C"
+    ]
+  },
+  {
+    "id": "pf1_004",
+    "difficulty": 3,
+    "topic": "fracciones-parciales-caso1",
+    "questionLatex": "\\int \\dfrac{3x^2+x-4}{x(x-1)(x+2)}\\,dx",
+    "answerLatex": "2\\ln|x| + \\ln|x-1| + \\ln|x+2|+C",
+    "method": "fracciones-parciales-caso1",
+    "hints": [
+      "Tres factores lineales distintos",
+      "\\(\\frac{3x^2+x-4}{x(x-1)(x+2)} = \\frac{A}{x}+\\frac{B}{x-1}+\\frac{C}{x+2}\\)",
+      "Sustituye \\(x=0,1,-2\\)"
+    ],
+    "commonMistakes": ["Sistema de ecuaciones mal planteado"],
+    "steps": [
+      "3x^2+x-4 = A(x-1)(x+2)+Bx(x+2)+Cx(x-1)",
+      "x=0: -4=-2A \\Rightarrow A=2",
+      "x=1: 0=3B \\Rightarrow B=0... \\text{corrige: } 3+1-4=0, 3B=0 \\Rightarrow B=0",
+      "x=-2: 12-2-4=6, 6=(-2)(-3)C=6C \\Rightarrow C=1",
+      "2\\ln|x| + 0 + \\ln|x+2|+C"
+    ]
+  },
+  {
+    "id": "pf2_001",
+    "difficulty": 3,
+    "topic": "fracciones-parciales-caso2",
+    "questionLatex": "\\int \\dfrac{1}{(x-1)^2}\\,dx",
+    "answerLatex": "-\\dfrac{1}{x-1}+C",
+    "method": "fracciones-parciales-caso2",
+    "hints": [
+      "Factor lineal repetido de grado 2",
+      "Directamente: \\(\\int (x-1)^{-2}\\,dx\\)",
+      "Aplica la regla de potencias"
+    ],
+    "commonMistakes": ["Intentar fracciones parciales innecesariamente"],
+    "steps": [
+      "\\int (x-1)^{-2}\\,dx",
+      "\\dfrac{(x-1)^{-1}}{-1}+C",
+      "-\\dfrac{1}{x-1}+C"
+    ]
+  },
+  {
+    "id": "pf2_002",
+    "difficulty": 3,
+    "topic": "fracciones-parciales-caso2",
+    "questionLatex": "\\int \\dfrac{x+1}{(x-1)^2(x+3)}\\,dx",
+    "answerLatex": "\\dfrac{1}{8}\\ln|x-1| - \\dfrac{1}{2(x-1)} - \\dfrac{1}{8}\\ln|x+3|+C",
+    "method": "fracciones-parciales-caso2",
+    "hints": [
+      "Factor repetido \\((x-1)^2\\) → incluye \\(\\frac{A}{x-1}+\\frac{B}{(x-1)^2}\\)",
+      "Más \\(\\frac{C}{x+3}\\) por el factor lineal simple"
+    ],
+    "commonMistakes": ["Olvidar el término \\(\\frac{B}{(x-1)^2}\\)"],
+    "steps": [
+      "\\frac{x+1}{(x-1)^2(x+3)} = \\frac{A}{x-1}+\\frac{B}{(x-1)^2}+\\frac{C}{x+3}",
+      "x=1: 2=4B \\Rightarrow B=\\frac{1}{2}",
+      "x=-3: -2=16C \\Rightarrow C=-\\frac{1}{8}",
+      "\\text{Coef. }x^2: 0=A+C \\Rightarrow A=\\frac{1}{8}",
+      "\\frac{1}{8}\\ln|x-1| - \\frac{1}{2(x-1)} - \\frac{1}{8}\\ln|x+3|+C"
+    ]
+  },
+  {
+    "id": "pf2_003",
+    "difficulty": 3,
+    "topic": "fracciones-parciales-caso2",
+    "questionLatex": "\\int \\dfrac{2x}{(x+1)^2}\\,dx",
+    "answerLatex": "2\\ln|x+1| + \\dfrac{2}{x+1}+C",
+    "method": "fracciones-parciales-caso2",
+    "hints": [
+      "\\(\\frac{2x}{(x+1)^2} = \\frac{A}{x+1}+\\frac{B}{(x+1)^2}\\)",
+      "\\(2x = A(x+1)+B\\)"
+    ],
+    "commonMistakes": ["Error al comparar coeficientes"],
+    "steps": [
+      "2x = A(x+1)+B",
+      "\\text{Coef. }x: 2=A",
+      "x=-1: -2=B",
+      "\\int\\left(\\frac{2}{x+1} - \\frac{2}{(x+1)^2}\\right)dx",
+      "2\\ln|x+1| + \\frac{2}{x+1}+C"
+    ]
+  },
+  {
+    "id": "pf3_001",
+    "difficulty": 3,
+    "topic": "fracciones-parciales-caso3",
+    "questionLatex": "\\int \\dfrac{2x}{x^2+4}\\,dx",
+    "answerLatex": "\\ln(x^2+4)+C",
+    "method": "fracciones-parciales-caso3",
+    "hints": [
+      "El numerador es la derivada del denominador",
+      "\\(\\int \\frac{f'(x)}{f(x)}\\,dx = \\ln|f(x)|+C\\)"
+    ],
+    "commonMistakes": ["Intentar factorizar \\(x^2+4\\) (es irreducible)"],
+    "steps": [
+      "\\frac{d}{dx}(x^2+4) = 2x",
+      "\\int \\frac{2x}{x^2+4}\\,dx = \\ln(x^2+4)+C"
+    ]
+  },
+  {
+    "id": "pf3_002",
+    "difficulty": 4,
+    "topic": "fracciones-parciales-caso3",
+    "questionLatex": "\\int \\dfrac{1}{x^2+9}\\,dx",
+    "answerLatex": "\\dfrac{1}{3}\\arctan\\left(\\dfrac{x}{3}\\right)+C",
+    "method": "fracciones-parciales-caso3",
+    "hints": [
+      "Factor cuadrático irreducible: usa la fórmula inversa trig",
+      "\\(\\int \\frac{dx}{x^2+a^2} = \\frac{1}{a}\\arctan\\frac{x}{a}+C\\)",
+      "Aquí \\(a=3\\)"
+    ],
+    "commonMistakes": ["Olvidar dividir por \\(a\\) en la fórmula"],
+    "steps": [
+      "\\int \\frac{dx}{x^2+3^2}",
+      "\\frac{1}{3}\\arctan\\frac{x}{3}+C"
+    ]
+  },
+  {
+    "id": "pf3_003",
+    "difficulty": 4,
+    "topic": "fracciones-parciales-caso3",
+    "questionLatex": "\\int \\dfrac{x+1}{x^2+4}\\,dx",
+    "answerLatex": "\\dfrac{1}{2}\\ln(x^2+4) + \\dfrac{1}{2}\\arctan\\left(\\dfrac{x}{2}\\right)+C",
+    "method": "fracciones-parciales-caso3",
+    "hints": [
+      "Separa en dos fracciones: \\(\\frac{x}{x^2+4} + \\frac{1}{x^2+4}\\)",
+      "La primera integral usa la derivada del denominador",
+      "La segunda usa la fórmula del arctan"
+    ],
+    "commonMistakes": ["No separar correctamente el numerador"],
+    "steps": [
+      "\\int \\frac{x}{x^2+4}\\,dx + \\int \\frac{1}{x^2+4}\\,dx",
+      "\\frac{1}{2}\\int \\frac{2x}{x^2+4}\\,dx + \\int \\frac{dx}{x^2+2^2}",
+      "\\frac{1}{2}\\ln(x^2+4) + \\frac{1}{2}\\arctan\\frac{x}{2}+C"
+    ]
+  }
+]
