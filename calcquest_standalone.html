@@ -1,0 +1,3622 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CalcQuest – Domina el Cálculo Integral</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath:  [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        packages: {'[+]': ['ams']},
+      },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+      startup: { typeset: false },
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async id="MathJax-script"></script>
+
+  <style>
+/* =============================================
+   CalcQuest – Deep Space Academia Theme
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@700;900&display=swap');
+
+/* ─── Design Tokens ─── */
+:root {
+  /* Backgrounds */
+  --bg:       #030508;
+  --bg2:      #060a12;
+  --bg3:      #0b1120;
+  --bg4:      #111827;
+  --surface:  rgba(13,20,40,0.85);
+  --surface2: rgba(18,28,54,0.9);
+  --glass:    rgba(255,255,255,0.03);
+
+  /* Borders */
+  --border:   rgba(99,130,255,0.15);
+  --border2:  rgba(99,130,255,0.32);
+  --border-glow: rgba(139,92,246,0.5);
+
+  /* Text */
+  --text:  #eef2ff;
+  --text2: #94a3b8;
+  --text3: #4b6080;
+
+  /* Brand palette */
+  --primary:      #7c3aed;
+  --primary-mid:  #8b5cf6;
+  --primary-light:#a78bfa;
+  --primary-glow: rgba(139,92,246,0.22);
+  --primary-dim:  rgba(124,58,237,0.4);
+
+  --cyan:         #06b6d4;
+  --cyan-glow:    rgba(6,182,212,0.2);
+
+  --accent:  #f472b6;
+  --gold:    #f59e0b;
+  --gold2:   #fbbf24;
+  --success: #10b981;
+  --error:   #f43f5e;
+  --warning: #f97316;
+
+  /* Gradients */
+  --grad-primary:  linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+  --grad-hero:     linear-gradient(135deg, #3b0764 0%, #0c4a6e 100%);
+  --grad-gold:     linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  --grad-success:  linear-gradient(135deg, #059669 0%, #10b981 100%);
+  --grad-error:    linear-gradient(135deg, #be123c 0%, #f43f5e 100%);
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius:    14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* Shadows */
+  --shadow:    0 4px 32px rgba(0,0,0,0.6);
+  --shadow-lg: 0 8px 64px rgba(0,0,0,0.7);
+  --glow-sm:   0 0 12px var(--primary-glow);
+  --glow:      0 0 28px var(--primary-glow);
+  --glow-gold: 0 0 20px rgba(245,158,11,0.4);
+
+  /* Motion */
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 180ms var(--ease);
+  --transition-slow: 380ms var(--ease);
+
+  /* Fonts */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono:    'Space Mono', 'Fira Code', monospace;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  /* Sidebar */
+  --sidebar-w: 268px;
+}
+
+/* ─── Light Mode ─── */
+[data-theme="light"] {
+  --bg:      #f4f7ff;
+  --bg2:     #eaefff;
+  --bg3:     #dde5ff;
+  --bg4:     #c7d2fe;
+  --surface: rgba(255,255,255,0.9);
+  --surface2: rgba(249,250,255,0.95);
+  --glass:   rgba(0,0,0,0.03);
+  --border:  rgba(99,102,241,0.2);
+  --border2: rgba(99,102,241,0.4);
+  --border-glow: rgba(124,58,237,0.4);
+  --text:  #0f172a;
+  --text2: #334155;
+  --text3: #64748b;
+  --primary-glow: rgba(124,58,237,0.12);
+  --shadow: 0 4px 24px rgba(99,102,241,0.15);
+  --shadow-lg: 0 8px 48px rgba(99,102,241,0.2);
+}
+
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* subtle bg pattern */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%, rgba(124,58,237,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(6,182,212,0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#app, #loading-screen { position: relative; z-index: 1; }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ─── Typography ─── */
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; }
+h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700; }
+h3 { font-size: 1.3rem; font-weight: 700; }
+h4 { font-size: 1.05rem; font-weight: 600; font-family: var(--font-body); }
+p  { color: var(--text2); }
+
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--bg3);
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+}
+
+/* ─── Layout ─── */
+#app { display: flex; min-height: 100vh; }
+
+/* ═══════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════ */
+#sidebar {
+  width: var(--sidebar-w);
+  background: linear-gradient(180deg, #060c1f 0%, #030508 100%);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  transition: transform var(--transition-slow);
+  overflow: hidden;
+}
+
+/* subtle sidebar glow */
+#sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 300px;
+  background: radial-gradient(ellipse 140% 80% at 50% -10%, rgba(124,58,237,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.sidebar-logo {
+  padding: 22px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.sidebar-logo .logo-text {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-logo .logo-sub {
+  font-size: 0.68rem;
+  color: var(--text3);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+/* XP Widget */
+.sidebar-xp {
+  margin: 12px;
+  background: rgba(124,58,237,0.08);
+  border: 1px solid rgba(124,58,237,0.2);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-xp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124,58,237,0.06) 0%, transparent 60%);
+}
+
+.xp-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--text3);
+  margin-bottom: 7px;
+  font-family: var(--font-mono);
+  position: relative;
+}
+
+.xp-label span:last-child { color: var(--gold2); font-weight: 700; }
+
+.xp-bar-track {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed 0%, #38bdf8 100%);
+  border-radius: 3px;
+  transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.xp-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 2.4s infinite;
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.rank-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 9px;
+  position: relative;
+}
+
+.rank-icon  { font-size: 1.15rem; }
+.rank-name  { font-size: 0.78rem; font-weight: 700; color: var(--gold2); }
+.rank-level { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text3); margin-left: auto; }
+
+/* ─── Nav ─── */
+nav { flex: 1; padding: 6px 0; overflow-y: auto; }
+
+.nav-section { padding: 14px 18px 4px; }
+.nav-section-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text3);
+  font-family: var(--font-mono);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 18px;
+  cursor: pointer;
+  color: var(--text3);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  border-left-color: rgba(124,58,237,0.4);
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(124,58,237,0.18) 0%, transparent 100%);
+  color: var(--primary-light);
+  border-left-color: var(--primary-mid);
+  font-weight: 600;
+}
+
+.nav-item.active .nav-icon { filter: drop-shadow(0 0 4px var(--primary-glow)); }
+
+.nav-icon { font-size: 1.05rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+.nav-badge {
+  margin-left: auto;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+/* Sidebar Stats */
+.sidebar-stats {
+  padding: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+}
+
+.stat-pill {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 6px;
+  text-align: center;
+  transition: all var(--transition);
+}
+
+.stat-pill:hover { border-color: var(--border2); background: var(--glass); }
+
+.stat-pill .stat-num {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-light);
+}
+
+.stat-pill .stat-lbl {
+  font-size: 0.58rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════ */
+#main-content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Top Bar ─── */
+#topbar {
+  height: 60px;
+  background: rgba(6,10,18,0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+#topbar-title {
+  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  flex: 1;
+  color: var(--text2);
+  letter-spacing: 0.01em;
+}
+
+.topbar-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 7px 14px;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.topbar-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  border-color: var(--border2);
+}
+
+/* ─── Page Content ─── */
+.page { padding: 32px 28px; max-width: 1200px; margin: 0 auto; width: 100%; }
+.page-wide { padding: 32px 28px; width: 100%; }
+
+/* ═══════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  border-color: var(--border2);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(124,58,237,0.08);
+}
+
+.card-sm { padding: 16px; border-radius: var(--radius); }
+
+.card-glow {
+  border-color: var(--border-glow);
+  box-shadow: var(--glow-sm);
+}
+
+/* ─── Grid ─── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+/* ═══════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+/* shimmer on hover */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transform: translateX(-100%);
+  transition: transform 400ms;
+}
+.btn:hover::after { transform: translateX(100%); }
+
+.btn-primary {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #0e7490 100%);
+  background-size: 200% 100%;
+  color: white;
+  box-shadow: 0 4px 18px rgba(124,58,237,0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(124,58,237,0.55);
+  background-position: 100% 0;
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  border: 1px solid var(--border2);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--primary-mid);
+  color: var(--primary-light);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover { background: rgba(255,255,255,0.05); color: var(--text); border-color: var(--border2); }
+
+.btn-danger  { background: var(--grad-error); color: white; box-shadow: 0 4px 14px rgba(244,63,94,0.35); }
+.btn-success { background: var(--grad-success); color: white; }
+.btn-gold    { background: var(--grad-gold); color: #1a0a00; font-weight: 700; box-shadow: var(--glow-gold); }
+
+.btn-lg { padding: 15px 32px; font-size: 1.02rem; border-radius: var(--radius-lg); }
+.btn-sm { padding: 7px 14px; font-size: 0.82rem; border-radius: var(--radius-sm); }
+.btn-icon { padding: 9px; width: 38px; height: 38px; justify-content: center; border-radius: var(--radius-sm); }
+
+/* ═══════════════════════════════════════════
+   PROGRESS BARS
+═══════════════════════════════════════════ */
+.progress-bar {
+  height: 7px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-fill.green    { background: var(--grad-success); }
+.progress-fill.blue     { background: linear-gradient(90deg, var(--primary), var(--primary-mid)); }
+.progress-fill.gold     { background: var(--grad-gold); }
+.progress-fill.red      { background: var(--grad-error); }
+.progress-fill.gradient { background: linear-gradient(90deg, #7c3aed, #06b6d4); }
+
+/* ═══════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════ */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+  gap: 2px;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text3);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  transition: all var(--transition);
+  margin-bottom: -1px;
+  white-space: nowrap;
+}
+
+.tab-btn:hover { color: var(--text2); }
+.tab-btn.active {
+  color: var(--primary-light);
+  border-bottom-color: var(--primary-mid);
+}
+
+/* ═══════════════════════════════════════════
+   TAGS
+═══════════════════════════════════════════ */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+.tag-primary { background: var(--primary-glow); color: var(--primary-light); border: 1px solid var(--primary-dim); }
+.tag-success { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+.tag-error   { background: rgba(244,63,94,0.12);  color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
+.tag-gold    { background: rgba(245,158,11,0.12); color: var(--gold2); border: 1px solid rgba(245,158,11,0.3); }
+.tag-diff-1  { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+.tag-diff-2  { background: rgba(124,58,237,0.12); color: var(--primary-light); border: 1px solid var(--primary-dim); }
+.tag-diff-3  { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+.tag-diff-4  { background: rgba(244,63,94,0.12);  color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
+
+/* ═══════════════════════════════════════════
+   MATH
+═══════════════════════════════════════════ */
+.math-display {
+  background: rgba(124,58,237,0.06);
+  border: 1px solid rgba(124,58,237,0.18);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  text-align: center;
+  font-size: 1.1em;
+  overflow-x: auto;
+  margin: 10px 0;
+  position: relative;
+}
+
+.math-display::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(124,58,237,0.04) 0%, rgba(6,182,212,0.02) 100%);
+}
+
+/* ═══════════════════════════════════════════
+   EXERCISE CARD
+═══════════════════════════════════════════ */
+.exercise-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+.exercise-header {
+  background: linear-gradient(90deg, rgba(124,58,237,0.12) 0%, rgba(6,182,212,0.05) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.exercise-body { padding: 24px; }
+
+.exercise-question {
+  background: rgba(124,58,237,0.07);
+  border: 1px solid rgba(124,58,237,0.2);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
+  font-size: 1.35em;
+  margin-bottom: 22px;
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ─── Answer Input ─── */
+.answer-area {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.answer-input {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(255,255,255,0.04);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+.answer-input:focus {
+  border-color: var(--primary-mid);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.answer-input.correct {
+  border-color: var(--success);
+  background: rgba(16,185,129,0.06);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
+}
+
+.answer-input.incorrect {
+  border-color: var(--error);
+  background: rgba(244,63,94,0.06);
+  box-shadow: 0 0 0 3px rgba(244,63,94,0.12);
+}
+
+/* ─── Technique Selector ─── */
+.technique-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.technique-card {
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+}
+
+.technique-card:hover {
+  border-color: var(--primary-mid);
+  background: var(--primary-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--primary-glow);
+}
+
+.technique-card.selected { border-color: var(--primary-mid); background: var(--primary-glow); }
+.technique-card.correct  { border-color: var(--success); background: rgba(16,185,129,0.1); }
+.technique-card.incorrect { border-color: var(--error); background: rgba(244,63,94,0.1); }
+
+.technique-icon { font-size: 1.8rem; margin-bottom: 7px; }
+.technique-name { font-weight: 600; font-size: 0.82rem; color: var(--text2); line-height: 1.3; }
+
+/* ─── Hints ─── */
+.hint-box {
+  background: rgba(124,58,237,0.07);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-top: 12px;
+}
+
+.hint-box .hint-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  margin-bottom: 8px;
+}
+
+/* ─── Feedback ─── */
+.feedback-correct {
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.35);
+  border-radius: var(--radius);
+  padding: 16px;
+  color: #34d399;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.feedback-incorrect {
+  background: rgba(244,63,94,0.1);
+  border: 1px solid rgba(244,63,94,0.35);
+  border-radius: var(--radius);
+  padding: 16px;
+  color: #fb7185;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+/* ─── Step List ─── */
+.step-list { display: flex; flex-direction: column; gap: 12px; }
+
+.step-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 350ms var(--ease);
+}
+
+.step-item.visible { opacity: 1; transform: translateY(0); }
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-mid));
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+}
+
+.step-content { flex: 1; padding-top: 4px; }
+
+/* ═══════════════════════════════════════════
+   FLASHCARDS
+═══════════════════════════════════════════ */
+.flashcard-container {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 580px;
+  height: 300px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.flashcard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flashcard.flipped { transform: rotateY(180deg); }
+
+.flashcard-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  border: 1px solid var(--border2);
+}
+
+.flashcard-front {
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(124,58,237,0.08) 100%);
+  box-shadow: var(--glow-sm);
+}
+
+.flashcard-back {
+  background: linear-gradient(135deg, rgba(6,182,212,0.08) 0%, var(--surface) 100%);
+  transform: rotateY(180deg);
+  box-shadow: 0 0 24px var(--cyan-glow);
+  border-color: rgba(6,182,212,0.3);
+}
+
+.flashcard-label {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text3);
+  font-family: var(--font-mono);
+}
+
+.flashcard-content { font-size: 1.2em; }
+
+/* ═══════════════════════════════════════════
+   TOPIC MAP
+═══════════════════════════════════════════ */
+.topic-map {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.map-section-title {
+  background: linear-gradient(90deg, rgba(124,58,237,0.15) 0%, transparent 100%);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 10px 18px;
+  font-weight: 700;
+  color: var(--primary-light);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  margin-bottom: 10px;
+  margin-top: 24px;
+}
+
+.topic-node {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-bottom: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.topic-node:hover:not(.locked) {
+  border-color: var(--border-glow);
+  background: rgba(124,58,237,0.07);
+  transform: translateX(5px);
+  box-shadow: var(--glow-sm);
+}
+
+.topic-node.locked  { opacity: 0.45; cursor: not-allowed; }
+.topic-node.mastered { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.04); }
+.topic-node.in-progress { border-color: var(--primary-dim); }
+
+.topic-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+}
+
+.topic-icon.unlocked { background: var(--primary-glow); border-color: var(--primary-dim); }
+.topic-icon.mastered { background: rgba(16,185,129,0.18); border-color: rgba(16,185,129,0.4); }
+.topic-icon.locked   { filter: grayscale(1); opacity: 0.5; }
+
+.topic-info { flex: 1; }
+.topic-name { font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 3px; }
+.topic-desc { font-size: 0.77rem; color: var(--text3); }
+
+.topic-progress-wrap { display: flex; align-items: center; gap: 10px; min-width: 120px; }
+.topic-pct { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text3); white-space: nowrap; }
+
+.topic-connector {
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(180deg, var(--border2), transparent);
+  margin: 0 auto 0 34px;
+}
+
+/* ═══════════════════════════════════════════
+   DASHBOARD HERO
+═══════════════════════════════════════════ */
+.dashboard-hero {
+  background: linear-gradient(135deg, rgba(60,10,120,0.45) 0%, rgba(5,30,70,0.55) 50%, rgba(10,15,40,0.6) 100%);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: var(--radius-xl);
+  padding: 40px 44px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+}
+
+.dashboard-hero::before {
+  content: '∫';
+  position: absolute;
+  right: -20px;
+  top: -40px;
+  font-size: 18rem;
+  font-family: var(--font-display);
+  color: var(--primary);
+  opacity: 0.04;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dashboard-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(6,182,212,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 0% 100%, rgba(124,58,237,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-greeting {
+  font-size: 0.85rem;
+  color: var(--text3);
+  font-family: var(--font-mono);
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title { margin-bottom: 12px; position: relative; z-index: 1; }
+.gradient-text {
+  background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 60%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; position: relative; z-index: 1; }
+
+.hero-actions p { position: relative; z-index: 1; }
+
+/* ─── Stat Cards ─── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  text-align: center;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--grad-primary);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.stat-card:hover {
+  border-color: var(--border2);
+  box-shadow: var(--shadow), var(--glow-sm);
+  transform: translateY(-2px);
+}
+
+.stat-card:hover::before { opacity: 1; }
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-light);
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+.stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
+
+/* ─── Mastery ─── */
+.mastery-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.mastery-item:last-child { border-bottom: none; }
+
+.mastery-name { flex: 1; font-size: 0.88rem; font-weight: 500; }
+.mastery-bar-wrap { width: 130px; }
+.mastery-pct {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text3);
+  min-width: 38px;
+  text-align: right;
+}
+
+/* ─── Quick Exercise (Dashboard Widget) ─── */
+.quick-ex-card {
+  background: linear-gradient(135deg, rgba(124,58,237,0.1) 0%, rgba(6,182,212,0.06) 100%);
+  border: 1px solid rgba(124,58,237,0.28);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-ex-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.quick-ex-label {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--primary-light);
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quick-ex-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ═══════════════════════════════════════════
+   EXAM
+═══════════════════════════════════════════ */
+.exam-header {
+  background: linear-gradient(135deg, rgba(30,5,60,0.7) 0%, rgba(5,20,45,0.7) 100%);
+  border: 1px solid var(--primary-dim);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 24px;
+  backdrop-filter: blur(12px);
+}
+
+.exam-timer {
+  font-family: var(--font-mono);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold2);
+  text-shadow: var(--glow-gold);
+}
+
+.exam-timer.urgent {
+  color: var(--error);
+  text-shadow: 0 0 20px rgba(244,63,94,0.6);
+  animation: pulse-urgent 1s infinite;
+}
+
+@keyframes pulse-urgent {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+.exam-progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+
+.dot.current { background: var(--primary-mid); box-shadow: 0 0 8px var(--primary-glow); }
+.dot.correct { background: var(--success); }
+
+/* ═══════════════════════════════════════════
+   BOSS BATTLE
+═══════════════════════════════════════════ */
+.boss-battle-header {
+  background: linear-gradient(135deg, rgba(120,0,0,0.4) 0%, rgba(60,0,100,0.5) 50%, rgba(5,20,45,0.6) 100%);
+  border: 1px solid rgba(244,63,94,0.3);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.boss-battle-header::before {
+  content: '⚔️';
+  position: absolute;
+  font-size: 12rem;
+  opacity: 0.04;
+  bottom: -20px;
+  right: -20px;
+}
+
+.boss-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: #fb7185;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════
+   FORMULA BOOK
+═══════════════════════════════════════════ */
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.formula-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+}
+
+.formula-card:hover {
+  border-color: var(--border2);
+  box-shadow: var(--glow-sm);
+  transform: translateY(-2px);
+}
+
+.formula-header {
+  background: linear-gradient(90deg, rgba(124,58,237,0.12) 0%, rgba(6,182,212,0.06) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.formula-name { font-size: 0.9rem; color: var(--text); }
+
+.formula-body { padding: 16px 18px; }
+
+.formula-desc {
+  font-size: 0.82rem;
+  color: var(--text3);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.formula-example {
+  background: rgba(6,182,212,0.06);
+  border: 1px solid rgba(6,182,212,0.15);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  color: var(--text3);
+}
+
+/* ═══════════════════════════════════════════
+   ACHIEVEMENTS
+═══════════════════════════════════════════ */
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.achievement-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 16px;
+  text-align: center;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+}
+
+.achievement-card.earned {
+  border-color: rgba(245,158,11,0.35);
+  background: rgba(245,158,11,0.04);
+  box-shadow: 0 0 16px rgba(245,158,11,0.1);
+}
+
+.achievement-card.locked { opacity: 0.45; filter: grayscale(0.6); }
+
+.achievement-emoji { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+.achievement-name { font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 6px; }
+.achievement-desc { font-size: 0.78rem; color: var(--text3); line-height: 1.4; }
+
+/* ═══════════════════════════════════════════
+   TOAST NOTIFICATIONS
+═══════════════════════════════════════════ */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.toast {
+  background: rgba(13,20,40,0.95);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+  animation: toast-in 280ms var(--ease);
+  min-width: 240px;
+  max-width: 360px;
+}
+
+.toast.success { border-color: rgba(16,185,129,0.5); }
+.toast.error   { border-color: rgba(244,63,94,0.5); }
+.toast.xp      { border-color: rgba(245,158,11,0.5); }
+
+.toast.leaving { animation: toast-out 280ms var(--ease) forwards; }
+
+.toast-icon { font-size: 1.15rem; flex-shrink: 0; }
+
+@keyframes toast-in  { from { opacity:0; transform: translateX(20px); } to { opacity:1; transform: translateX(0); } }
+@keyframes toast-out { from { opacity:1; transform: translateX(0); } to { opacity:0; transform: translateX(20px); } }
+
+/* XP Popup */
+.xp-popup {
+  position: fixed;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
+  color: #1a0500;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 999;
+  animation: xp-float 1.5s var(--ease) forwards;
+  box-shadow: var(--glow-gold);
+}
+
+@keyframes xp-float {
+  0%   { opacity:1; transform: translateY(0) scale(1); }
+  80%  { opacity:1; transform: translateY(-60px) scale(1.1); }
+  100% { opacity:0; transform: translateY(-80px) scale(0.9); }
+}
+
+/* Confetti */
+.confetti-piece {
+  position: fixed;
+  border-radius: 3px;
+  animation: confetti-fall linear forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes confetti-fall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════
+   LOADING SCREEN
+═══════════════════════════════════════════ */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #030508;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-logo {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 60%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  animation: pulse-logo 2s ease-in-out infinite;
+}
+
+@keyframes pulse-logo {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+.loading-bar {
+  width: 220px;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4, #7c3aed);
+  background-size: 200% 100%;
+  border-radius: 2px;
+  animation: loading-sweep 1.8s ease-in-out infinite;
+}
+
+@keyframes loading-sweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.loading-text {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text3);
+  margin-top: 12px;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  #sidebar.open { transform: translateX(0); }
+  #main-content { margin-left: 0; }
+
+  .grid-2, .grid-3, .stats-row { grid-template-columns: 1fr; }
+
+  .dashboard-hero { padding: 24px 22px; }
+  .page { padding: 20px 16px; }
+
+  .exam-timer { font-size: 2.2rem; }
+  .technique-grid { grid-template-columns: repeat(2, 1fr); }
+
+  #topbar { padding: 0 16px; }
+}
+
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .achievement-grid { grid-template-columns: repeat(2, 1fr); }
+  .formula-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════ */
+.hidden    { display: none !important; }
+.flex      { display: flex; }
+.flex-col  { flex-direction: column; }
+.items-center  { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2  { gap: 8px; }
+.gap-3  { gap: 12px; }
+.gap-4  { gap: 16px; }
+.mt-2   { margin-top: 8px; }
+.mt-4   { margin-top: 16px; }
+.mt-6   { margin-top: 24px; }
+.mb-4   { margin-bottom: 16px; }
+.mb-6   { margin-bottom: 24px; }
+.text-center  { text-align: center; }
+.text-sm   { font-size: 0.85rem; }
+.text-xs   { font-size: 0.75rem; }
+.text-muted   { color: var(--text3); }
+.font-mono { font-family: var(--font-mono); }
+.fw-bold   { font-weight: 700; }
+.w-full    { width: 100%; }
+
+    .btn-error { background: var(--grad-error); color: white; }
+    #sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 99;
+    }
+    @media (max-width: 768px) {
+      #sidebar.open ~ #sidebar-overlay { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading-screen" class="loading-screen">
+  <div class="loading-logo">CalcQuest</div>
+  <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text3);margin-bottom:16px">
+    Preparando tu experiencia de aprendizaje...
+  </div>
+  <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  <div class="loading-text mt-2">Cargando ejercicios y fórmulas</div>
+</div>
+
+<div id="app">
+  <aside id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-text">CalcQuest</div>
+      <div class="logo-sub">Cálculo Integral · MX</div>
+    </div>
+
+    <div class="sidebar-xp">
+      <div class="xp-label">
+        <span>Experiencia</span>
+        <span id="xp-current">0 / 100 XP</span>
+      </div>
+      <div class="xp-bar-track">
+        <div class="xp-bar-fill" id="xp-bar-fill" style="width:0%"></div>
+      </div>
+      <div class="rank-badge">
+        <span class="rank-icon" id="rank-icon">🌱</span>
+        <span class="rank-name" id="rank-name">Novato</span>
+        <span class="rank-level" id="rank-level">Nivel 1</span>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-section"><div class="nav-section-label">Principal</div></div>
+      <div class="nav-item active" data-view="dashboard"><span class="nav-icon">🏠</span><span>Panel Principal</span></div>
+      <div class="nav-item" data-view="mapa"><span class="nav-icon">🗺️</span><span>Mapa de Temas</span></div>
+      <div class="nav-item" data-view="practica"><span class="nav-icon">🎮</span><span>Practicar</span></div>
+
+      <div class="nav-section"><div class="nav-section-label">Herramientas</div></div>
+      <div class="nav-item" data-view="flashcards"><span class="nav-icon">🃏</span><span>Flashcards</span></div>
+      <div class="nav-item" data-view="formulario"><span class="nav-icon">📚</span><span>Formulario</span></div>
+      <div class="nav-item" data-view="examen"><span class="nav-icon">📝</span><span>Simulacro Examen</span><span class="nav-badge">NUEVO</span></div>
+
+      <div class="nav-section"><div class="nav-section-label">Temas – Parcial 1</div></div>
+      <div class="nav-item" data-view="topic" data-topic="antiderivativas"><span class="nav-icon">∫</span><span>Antiderivadas</span></div>
+      <div class="nav-item" data-view="topic" data-topic="integrales-inmediatas"><span class="nav-icon">⚡</span><span>Int. Inmediatas</span></div>
+      <div class="nav-item" data-view="topic" data-topic="cambio-variable"><span class="nav-icon">🔄</span><span>Cambio de Variable</span></div>
+      <div class="nav-item" data-view="topic" data-topic="optimizacion"><span class="nav-icon">📈</span><span>Optimización</span></div>
+      <div class="nav-item" data-view="topic" data-topic="concavidad"><span class="nav-icon">〰️</span><span>Concavidad</span></div>
+
+      <div class="nav-section"><div class="nav-section-label">Temas – Parcial 2</div></div>
+      <div class="nav-item" data-view="topic" data-topic="inversas-trigonometricas"><span class="nav-icon">📐</span><span>Inversas Trig.</span></div>
+      <div class="nav-item" data-view="topic" data-topic="sustitucion"><span class="nav-icon">🔀</span><span>Sustitución</span></div>
+      <div class="nav-item" data-view="topic" data-topic="integrales-definidas"><span class="nav-icon">📊</span><span>Int. Definidas</span></div>
+      <div class="nav-item" data-view="topic" data-topic="integracion-por-partes"><span class="nav-icon">✂️</span><span>Por Partes</span></div>
+      <div class="nav-item" data-view="topic" data-topic="metodo-tabular"><span class="nav-icon">📋</span><span>Método Tabular</span></div>
+      <div class="nav-item" data-view="topic" data-topic="fracciones-parciales-caso1"><span class="nav-icon">🧩</span><span>Fracc. Parciales</span></div>
+      <div class="nav-item" data-view="topic" data-topic="aplicaciones-integrales-definidas"><span class="nav-icon">🌊</span><span>Aplicaciones</span></div>
+
+      <div class="nav-section"><div class="nav-section-label">Perfil</div></div>
+      <div class="nav-item" data-view="logros"><span class="nav-icon">🏆</span><span>Logros</span></div>
+      <div class="nav-item" data-view="configuracion"><span class="nav-icon">⚙️</span><span>Configuración</span></div>
+    </nav>
+
+    <div class="sidebar-stats">
+      <div class="stat-pill">
+        <div class="stat-num" id="stat-streak">0</div>
+        <div class="stat-lbl">🔥 Racha</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-num" id="stat-correct">0</div>
+        <div class="stat-lbl">✅ Correctas</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-num" id="stat-xp-total">0</div>
+        <div class="stat-lbl">⭐ XP</div>
+      </div>
+    </div>
+  </aside>
+
+  <div id="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('open')"></div>
+
+  <main id="main-content">
+    <header id="topbar">
+      <button id="menu-toggle" class="topbar-btn" style="display:none">☰</button>
+      <span id="topbar-title">Panel Principal</span>
+      <div style="display:flex;gap:8px;align-items:center;margin-left:auto">
+        <button class="topbar-btn" onclick="startDailyChallenge()">⭐ Diario</button>
+        <button class="topbar-btn" onclick="navigate('examen')">📝</button>
+        <button class="topbar-btn" onclick="toggleTheme()" id="theme-toggle">☀️</button>
+      </div>
+    </header>
+    <div id="page-content"></div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+const EXERCISE_DATA = {"antiderivativas":[{"id":"anti_001","difficulty":1,"topic":"antiderivativas","questionLatex":"\\int x^3\\,dx","answerLatex":"\\dfrac{x^4}{4}+C","method":"regla-potencia","hints":["Recuerda la regla de potencias: \\int x^n dx = \\frac{x^{n+1}}{n+1}+C","Aquí n = 3, así que n+1 = 4","Divide por el nuevo exponente"],"commonMistakes":["Olvidar sumar 1 al exponente","Olvidar dividir por el nuevo exponente","Olvidar la constante de integración +C"],"steps":["\\int x^3\\,dx","\\text{Aplica la regla de potencias: } \\int x^n dx = \\frac{x^{n+1}}{n+1}+C","\\frac{x^{3+1}}{3+1}+C","\\frac{x^4}{4}+C"]},{"id":"anti_002","difficulty":1,"topic":"antiderivativas","questionLatex":"\\int 5x^4\\,dx","answerLatex":"x^5+C","method":"regla-potencia","hints":["Saca la constante 5 fuera de la integral","Aplica la regla de potencias a x^4","Simplifica el resultado"],"commonMistakes":["No simplificar la fracción resultante","Olvidar la constante +C"],"steps":["5\\int x^4\\,dx","5 \\cdot \\frac{x^5}{5}+C","x^5+C"]},{"id":"anti_003","difficulty":1,"topic":"antiderivativas","questionLatex":"\\int 6\\,dx","answerLatex":"6x+C","method":"regla-constante","hints":["La integral de una constante k es k·x","\\int k\\,dx = kx + C"],"commonMistakes":["Olvidar multiplicar por x","Olvidar +C"],"steps":["\\int 6\\,dx","6x+C"]},{"id":"anti_004","difficulty":2,"topic":"antiderivativas","questionLatex":"\\int (3x^2 - 4x + 7)\\,dx","answerLatex":"x^3 - 2x^2 + 7x+C","method":"regla-suma","hints":["Integra término por término","Aplica la regla de potencias a cada término","Combina todos los resultados"],"commonMistakes":["Olvidar aplicar la regla de potencias a cada término por separado","Errores al simplificar las fracciones"],"steps":["\\int 3x^2\\,dx - \\int 4x\\,dx + \\int 7\\,dx","3\\cdot\\frac{x^3}{3} - 4\\cdot\\frac{x^2}{2} + 7x+C","x^3 - 2x^2 + 7x+C"]},{"id":"anti_005","difficulty":2,"topic":"antiderivativas","questionLatex":"\\int \\sqrt{x}\\,dx","answerLatex":"\\dfrac{2}{3}x^{3/2}+C","method":"regla-potencia","hints":["Reescribe \\sqrt{x} como x^{1/2}","Aplica la regla de potencias con n = 1/2","Simplifica la fracción resultante"],"commonMistakes":["No convertir la raíz a forma exponencial","Errores al sumar fracciones en el exponente"],"steps":["\\int x^{1/2}\\,dx","\\frac{x^{1/2+1}}{1/2+1}+C","\\frac{x^{3/2}}{3/2}+C","\\frac{2}{3}x^{3/2}+C"]},{"id":"anti_006","difficulty":2,"topic":"antiderivativas","questionLatex":"\\int \\dfrac{1}{x^2}\\,dx","answerLatex":"-\\dfrac{1}{x}+C","method":"regla-potencia","hints":["Reescribe \\frac{1}{x^2} como x^{-2}","Aplica la regla de potencias con n = -2","Simplifica el resultado"],"commonMistakes":["No convertir la fracción a potencia negativa","Errores de signo al dividir por el nuevo exponente"],"steps":["\\int x^{-2}\\,dx","\\frac{x^{-2+1}}{-2+1}+C","\\frac{x^{-1}}{-1}+C","-x^{-1}+C","-\\frac{1}{x}+C"]},{"id":"anti_007","difficulty":3,"topic":"antiderivativas","questionLatex":"\\int \\left(2x^3 - \\dfrac{3}{x^2} + 5\\sqrt{x}\\right)\\,dx","answerLatex":"\\dfrac{x^4}{2} + \\dfrac{3}{x} + \\dfrac{10}{3}x^{3/2}+C","method":"regla-suma","hints":["Integra cada término por separado","Convierte \\frac{3}{x^2} = 3x^{-2} y \\sqrt{x} = x^{1/2}","Aplica la regla de potencias a cada término"],"commonMistakes":["Errores al manejar potencias negativas y fraccionarias simultáneamente"],"steps":["\\int 2x^3\\,dx - \\int 3x^{-2}\\,dx + \\int 5x^{1/2}\\,dx","\\frac{2x^4}{4} - \\frac{3x^{-1}}{-1} + \\frac{5x^{3/2}}{3/2}+C","\\frac{x^4}{2} + \\frac{3}{x} + \\frac{10}{3}x^{3/2}+C"]}],"cambio-variable":[{"id":"cv_001","difficulty":1,"topic":"cambio-variable","questionLatex":"\\int 2x(x^2+1)^5\\,dx","answerLatex":"\\dfrac{(x^2+1)^6}{6}+C","method":"cambio-variable","hints":["Elige la función interna como sustitución","Sea \\(u = x^2+1\\)","Entonces \\(du = 2x\\,dx\\) — que ya aparece en la integral"],"commonMistakes":["Olvidar reemplazar \\(dx\\) por \\(du\\)","No sustituir de vuelta a la variable original"],"steps":["u = x^2+1","du = 2x\\,dx","\\int u^5\\,du","\\dfrac{u^6}{6}+C","\\dfrac{(x^2+1)^6}{6}+C"]},{"id":"cv_002","difficulty":1,"topic":"cambio-variable","questionLatex":"\\int 3x^2(x^3-4)^7\\,dx","answerLatex":"\\dfrac{(x^3-4)^8}{8}+C","method":"cambio-variable","hints":["La función interna es \\(x^3-4\\)","Sea \\(u = x^3-4\\)","\\(du = 3x^2\\,dx\\) — que ya aparece"],"commonMistakes":["Confundir cuál es la función interna"],"steps":["u = x^3-4","du = 3x^2\\,dx","\\int u^7\\,du","\\dfrac{u^8}{8}+C","\\dfrac{(x^3-4)^8}{8}+C"]},{"id":"cv_003","difficulty":2,"topic":"cambio-variable","questionLatex":"\\int \\dfrac{4x}{(x^2+3)^2}\\,dx","answerLatex":"-\\dfrac{2}{x^2+3}+C","method":"cambio-variable","hints":["Sea \\(u = x^2+3\\)","\\(du = 2x\\,dx\\), entonces \\(4x\\,dx = 2\\,du\\)","La integral se convierte en \\(2\\int u^{-2}\\,du\\)"],"commonMistakes":["No ajustar la constante al cambiar de \\(4x\\,dx\\) a \\(du\\)"],"steps":["u = x^2+3, \\quad du = 2x\\,dx","4x\\,dx = 2\\,du","2\\int u^{-2}\\,du","2 \\cdot \\dfrac{u^{-1}}{-1}+C","-\\dfrac{2}{x^2+3}+C"]},{"id":"cv_004","difficulty":2,"topic":"cambio-variable","questionLatex":"\\int \\sin^4 x \\cos x\\,dx","answerLatex":"\\dfrac{\\sin^5 x}{5}+C","method":"cambio-variable","hints":["Identifica que \\(\\cos x\\) es la derivada de \\(\\sin x\\)","Sea \\(u = \\sin x\\)","\\(du = \\cos x\\,dx\\)"],"commonMistakes":["Intentar una identidad trigonométrica innecesaria"],"steps":["u = \\sin x, \\quad du = \\cos x\\,dx","\\int u^4\\,du","\\dfrac{u^5}{5}+C","\\dfrac{\\sin^5 x}{5}+C"]},{"id":"cv_005","difficulty":2,"topic":"cambio-variable","questionLatex":"\\int \\dfrac{e^x}{e^x+1}\\,dx","answerLatex":"\\ln(e^x+1)+C","method":"cambio-variable","hints":["El numerador es casi la derivada del denominador","Sea \\(u = e^x+1\\)","\\(du = e^x\\,dx\\)"],"commonMistakes":["Agregar el valor absoluto cuando no es necesario (\\(e^x+1 > 0\\) siempre)"],"steps":["u = e^x+1, \\quad du = e^x\\,dx","\\int \\dfrac{du}{u}","\\ln|u|+C","\\ln(e^x+1)+C"]},{"id":"cv_006","difficulty":3,"topic":"cambio-variable","questionLatex":"\\int x\\sqrt{x^2-9}\\,dx","answerLatex":"\\dfrac{1}{3}(x^2-9)^{3/2}+C","method":"cambio-variable","hints":["Sea \\(u = x^2-9\\)","\\(du = 2x\\,dx\\), entonces \\(x\\,dx = \\frac{du}{2}\\)","\\(\\sqrt{x^2-9} = u^{1/2}\\)"],"commonMistakes":["Olvidar el factor \\(\\frac{1}{2}\\) al convertir \\(x\\,dx\\)"],"steps":["u = x^2-9, \\quad du = 2x\\,dx \\Rightarrow x\\,dx = \\dfrac{du}{2}","\\dfrac{1}{2}\\int u^{1/2}\\,du","\\dfrac{1}{2} \\cdot \\dfrac{u^{3/2}}{3/2}+C","\\dfrac{1}{3}u^{3/2}+C","\\dfrac{1}{3}(x^2-9)^{3/2}+C"]},{"id":"cv_007","difficulty":3,"topic":"cambio-variable","questionLatex":"\\int \\dfrac{\\ln x}{x}\\,dx","answerLatex":"\\dfrac{(\\ln x)^2}{2}+C","method":"cambio-variable","hints":["Sea \\(u = \\ln x\\)","\\(du = \\frac{1}{x}\\,dx\\)","La integral se reduce a \\(\\int u\\,du\\)"],"commonMistakes":["Intentar integración por partes cuando la sustitución es más directa"],"steps":["u = \\ln x, \\quad du = \\dfrac{dx}{x}","\\int u\\,du","\\dfrac{u^2}{2}+C","\\dfrac{(\\ln x)^2}{2}+C"]}],"integrales-definidas":[{"id":"def_001","difficulty":1,"topic":"integrales-definidas","questionLatex":"\\int_0^2 x^2\\,dx","answerLatex":"\\dfrac{8}{3}","method":"teorema-fundamental","hints":["Aplica el Teorema Fundamental del Cálculo","Antiderivada de \\(x^2\\) es \\(\\frac{x^3}{3}\\)","Evalúa: \\(F(2)-F(0)\\)"],"commonMistakes":["No restar \\(F(a)\\) correctamente"],"steps":["\\int_0^2 x^2\\,dx = \\left[\\frac{x^3}{3}\\right]_0^2","= \\frac{8}{3} - 0 = \\frac{8}{3}"]},{"id":"def_002","difficulty":1,"topic":"integrales-definidas","questionLatex":"\\int_1^4 \\sqrt{x}\\,dx","answerLatex":"\\dfrac{14}{3}","method":"teorema-fundamental","hints":["Reescribe \\(\\sqrt{x} = x^{1/2}\\)","Antiderivada: \\(\\frac{x^{3/2}}{3/2} = \\frac{2}{3}x^{3/2}\\)"],"commonMistakes":["Error al calcular \\(4^{3/2}\\)"],"steps":["\\int_1^4 x^{1/2}\\,dx = \\left[\\frac{2}{3}x^{3/2}\\right]_1^4","= \\frac{2}{3}(8) - \\frac{2}{3}(1)","= \\frac{16}{3} - \\frac{2}{3} = \\frac{14}{3}"]},{"id":"def_003","difficulty":2,"topic":"integrales-definidas","questionLatex":"\\int_0^{\\pi} \\sin x\\,dx","answerLatex":"2","method":"teorema-fundamental","hints":["Antiderivada de \\(\\sin x\\) es \\(-\\cos x\\)","Evalúa entre 0 y \\(\\pi\\)"],"commonMistakes":["Confundir el signo de \\(-\\cos\\)"],"steps":["\\int_0^{\\pi}\\sin x\\,dx = [-\\cos x]_0^{\\pi}","= (-\\cos\\pi) - (-\\cos 0)","= -(-1) - (-1) = 1+1 = 2"]},{"id":"def_004","difficulty":2,"topic":"integrales-definidas","questionLatex":"\\int_0^1 2xe^{x^2}\\,dx","answerLatex":"e - 1","method":"sustitucion","hints":["Sea \\(u=x^2\\), \\(du=2x\\,dx\\)","Cambia los límites: \\(u(0)=0\\), \\(u(1)=1\\)","\\(\\int_0^1 e^u\\,du\\)"],"commonMistakes":["No cambiar los límites de integración"],"steps":["u=x^2, \\; du=2x\\,dx","\\int_0^1 e^u\\,du = [e^u]_0^1","= e^1 - e^0 = e-1"]},{"id":"def_005","difficulty":2,"topic":"integrales-definidas","questionLatex":"\\int_{-1}^{1} (3x^2 - 2)\\,dx","answerLatex":"-2","method":"teorema-fundamental","hints":["Integra término a término","\\(F(x) = x^3-2x\\)"],"commonMistakes":["Error al evaluar con el límite negativo"],"steps":["F(x) = x^3-2x","F(1)-F(-1) = (1-2)-(-1+2)","= -1 - 1 = -2"]}],"aplicaciones-integrales-definidas":[{"id":"app_001","difficulty":2,"topic":"aplicaciones-integrales-definidas","questionLatex":"\\text{Área entre } f(x)=x^2 \\text{ y } g(x)=x \\text{ en } [0,1]","answerLatex":"\\dfrac{1}{6}","method":"area-entre-curvas","hints":["Área = \\(\\int_0^1 [g(x)-f(x)]\\,dx\\) si \\(g\\geq f\\)","En \\([0,1]\\): \\(x \\geq x^2\\)","Integra la diferencia"],"commonMistakes":["No verificar cuál función es mayor en el intervalo"],"steps":["A = \\int_0^1 (x-x^2)\\,dx","= \\left[\\frac{x^2}{2}-\\frac{x^3}{3}\\right]_0^1","= \\frac{1}{2}-\\frac{1}{3} = \\frac{1}{6}"]},{"id":"app_002","difficulty":2,"topic":"aplicaciones-integrales-definidas","questionLatex":"\\text{Área bajo } f(x)=4-x^2 \\text{ sobre el eje } x","answerLatex":"\\dfrac{32}{3}","method":"area-entre-curvas","hints":["La función corta el eje en \\(x=\\pm 2\\)","Área = \\(\\int_{-2}^{2}(4-x^2)\\,dx\\)"],"commonMistakes":["No encontrar los límites correctos (raíces)"],"steps":["4-x^2=0 \\Rightarrow x=\\pm 2","A=\\int_{-2}^{2}(4-x^2)\\,dx","=\\left[4x-\\frac{x^3}{3}\\right]_{-2}^{2}","=(8-\\frac{8}{3})-(-8+\\frac{8}{3}) = \\frac{32}{3}"]},{"id":"app_003","difficulty":3,"topic":"aplicaciones-integrales-definidas","questionLatex":"\\text{Área entre } y=x \\text{ y } y=x^2-2x","answerLatex":"\\dfrac{9}{2}","method":"area-entre-curvas","hints":["Encuentra los puntos de intersección: \\(x = x^2-2x\\)","\\(x^2-3x=0 \\Rightarrow x=0, x=3\\)","En \\([0,3]\\): \\(x \\geq x^2-2x\\)"],"commonMistakes":["Error al encontrar los puntos de intersección"],"steps":["x = x^2-2x \\Rightarrow x^2-3x=0 \\Rightarrow x(x-3)=0","x=0, x=3","A=\\int_0^3[x-(x^2-2x)]\\,dx = \\int_0^3(3x-x^2)\\,dx","=\\left[\\frac{3x^2}{2}-\\frac{x^3}{3}\\right]_0^3 = \\frac{27}{2}-9 = \\frac{9}{2}"]},{"id":"app_004","difficulty":3,"topic":"aplicaciones-integrales-definidas","questionLatex":"\\text{Volumen del sólido girando } y=x^2 \\text{ en } [0,2] \\text{ alrededor del eje } x","answerLatex":"\\dfrac{32\\pi}{5}","method":"area-entre-curvas","hints":["Método de discos: \\(V = \\pi\\int_a^b [f(x)]^2\\,dx\\)","\\(V = \\pi\\int_0^2 x^4\\,dx\\)"],"commonMistakes":["Olvidar elevar al cuadrado el radio"],"steps":["V = \\pi\\int_0^2(x^2)^2\\,dx = \\pi\\int_0^2 x^4\\,dx","=\\pi\\left[\\frac{x^5}{5}\\right]_0^2","=\\pi \\cdot \\frac{32}{5} = \\frac{32\\pi}{5}"]},{"id":"app_005","difficulty":3,"topic":"aplicaciones-integrales-definidas","questionLatex":"\\text{Área entre } y=\\sin x \\text{ y } y=\\cos x \\text{ en } [0,\\pi/2]","answerLatex":"2(\\sqrt{2}-1)","method":"area-entre-curvas","hints":["Encuentra dónde se cruzan: \\(\\sin x = \\cos x \\Rightarrow x=\\pi/4\\)","En \\([0,\\pi/4]\\): \\(\\cos x \\geq \\sin x\\)","En \\([\\pi/4, \\pi/2]\\): \\(\\sin x \\geq \\cos x\\)"],"commonMistakes":["No dividir el intervalo en el punto de cruce"],"steps":["A = \\int_0^{\\pi/4}(\\cos x-\\sin x)\\,dx + \\int_{\\pi/4}^{\\pi/2}(\\sin x-\\cos x)\\,dx","= [\\sin x+\\cos x]_0^{\\pi/4} + [-\\cos x-\\sin x]_{\\pi/4}^{\\pi/2}","= (\\sqrt{2}-1) + (-(0+1)+\\sqrt{2})","= (\\sqrt{2}-1) + (\\sqrt{2}-1) = 2(\\sqrt{2}-1)"]}],"integrales-inmediatas":[{"id":"imm_001","difficulty":1,"topic":"integrales-inmediatas","questionLatex":"\\int e^x\\,dx","answerLatex":"e^x+C","method":"formula-inmediata","hints":["La exponencial es su propia antiderivada"],"commonMistakes":["Olvidar +C"],"steps":["\\int e^x\\,dx = e^x+C"]},{"id":"imm_002","difficulty":1,"topic":"integrales-inmediatas","questionLatex":"\\int \\cos x\\,dx","answerLatex":"\\sin x+C","method":"formula-inmediata","hints":["Recuerda las antiderivadas trigonométricas básicas"],"commonMistakes":["Escribir -\\sin x (que sería la derivada de \\cos x, no la antiderivada)"],"steps":["\\int \\cos x\\,dx = \\sin x+C"]},{"id":"imm_003","difficulty":1,"topic":"integrales-inmediatas","questionLatex":"\\int \\sin x\\,dx","answerLatex":"-\\cos x+C","method":"formula-inmediata","hints":["La antiderivada de \\sin x tiene signo negativo"],"commonMistakes":["Olvidar el signo negativo","Escribir \\cos x en vez de -\\cos x"],"steps":["\\int \\sin x\\,dx = -\\cos x+C"]},{"id":"imm_004","difficulty":1,"topic":"integrales-inmediatas","questionLatex":"\\int \\dfrac{1}{x}\\,dx","answerLatex":"\\ln|x|+C","method":"formula-inmediata","hints":["Esta es la excepción a la regla de potencias (n = -1)"],"commonMistakes":["Olvidar el valor absoluto en \\ln|x|"],"steps":["\\int x^{-1}\\,dx = \\ln|x|+C"]},{"id":"imm_005","difficulty":1,"topic":"integrales-inmediatas","questionLatex":"\\int \\sec^2 x\\,dx","answerLatex":"\\tan x+C","method":"formula-inmediata","hints":["Recuerda que \\frac{d}{dx}(\\tan x) = \\sec^2 x"],"commonMistakes":["Confundir con \\sec x \\tan x"],"steps":["\\int \\sec^2 x\\,dx = \\tan x+C"]},{"id":"imm_006","difficulty":2,"topic":"integrales-inmediatas","questionLatex":"\\int (e^x + \\sin x - 3x^2)\\,dx","answerLatex":"e^x - \\cos x - x^3+C","method":"formula-inmediata","hints":["Integra cada término por separado"],"commonMistakes":["Olvidar el signo negativo de \\int \\sin x = -\\cos x"],"steps":["\\int e^x\\,dx + \\int \\sin x\\,dx - 3\\int x^2\\,dx","e^x + (-\\cos x) - x^3+C","e^x - \\cos x - x^3+C"]}],"integracion-por-partes":[{"id":"ibp_001","difficulty":2,"topic":"integracion-por-partes","questionLatex":"\\int xe^x\\,dx","answerLatex":"xe^x - e^x + C","method":"integracion-por-partes","hints":["Usa la fórmula: \\int u\\,dv = uv - \\int v\\,du","Elige u = x (se simplifica al derivar) y dv = e^x dx","Deriva u y antideriva dv"],"commonMistakes":["Elegir dv = x dx (más complicado)","Olvidar el signo negativo en - \\int v du","No integrar dv correctamente"],"steps":["\\text{Fórmula: } \\int u\\,dv = uv - \\int v\\,du","u = x \\Rightarrow du = dx","dv = e^x\\,dx \\Rightarrow v = e^x","xe^x - \\int e^x\\,dx","xe^x - e^x + C"]},{"id":"ibp_002","difficulty":2,"topic":"integracion-por-partes","questionLatex":"\\int x\\ln x\\,dx","answerLatex":"\\dfrac{x^2\\ln x}{2} - \\dfrac{x^2}{4}+C","method":"integracion-por-partes","hints":["Elige u = \\ln x (su derivada simplifica la integral)","dv = x\\,dx","du = \\frac{1}{x}dx \\text{ y } v = \\frac{x^2}{2}"],"commonMistakes":["Elegir u = x en vez de u = ln x","Errores al multiplicar \\frac{x^2}{2} \\cdot \\frac{1}{x}"],"steps":["u = \\ln x \\Rightarrow du = \\frac{1}{x}\\,dx","dv = x\\,dx \\Rightarrow v = \\frac{x^2}{2}","\\frac{x^2 \\ln x}{2} - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x}\\,dx","\\frac{x^2 \\ln x}{2} - \\frac{1}{2}\\int x\\,dx","\\frac{x^2 \\ln x}{2} - \\frac{x^2}{4}+C"]},{"id":"ibp_003","difficulty":3,"topic":"integracion-por-partes","questionLatex":"\\int x^2 e^x\\,dx","answerLatex":"x^2e^x - 2xe^x + 2e^x+C","method":"integracion-por-partes","hints":["Necesitarás aplicar integración por partes dos veces","Primera vez: u = x^2, dv = e^x dx","Segunda vez: u = x, dv = e^x dx"],"commonMistakes":["No aplicar por partes la segunda vez","Errores de signo en la segunda aplicación"],"steps":["\\text{1ª vez: } u = x^2,\\; dv = e^x\\,dx","du = 2x\\,dx,\\; v = e^x","x^2e^x - 2\\int xe^x\\,dx","\\text{2ª vez sobre } \\int xe^x\\,dx\\text{: } u=x,\\; dv=e^x\\,dx","x^2e^x - 2(xe^x - e^x) + C","x^2e^x - 2xe^x + 2e^x+C"]},{"id":"ibp_004","difficulty":2,"topic":"integracion-por-partes","questionLatex":"\\int x\\sin x\\,dx","answerLatex":"-x\\cos x + \\sin x+C","method":"integracion-por-partes","hints":["u = x, dv = \\sin x\\,dx","du = dx, v = -\\cos x","Aplica la fórmula uv - \\int v\\,du"],"commonMistakes":["Olvidar el signo negativo de \\int \\sin x\\,dx = -\\cos x","Doble negativo al calcular -\\int(-\\cos x)dx"],"steps":["u = x \\Rightarrow du = dx","dv = \\sin x\\,dx \\Rightarrow v = -\\cos x","-x\\cos x - \\int(-\\cos x)\\,dx","-x\\cos x + \\int \\cos x\\,dx","-x\\cos x + \\sin x+C"]}],"metodo-tabular":[{"id":"ibp_005","difficulty":3,"topic":"metodo-tabular","questionLatex":"\\int x^3 e^x\\,dx","answerLatex":"e^x(x^3 - 3x^2 + 6x - 6)+C","method":"metodo-tabular","hints":["Usa el método tabular (LIATE): deriva el polinomio, integra la exponencial","Columna D: x^3, 3x^2, 6x, 6, 0","Columna I: e^x, e^x, e^x, e^x","Alterna los signos: +, -, +, -"],"commonMistakes":["No llevar el método hasta que la columna D llegue a 0","Errores en la alternancia de signos"],"steps":["\\begin{array}{c|c|c} \\text{Signo} & D & I \\\\ \\hline + & x^3 & e^x \\\\ - & 3x^2 & e^x \\\\ + & 6x & e^x \\\\ - & 6 & e^x \\\\ + & 0 & e^x \\end{array}","x^3e^x - 3x^2e^x + 6xe^x - 6e^x+C","e^x(x^3 - 3x^2 + 6x - 6)+C"]},{"id":"tab_001","difficulty":2,"topic":"metodo-tabular","questionLatex":"\\int x^2 e^x\\,dx","answerLatex":"x^2 e^x - 2x e^x + 2e^x + C","method":"metodo-tabular","hints":["El método tabular es ideal cuando hay una potencia de \\(x\\) multiplicada por \\(e^x\\)","Deriva repetidamente \\(x^2\\) y antideriiva \\(e^x\\) en columnas","Alterna signos: +, -, +, - ..."],"commonMistakes":["No alternar los signos correctamente","Detenerse antes de que la columna de derivadas llegue a cero"],"steps":["\\begin{array}{c|c|c} \\text{Signo} & D & I \\\\ \\hline + & x^2 & e^x \\\\ - & 2x & e^x \\\\ + & 2 & e^x \\\\ - & 0 & e^x \\end{array}","= (+)x^2 e^x + (-) 2x e^x + (+)2 e^x + C","x^2 e^x - 2xe^x + 2e^x + C"]},{"id":"tab_002","difficulty":2,"topic":"metodo-tabular","questionLatex":"\\int x^3 e^x\\,dx","answerLatex":"e^x(x^3 - 3x^2 + 6x - 6) + C","method":"metodo-tabular","hints":["Aplica la tabla: deriva \\(x^3\\) hasta 0, antideriiva \\(e^x\\) en cada paso","Necesitarás 4 filas (hasta que \\(D=0\\))","Los signos alternan: +, -, +, -"],"commonMistakes":["Error al alternar los signos","Olvidar la última fila cuando la derivada llega a cero"],"steps":["\\begin{array}{c|c|c} \\text{Signo} & D & I \\\\ \\hline + & x^3 & e^x \\\\ - & 3x^2 & e^x \\\\ + & 6x & e^x \\\\ - & 6 & e^x \\\\ + & 0 & e^x \\end{array}","x^3 e^x - 3x^2 e^x + 6x e^x - 6e^x + C","e^x(x^3 - 3x^2 + 6x - 6) + C"]},{"id":"tab_003","difficulty":2,"topic":"metodo-tabular","questionLatex":"\\int x^2 \\sin x\\,dx","answerLatex":"-x^2\\cos x + 2x\\sin x + 2\\cos x + C","method":"metodo-tabular","hints":["Columna D: \\(x^2\\), columna I: \\(\\sin x\\)","Antiderivadas de \\(\\sin x\\): \\(-\\cos x\\), \\(-\\sin x\\), \\(\\cos x\\)...","Alterna signos: +, -, +"],"commonMistakes":["Error en la secuencia de antiderivadas de \\(\\sin x\\)","Confundir los signos de \\(\\sin x\\) y \\(\\cos x\\)"],"steps":["\\begin{array}{c|c|c} + & x^2 & \\sin x \\\\ - & 2x & -\\cos x \\\\ + & 2 & -\\sin x \\\\ - & 0 & \\cos x \\end{array}","(+)x^2(-\\cos x) + (-)(2x)(-\\sin x) + (+)(2)(\\cos x) + C","-x^2\\cos x + 2x\\sin x + 2\\cos x + C"]},{"id":"tab_004","difficulty":3,"topic":"metodo-tabular","questionLatex":"\\int x^2 \\cos x\\,dx","answerLatex":"x^2\\sin x + 2x\\cos x - 2\\sin x + C","method":"metodo-tabular","hints":["Columna D: \\(x^2\\) → \\(2x\\) → \\(2\\) → \\(0\\)","Columna I: \\(\\cos x\\) → \\(\\sin x\\) → \\(-\\cos x\\) → ...","Alterna signos desde +"],"commonMistakes":["Confundir antiderivadas de cos con las de sin"],"steps":["\\begin{array}{c|c|c} + & x^2 & \\cos x \\\\ - & 2x & \\sin x \\\\ + & 2 & -\\cos x \\\\ - & 0 & -\\sin x \\end{array}","x^2\\sin x - (2x)(-\\cos x) + 2(-\\sin x) + C","x^2\\sin x + 2x\\cos x - 2\\sin x + C"]},{"id":"tab_005","difficulty":3,"topic":"metodo-tabular","questionLatex":"\\int x^3 \\cos x\\,dx","answerLatex":"x^3\\sin x + 3x^2\\cos x - 6x\\sin x - 6\\cos x + C","method":"metodo-tabular","hints":["Necesitas 4 filas de derivación","Columna D: \\(x^3, 3x^2, 6x, 6, 0\\)","Recuerda los signos alternantes"],"commonMistakes":["Olvidar una fila al tener 4 integraciones"],"steps":["\\begin{array}{c|c|c} + & x^3 & \\cos x \\\\ - & 3x^2 & \\sin x \\\\ + & 6x & -\\cos x \\\\ - & 6 & -\\sin x \\\\ + & 0 & \\cos x \\end{array}","x^3\\sin x - 3x^2(-\\cos x) + 6x(-\\sin x) - 6\\cos x + C","x^3\\sin x + 3x^2\\cos x - 6x\\sin x - 6\\cos x + C"]},{"id":"tab_006","difficulty":4,"topic":"metodo-tabular","questionLatex":"\\int e^x \\sin x\\,dx","answerLatex":"\\dfrac{e^x(\\sin x - \\cos x)}{2}+C","method":"metodo-tabular","hints":["Este caso es circular: la tabla nunca llega a 0","Deriva hasta que aparezca la integral original","Despeja la integral original del lado derecho"],"commonMistakes":["Continuar la tabla indefinidamente en lugar de reconocer el ciclo","Error al despejar la integral"],"steps":["\\begin{array}{c|c|c} + & \\sin x & e^x \\\\ - & \\cos x & e^x \\\\ + & -\\sin x & e^x \\end{array}","\\int e^x \\sin x\\,dx = e^x\\sin x - e^x\\cos x - \\int e^x\\sin x\\,dx","2\\int e^x\\sin x\\,dx = e^x(\\sin x - \\cos x)","\\int e^x\\sin x\\,dx = \\dfrac{e^x(\\sin x - \\cos x)}{2}+C"]}],"inversas-trigonometricas":[{"id":"itrig_001","difficulty":2,"topic":"inversas-trigonometricas","questionLatex":"\\int \\dfrac{1}{\\sqrt{1-x^2}}\\,dx","answerLatex":"\\arcsin(x)+C","method":"formula-inversa-trig","hints":["Esta es una forma estándar de integral inversa trigonométrica","Recuerda: \\int \\frac{1}{\\sqrt{1-x^2}}\\,dx = \\arcsin(x)+C"],"commonMistakes":["Confundir con \\arccos","Olvidar el +C"],"steps":["\\text{Forma estándar: } \\int \\frac{du}{\\sqrt{a^2-u^2}} = \\arcsin\\frac{u}{a}+C","\\text{Aquí } a=1, u=x","\\arcsin(x)+C"]},{"id":"itrig_002","difficulty":2,"topic":"inversas-trigonometricas","questionLatex":"\\int \\dfrac{1}{1+x^2}\\,dx","answerLatex":"\\arctan(x)+C","method":"formula-inversa-trig","hints":["Forma estándar: \\int \\frac{1}{a^2+u^2}\\,du = \\frac{1}{a}\\arctan\\frac{u}{a}+C","Aquí a = 1, u = x"],"commonMistakes":["Confundir con \\frac{1}{x^2+1} e intentar fracciones parciales"],"steps":["\\text{Forma estándar: } \\int \\frac{du}{a^2+u^2} = \\frac{1}{a}\\arctan\\frac{u}{a}+C","a=1, u=x","\\arctan(x)+C"]},{"id":"itrig_003","difficulty":3,"topic":"inversas-trigonometricas","questionLatex":"\\int \\dfrac{1}{\\sqrt{4-x^2}}\\,dx","answerLatex":"\\arcsin\\left(\\dfrac{x}{2}\\right)+C","method":"formula-inversa-trig","hints":["Identifica la forma \\frac{1}{\\sqrt{a^2-x^2}}","Aquí a^2 = 4, por lo que a = 2","Usa la fórmula \\int \\frac{du}{\\sqrt{a^2-u^2}} = \\arcsin\\frac{u}{a}+C"],"commonMistakes":["Olvidar dividir por a en el argumento del arcsin"],"steps":["\\text{Forma: } \\int \\frac{du}{\\sqrt{a^2-u^2}} = \\arcsin\\frac{u}{a}+C","a = 2, u = x","\\arcsin\\left(\\frac{x}{2}\\right)+C"]},{"id":"itrig_004","difficulty":3,"topic":"inversas-trigonometricas","questionLatex":"\\int \\dfrac{3}{9+x^2}\\,dx","answerLatex":"\\arctan\\left(\\dfrac{x}{3}\\right)+C","method":"formula-inversa-trig","hints":["Saca el 3 del numerador","Identifica a^2 = 9, a = 3","Usa \\int \\frac{du}{a^2+u^2} = \\frac{1}{a}\\arctan\\frac{u}{a}+C"],"commonMistakes":["No identificar correctamente el valor de a"],"steps":["3\\int \\frac{dx}{9+x^2}","a = 3: \\quad 3 \\cdot \\frac{1}{3}\\arctan\\frac{x}{3}+C","\\arctan\\left(\\frac{x}{3}\\right)+C"]}],"optimizacion":[{"id":"opt_001","difficulty":1,"topic":"optimizacion","questionLatex":"f(x) = -x^2 + 4x - 1. \\text{ Encuentra el máximo.}","answerLatex":"x=2, \\; f(2)=3 \\text{ (máximo)}","method":"optimizacion","hints":["La derivada en el máximo es cero: \\(f'(x)=0\\)","Calcula \\(f'(x) = -2x+4\\)","Verifica con \\(f''(x)\\) que es máximo"],"commonMistakes":["No verificar con la segunda derivada","Confundir máximo con mínimo"],"steps":["f'(x) = -2x+4","-2x+4 = 0 \\Rightarrow x=2","f''(x)=-2 < 0 \\Rightarrow \\text{máximo}","f(2)= -4+8-1 = 3"]},{"id":"opt_002","difficulty":2,"topic":"optimizacion","questionLatex":"\\text{Rectángulo de perímetro 20. Maximiza el área.}","answerLatex":"x=5, \\; A=25 \\text{ (cuadrado)}","method":"optimizacion","hints":["Perímetro: \\(2x+2y=20 \\Rightarrow y=10-x\\)","Área: \\(A = x(10-x)\\)","Maximiza \\(A(x) = 10x-x^2\\)"],"commonMistakes":["No expresar el área en términos de una sola variable","Olvidar verificar que es un máximo"],"steps":["y = 10-x","A(x) = x(10-x) = 10x-x^2","A'(x) = 10-2x = 0 \\Rightarrow x=5","y=5, \\; A=25"]},{"id":"opt_003","difficulty":2,"topic":"optimizacion","questionLatex":"f(x) = x^3 - 6x^2 + 9x + 1. \\text{ Extremos locales.}","answerLatex":"\\text{Máximo local: } x=1, \\; \\text{mínimo local: } x=3","method":"optimizacion","hints":["Deriva e iguala a cero","\\(f'(x) = 3x^2-12x+9 = 3(x-1)(x-3)\\)","Usa la segunda derivada para clasificar"],"commonMistakes":["No factorizar correctamente","No aplicar la prueba de la segunda derivada"],"steps":["f'(x) = 3x^2-12x+9 = 3(x-1)(x-3)","x=1 \\text{ y } x=3","f''(x) = 6x-12","f''(1)=-6<0 \\Rightarrow \\text{máximo}","f''(3)=6>0 \\Rightarrow \\text{mínimo}"]},{"id":"opt_004","difficulty":3,"topic":"optimizacion","questionLatex":"\\text{Caja abierta de base cuadrada, volumen 32 m}^3\\text{. Minimiza la superficie.}","answerLatex":"x=4 \\text{ m (base)}, \\; h=2 \\text{ m (altura)}","method":"optimizacion","hints":["Volumen: \\(x^2 h = 32 \\Rightarrow h = 32/x^2\\)","Superficie: \\(S = x^2 + 4xh\\)","Sustituye \\(h\\) y minimiza \\(S(x)\\)"],"commonMistakes":["No incluir las 4 caras laterales en la superficie","Olvidar que la caja es abierta (sin tapa)"],"steps":["h = \\dfrac{32}{x^2}","S(x) = x^2 + 4x \\cdot \\dfrac{32}{x^2} = x^2 + \\dfrac{128}{x}","S'(x) = 2x - \\dfrac{128}{x^2} = 0","2x^3 = 128 \\Rightarrow x^3 = 64 \\Rightarrow x=4","h = \\dfrac{32}{16} = 2"]},{"id":"opt_005","difficulty":2,"topic":"optimizacion","questionLatex":"f(x) = 2x^3 - 3x^2 - 12x + 1. \\text{ Clasifica extremos.}","answerLatex":"\\text{Máximo: } x=-1, \\; \\text{Mínimo: } x=2","method":"optimizacion","hints":["\\(f'(x) = 6x^2-6x-12 = 6(x+1)(x-2)\\)","Puntos críticos: \\(x=-1\\) y \\(x=2\\)","\\(f''(-1) < 0\\) → máximo; \\(f''(2) > 0\\) → mínimo"],"commonMistakes":["Error al factorizar la derivada","Confundir el signo de la segunda derivada"],"steps":["f'(x) = 6x^2-6x-12","6(x+1)(x-2)=0 \\Rightarrow x=-1, x=2","f''(x) = 12x-6","f''(-1)=-18<0 \\Rightarrow \\text{máximo local}","f''(2)=18>0 \\Rightarrow \\text{mínimo local}"]}],"concavidad":[{"id":"conc_001","difficulty":1,"topic":"concavidad","questionLatex":"f(x) = x^3 - 3x. \\text{ Analiza la concavidad.}","answerLatex":"\\text{Cóncava abajo: } x<0; \\text{ cóncava arriba: } x>0; \\text{ inflexión en } x=0","method":"concavidad","hints":["La concavidad se determina con la segunda derivada","\\(f''(x) > 0\\) → cóncava arriba; \\(f''(x) < 0\\) → cóncava abajo","El punto de inflexión es donde \\(f''(x) = 0\\) y cambia de signo"],"commonMistakes":["Confundir la primera y segunda derivada","No verificar el cambio de signo en el punto de inflexión"],"steps":["f'(x) = 3x^2-3","f''(x) = 6x","f''(x)=0 \\Rightarrow x=0","f''(x)<0 \\text{ para } x<0 \\Rightarrow \\text{cóncava abajo}","f''(x)>0 \\text{ para } x>0 \\Rightarrow \\text{cóncava arriba}","x=0 \\text{ es punto de inflexión}"]},{"id":"conc_002","difficulty":2,"topic":"concavidad","questionLatex":"f(x) = x^4 - 2x^2. \\text{ Encuentra puntos de inflexión.}","answerLatex":"x = \\pm\\dfrac{1}{\\sqrt{3}} \\approx \\pm 0.577","method":"concavidad","hints":["Calcula \\(f''(x)\\)","Iguala \\(f''(x) = 0\\)","Verifica el cambio de signo"],"commonMistakes":["No verificar que haya cambio de signo en \\(f''\\)"],"steps":["f'(x) = 4x^3-4x","f''(x) = 12x^2-4","12x^2-4=0 \\Rightarrow x^2=\\dfrac{1}{3}","x = \\pm\\dfrac{1}{\\sqrt{3}}","\\text{Verificar cambio de signo: puntos de inflexión confirmados}"]},{"id":"conc_003","difficulty":2,"topic":"concavidad","questionLatex":"f(x) = x^3 - 6x^2 + 12x - 4. \\text{ Concavidad y puntos de inflexión.}","answerLatex":"\\text{Inflexión en } x=2; \\text{ cóncava abajo para } x<2, \\text{ arriba para } x>2","method":"concavidad","hints":["\\(f''(x) = 6x-12\\)","\\(f''(x)=0 \\Rightarrow x=2\\)","Analiza el signo de \\(f''\\) a cada lado de \\(x=2\\)"],"commonMistakes":["Error al calcular la segunda derivada"],"steps":["f'(x) = 3x^2-12x+12","f''(x) = 6x-12","6x-12=0 \\Rightarrow x=2","f''(1)=-6<0 \\Rightarrow \\text{cóncava abajo en } x<2","f''(3)=6>0 \\Rightarrow \\text{cóncava arriba en } x>2","x=2 \\text{ es punto de inflexión}"]},{"id":"conc_004","difficulty":2,"topic":"concavidad","questionLatex":"f(x) = \\sin x \\text{ en } [0, 2\\pi]. \\text{ Puntos de inflexión.}","answerLatex":"x = \\pi \\text{ (inflexión)}","method":"concavidad","hints":["\\(f''(x) = -\\sin x\\)","\\(f''(x) = 0\\) cuando \\(\\sin x = 0\\) en \\([0,2\\pi]\\)","Verifica que haya cambio de signo"],"commonMistakes":["Incluir \\(x=0\\) y \\(x=2\\pi\\) que son extremos del intervalo, no interiores"],"steps":["f'(x) = \\cos x","f''(x) = -\\sin x","-\\sin x = 0 \\Rightarrow x = 0, \\pi, 2\\pi","\\text{Sólo } x=\\pi \\text{ es interior y hay cambio de signo}","x=\\pi \\text{ es el único punto de inflexión}"]},{"id":"conc_005","difficulty":3,"topic":"concavidad","questionLatex":"f(x) = x^5 - 5x^4. \\text{ Encuentra e clasifica puntos críticos e inflexión.}","answerLatex":"\\text{Mínimo: } x=4; \\text{ inflexión en } x=0 \\text{ y } x=3","method":"concavidad","hints":["\\(f'(x) = 5x^4-20x^3 = 5x^3(x-4)\\)","\\(f''(x) = 20x^3-60x^2 = 20x^2(x-3)\\)","Analiza signos para cada punto crítico"],"commonMistakes":["Confundir los puntos de \\(f'=0\\) con los de \\(f''=0\\)"],"steps":["f'(x) = 5x^4-20x^3 = 5x^3(x-4)","\\text{Críticos: } x=0 (\\text{no extremo}), x=4","f''(x) = 20x^3-60x^2 = 20x^2(x-3)","f''(4)=20(64)(1)>0 \\Rightarrow \\text{mínimo en } x=4","f''=0: x=0 \\text{ y } x=3 \\text{ (inflexiones)}"]}],"fracciones-parciales-caso1":[{"id":"pf1_001","difficulty":2,"topic":"fracciones-parciales-caso1","questionLatex":"\\int \\dfrac{1}{(x-1)(x+2)}\\,dx","answerLatex":"\\dfrac{1}{3}\\ln|x-1| - \\dfrac{1}{3}\\ln|x+2|+C","method":"fracciones-parciales-caso1","hints":["Factores lineales distintos → Caso 1","\\(\\frac{1}{(x-1)(x+2)} = \\frac{A}{x-1} + \\frac{B}{x+2}\\)","Sustituye \\(x=1\\) y \\(x=-2\\) para hallar \\(A\\) y \\(B\\)"],"commonMistakes":["Olvidar el valor absoluto en el logaritmo"],"steps":["\\frac{1}{(x-1)(x+2)} = \\frac{A}{x-1} + \\frac{B}{x+2}","x=1: 1=3A \\Rightarrow A=\\frac{1}{3}","x=-2: 1=-3B \\Rightarrow B=-\\frac{1}{3}","\\frac{1}{3}\\ln|x-1| - \\frac{1}{3}\\ln|x+2|+C"]},{"id":"pf1_002","difficulty":2,"topic":"fracciones-parciales-caso1","questionLatex":"\\int \\dfrac{5x-3}{(x-2)(x+1)}\\,dx","answerLatex":"\\dfrac{7}{3}\\ln|x-2| + \\dfrac{8}{3}\\ln|x+1|+C","method":"fracciones-parciales-caso1","hints":["Descompón: \\(\\frac{5x-3}{(x-2)(x+1)} = \\frac{A}{x-2} + \\frac{B}{x+1}\\)","Sustituye valores convenientes de \\(x\\)"],"commonMistakes":["Errores aritméticos al sustituir"],"steps":["5x-3 = A(x+1) + B(x-2)","x=2: 7=3A \\Rightarrow A=\\frac{7}{3}","x=-1: -8=-3B \\Rightarrow B=\\frac{8}{3}","\\frac{7}{3}\\ln|x-2| + \\frac{8}{3}\\ln|x+1|+C"]},{"id":"pf1_003","difficulty":2,"topic":"fracciones-parciales-caso1","questionLatex":"\\int \\dfrac{1}{x^2-1}\\,dx","answerLatex":"\\dfrac{1}{2}\\ln|x-1| - \\dfrac{1}{2}\\ln|x+1|+C","method":"fracciones-parciales-caso1","hints":["Factoriza: \\(x^2-1 = (x-1)(x+1)\\)","\\(\\frac{1}{(x-1)(x+1)} = \\frac{A}{x-1}+\\frac{B}{x+1}\\)"],"commonMistakes":["No factorizar el denominador antes de descomponer"],"steps":["x^2-1=(x-1)(x+1)","1=A(x+1)+B(x-1)","x=1: 1=2A \\Rightarrow A=\\frac{1}{2}","x=-1: 1=-2B \\Rightarrow B=-\\frac{1}{2}","\\frac{1}{2}\\ln|x-1| - \\frac{1}{2}\\ln|x+1|+C"]},{"id":"pf1_004","difficulty":3,"topic":"fracciones-parciales-caso1","questionLatex":"\\int \\dfrac{3x^2+x-4}{x(x-1)(x+2)}\\,dx","answerLatex":"2\\ln|x| + \\ln|x-1| + \\ln|x+2|+C","method":"fracciones-parciales-caso1","hints":["Tres factores lineales distintos","\\(\\frac{3x^2+x-4}{x(x-1)(x+2)} = \\frac{A}{x}+\\frac{B}{x-1}+\\frac{C}{x+2}\\)","Sustituye \\(x=0,1,-2\\)"],"commonMistakes":["Sistema de ecuaciones mal planteado"],"steps":["3x^2+x-4 = A(x-1)(x+2)+Bx(x+2)+Cx(x-1)","x=0: -4=-2A \\Rightarrow A=2","x=1: 0=3B \\Rightarrow B=0... \\text{corrige: } 3+1-4=0, 3B=0 \\Rightarrow B=0","x=-2: 12-2-4=6, 6=(-2)(-3)C=6C \\Rightarrow C=1","2\\ln|x| + 0 + \\ln|x+2|+C"]}],"fracciones-parciales-caso2":[{"id":"pf2_001","difficulty":3,"topic":"fracciones-parciales-caso2","questionLatex":"\\int \\dfrac{1}{(x-1)^2}\\,dx","answerLatex":"-\\dfrac{1}{x-1}+C","method":"fracciones-parciales-caso2","hints":["Factor lineal repetido de grado 2","Directamente: \\(\\int (x-1)^{-2}\\,dx\\)","Aplica la regla de potencias"],"commonMistakes":["Intentar fracciones parciales innecesariamente"],"steps":["\\int (x-1)^{-2}\\,dx","\\dfrac{(x-1)^{-1}}{-1}+C","-\\dfrac{1}{x-1}+C"]},{"id":"pf2_002","difficulty":3,"topic":"fracciones-parciales-caso2","questionLatex":"\\int \\dfrac{x+1}{(x-1)^2(x+3)}\\,dx","answerLatex":"\\dfrac{1}{8}\\ln|x-1| - \\dfrac{1}{2(x-1)} - \\dfrac{1}{8}\\ln|x+3|+C","method":"fracciones-parciales-caso2","hints":["Factor repetido \\((x-1)^2\\) → incluye \\(\\frac{A}{x-1}+\\frac{B}{(x-1)^2}\\)","Más \\(\\frac{C}{x+3}\\) por el factor lineal simple"],"commonMistakes":["Olvidar el término \\(\\frac{B}{(x-1)^2}\\)"],"steps":["\\frac{x+1}{(x-1)^2(x+3)} = \\frac{A}{x-1}+\\frac{B}{(x-1)^2}+\\frac{C}{x+3}","x=1: 2=4B \\Rightarrow B=\\frac{1}{2}","x=-3: -2=16C \\Rightarrow C=-\\frac{1}{8}","\\text{Coef. }x^2: 0=A+C \\Rightarrow A=\\frac{1}{8}","\\frac{1}{8}\\ln|x-1| - \\frac{1}{2(x-1)} - \\frac{1}{8}\\ln|x+3|+C"]},{"id":"pf2_003","difficulty":3,"topic":"fracciones-parciales-caso2","questionLatex":"\\int \\dfrac{2x}{(x+1)^2}\\,dx","answerLatex":"2\\ln|x+1| + \\dfrac{2}{x+1}+C","method":"fracciones-parciales-caso2","hints":["\\(\\frac{2x}{(x+1)^2} = \\frac{A}{x+1}+\\frac{B}{(x+1)^2}\\)","\\(2x = A(x+1)+B\\)"],"commonMistakes":["Error al comparar coeficientes"],"steps":["2x = A(x+1)+B","\\text{Coef. }x: 2=A","x=-1: -2=B","\\int\\left(\\frac{2}{x+1} - \\frac{2}{(x+1)^2}\\right)dx","2\\ln|x+1| + \\frac{2}{x+1}+C"]}],"fracciones-parciales-caso3":[{"id":"pf3_001","difficulty":3,"topic":"fracciones-parciales-caso3","questionLatex":"\\int \\dfrac{2x}{x^2+4}\\,dx","answerLatex":"\\ln(x^2+4)+C","method":"fracciones-parciales-caso3","hints":["El numerador es la derivada del denominador","\\(\\int \\frac{f'(x)}{f(x)}\\,dx = \\ln|f(x)|+C\\)"],"commonMistakes":["Intentar factorizar \\(x^2+4\\) (es irreducible)"],"steps":["\\frac{d}{dx}(x^2+4) = 2x","\\int \\frac{2x}{x^2+4}\\,dx = \\ln(x^2+4)+C"]},{"id":"pf3_002","difficulty":4,"topic":"fracciones-parciales-caso3","questionLatex":"\\int \\dfrac{1}{x^2+9}\\,dx","answerLatex":"\\dfrac{1}{3}\\arctan\\left(\\dfrac{x}{3}\\right)+C","method":"fracciones-parciales-caso3","hints":["Factor cuadrático irreducible: usa la fórmula inversa trig","\\(\\int \\frac{dx}{x^2+a^2} = \\frac{1}{a}\\arctan\\frac{x}{a}+C\\)","Aquí \\(a=3\\)"],"commonMistakes":["Olvidar dividir por \\(a\\) en la fórmula"],"steps":["\\int \\frac{dx}{x^2+3^2}","\\frac{1}{3}\\arctan\\frac{x}{3}+C"]},{"id":"pf3_003","difficulty":4,"topic":"fracciones-parciales-caso3","questionLatex":"\\int \\dfrac{x+1}{x^2+4}\\,dx","answerLatex":"\\dfrac{1}{2}\\ln(x^2+4) + \\dfrac{1}{2}\\arctan\\left(\\dfrac{x}{2}\\right)+C","method":"fracciones-parciales-caso3","hints":["Separa en dos fracciones: \\(\\frac{x}{x^2+4} + \\frac{1}{x^2+4}\\)","La primera integral usa la derivada del denominador","La segunda usa la fórmula del arctan"],"commonMistakes":["No separar correctamente el numerador"],"steps":["\\int \\frac{x}{x^2+4}\\,dx + \\int \\frac{1}{x^2+4}\\,dx","\\frac{1}{2}\\int \\frac{2x}{x^2+4}\\,dx + \\int \\frac{dx}{x^2+2^2}","\\frac{1}{2}\\ln(x^2+4) + \\frac{1}{2}\\arctan\\frac{x}{2}+C"]}],"sustitucion":[{"id":"sub_001","difficulty":2,"topic":"sustitucion","questionLatex":"\\int 2x(x^2+1)^5\\,dx","answerLatex":"\\dfrac{(x^2+1)^6}{6}+C","method":"sustitucion","hints":["Identifica la función interna compuesta","Haz u = x^2+1","Calcula du = 2x\\,dx y sustituye"],"commonMistakes":["Olvidar reemplazar dx en términos de du","No sustituir de vuelta a la variable original al final","Dejar términos en x después de la sustitución"],"steps":["\\text{Sea } u = x^2+1","du = 2x\\,dx","\\int u^5\\,du","\\frac{u^6}{6}+C","\\frac{(x^2+1)^6}{6}+C"]},{"id":"sub_002","difficulty":2,"topic":"sustitucion","questionLatex":"\\int \\dfrac{3x^2}{(x^3+5)^4}\\,dx","answerLatex":"-\\dfrac{1}{3(x^3+5)^3}+C","method":"sustitucion","hints":["La función interna es x^3+5","Sea u = x^3+5","du = 3x^2\\,dx está presente en el numerador"],"commonMistakes":["No identificar que 3x^2 dx = du","Errores al integrar potencias negativas"],"steps":["\\text{Sea } u = x^3+5","du = 3x^2\\,dx","\\int \\frac{du}{u^4} = \\int u^{-4}\\,du","\\frac{u^{-3}}{-3}+C","-\\frac{1}{3u^3}+C","-\\frac{1}{3(x^3+5)^3}+C"]},{"id":"sub_003","difficulty":2,"topic":"sustitucion","questionLatex":"\\int e^{3x}\\,dx","answerLatex":"\\dfrac{e^{3x}}{3}+C","method":"sustitucion","hints":["Sea u = 3x","du = 3\\,dx, entonces dx = du/3","Integra e^u y sustituye"],"commonMistakes":["Olvidar dividir por 3 al despejar dx"],"steps":["\\text{Sea } u = 3x","du = 3\\,dx \\Rightarrow dx = \\frac{du}{3}","\\frac{1}{3}\\int e^u\\,du","\\frac{e^u}{3}+C","\\frac{e^{3x}}{3}+C"]},{"id":"sub_004","difficulty":3,"topic":"sustitucion","questionLatex":"\\int x\\sqrt{x^2-4}\\,dx","answerLatex":"\\dfrac{1}{3}(x^2-4)^{3/2}+C","method":"sustitucion","hints":["La expresión debajo de la raíz sugiere la sustitución","Sea u = x^2-4","du = 2x\\,dx, por lo que x\\,dx = du/2"],"commonMistakes":["Olvidar el factor 1/2 de x dx = du/2"],"steps":["\\text{Sea } u = x^2-4","du = 2x\\,dx \\Rightarrow x\\,dx = \\frac{du}{2}","\\frac{1}{2}\\int \\sqrt{u}\\,du = \\frac{1}{2}\\int u^{1/2}\\,du","\\frac{1}{2}\\cdot\\frac{u^{3/2}}{3/2}+C","\\frac{1}{3}u^{3/2}+C","\\frac{1}{3}(x^2-4)^{3/2}+C"]},{"id":"sub_005","difficulty":3,"topic":"sustitucion","questionLatex":"\\int \\dfrac{\\ln x}{x}\\,dx","answerLatex":"\\dfrac{(\\ln x)^2}{2}+C","method":"sustitucion","hints":["Observa que la derivada de \\ln x es 1/x","Sea u = \\ln x","du = \\frac{dx}{x}"],"commonMistakes":["No reconocer que \\frac{1}{x}dx = du"],"steps":["\\text{Sea } u = \\ln x","du = \\frac{1}{x}\\,dx","\\int u\\,du","\\frac{u^2}{2}+C","\\frac{(\\ln x)^2}{2}+C"]},{"id":"sub_006","difficulty":3,"topic":"sustitucion","questionLatex":"\\int \\sin^3 x \\cos x\\,dx","answerLatex":"\\dfrac{\\sin^4 x}{4}+C","method":"sustitucion","hints":["Observa que \\cos x es la derivada de \\sin x","Sea u = \\sin x","du = \\cos x\\,dx"],"commonMistakes":["Confundir cuál función hacer u y cuál es du"],"steps":["\\text{Sea } u = \\sin x","du = \\cos x\\,dx","\\int u^3\\,du","\\frac{u^4}{4}+C","\\frac{\\sin^4 x}{4}+C"]}]};
+const FORMULA_DATA = {"antiderivadas":[{"id":"f_anti_001","nombre":"Regla de Potencias","formulaLatex":"\\int x^n\\,dx = \\frac{x^{n+1}}{n+1}+C, \\quad n \\neq -1","descripcion":"Para integrar una potencia de x, suma 1 al exponente y divide entre el nuevo exponente.","ejemplo":"\\int x^4\\,dx = \\frac{x^5}{5}+C","temasRelacionados":["antiderivativas","integrales-inmediatas"]},{"id":"f_anti_002","nombre":"Regla de la Constante","formulaLatex":"\\int k\\,dx = kx+C","descripcion":"La integral de una constante es la constante multiplicada por x.","ejemplo":"\\int 7\\,dx = 7x+C","temasRelacionados":["antiderivativas"]},{"id":"f_anti_003","nombre":"Regla del Factor Constante","formulaLatex":"\\int k\\cdot f(x)\\,dx = k\\int f(x)\\,dx","descripcion":"Una constante puede sacarse fuera de la integral.","ejemplo":"\\int 5x^3\\,dx = 5\\int x^3\\,dx = \\frac{5x^4}{4}+C","temasRelacionados":["antiderivativas"]},{"id":"f_anti_004","nombre":"Regla de la Suma","formulaLatex":"\\int [f(x) \\pm g(x)]\\,dx = \\int f(x)\\,dx \\pm \\int g(x)\\,dx","descripcion":"La integral de una suma es la suma de las integrales.","ejemplo":"\\int (x^2+\\sin x)\\,dx = \\frac{x^3}{3} - \\cos x+C","temasRelacionados":["antiderivativas","integrales-inmediatas"]}],"integralesInmediatas":[{"id":"f_imm_001","nombre":"Exponencial","formulaLatex":"\\int e^x\\,dx = e^x+C","descripcion":"La función exponencial es su propia antiderivada.","ejemplo":"\\int e^x\\,dx = e^x+C","temasRelacionados":["integrales-inmediatas"]},{"id":"f_imm_002","nombre":"Logaritmo Natural","formulaLatex":"\\int \\frac{1}{x}\\,dx = \\ln|x|+C","descripcion":"Caso especial de la regla de potencias cuando n = -1.","ejemplo":"\\int \\frac{1}{x}\\,dx = \\ln|x|+C","temasRelacionados":["integrales-inmediatas"]},{"id":"f_imm_003","nombre":"Seno","formulaLatex":"\\int \\sin x\\,dx = -\\cos x+C","descripcion":"La antiderivada del seno es el coseno negativo.","ejemplo":"\\int \\sin(3x)\\,dx = -\\frac{\\cos(3x)}{3}+C","temasRelacionados":["integrales-inmediatas"]},{"id":"f_imm_004","nombre":"Coseno","formulaLatex":"\\int \\cos x\\,dx = \\sin x+C","descripcion":"La antiderivada del coseno es el seno.","ejemplo":"\\int \\cos(2x)\\,dx = \\frac{\\sin(2x)}{2}+C","temasRelacionados":["integrales-inmediatas"]},{"id":"f_imm_005","nombre":"Secante al Cuadrado","formulaLatex":"\\int \\sec^2 x\\,dx = \\tan x+C","descripcion":"Antiderivada de sec²x.","ejemplo":"\\int \\sec^2 x\\,dx = \\tan x+C","temasRelacionados":["integrales-inmediatas"]}],"inversionTrigonometrica":[{"id":"f_itrig_001","nombre":"Arcoseno","formulaLatex":"\\int \\frac{du}{\\sqrt{a^2-u^2}} = \\arcsin\\frac{u}{a}+C","descripcion":"Integral que da como resultado arcoseno.","ejemplo":"\\int \\frac{dx}{\\sqrt{9-x^2}} = \\arcsin\\frac{x}{3}+C","temasRelacionados":["inversas-trigonometricas"]},{"id":"f_itrig_002","nombre":"Arcotangente","formulaLatex":"\\int \\frac{du}{a^2+u^2} = \\frac{1}{a}\\arctan\\frac{u}{a}+C","descripcion":"Integral que da como resultado arcotangente.","ejemplo":"\\int \\frac{dx}{4+x^2} = \\frac{1}{2}\\arctan\\frac{x}{2}+C","temasRelacionados":["inversas-trigonometricas"]},{"id":"f_itrig_003","nombre":"Arcosecante","formulaLatex":"\\int \\frac{du}{u\\sqrt{u^2-a^2}} = \\frac{1}{a}\\text{arcsec}\\frac{|u|}{a}+C","descripcion":"Integral que da como resultado arcosecante.","ejemplo":"\\int \\frac{dx}{x\\sqrt{x^2-1}} = \\text{arcsec}|x|+C","temasRelacionados":["inversas-trigonometricas"]}],"integracionPorPartes":[{"id":"f_ibp_001","nombre":"Fórmula de Integración por Partes","formulaLatex":"\\int u\\,dv = uv - \\int v\\,du","descripcion":"Técnica para integrar productos de funciones. Recuerda LIATE para elegir u: Logarítmica, Inversa trig, Algebraica, Trigonométrica, Exponencial.","ejemplo":"\\int x e^x\\,dx: \\; u=x,\\; dv=e^x dx \\Rightarrow xe^x - e^x+C","temasRelacionados":["integracion-por-partes"]}],"concavidad":[{"id":"f_conc_001","nombre":"Criterio de la Segunda Derivada","formulaLatex":"f''(x) > 0 \\Rightarrow \\text{cóncava arriba} \\quad f''(x) < 0 \\Rightarrow \\text{cóncava abajo}","descripcion":"La segunda derivada determina la concavidad de una función.","ejemplo":"f(x)=x^2 \\Rightarrow f''(x)=2>0 \\Rightarrow \\text{siempre cóncava arriba}","temasRelacionados":["concavidad"]},{"id":"f_conc_002","nombre":"Puntos de Inflexión","formulaLatex":"\\text{Inflexión en } x_0 \\text{ si } f''(x_0)=0 \\text{ y } f'' \\text{ cambia de signo}","descripcion":"Un punto de inflexión es donde la concavidad cambia. NO basta con f''(x₀)=0; debe cambiar de signo.","ejemplo":"f(x)=x^3 \\Rightarrow f''(x)=6x=0 \\text{ en } x=0, \\text{ cambia signo} \\Rightarrow \\text{inflexión}","temasRelacionados":["concavidad"]}],"optimizacion":[{"id":"f_opt_001","nombre":"Criterio de la Primera Derivada","formulaLatex":"f'(c)=0 \\text{ y } f' \\text{ cambia de } + \\text{ a } - \\Rightarrow \\text{máximo local}","descripcion":"Un punto crítico es máximo si la derivada cambia de positiva a negativa.","ejemplo":"f(x) = -x^2+4x: \\; f'(x)=0 \\Rightarrow x=2 \\Rightarrow \\text{máximo}","temasRelacionados":["optimizacion"]},{"id":"f_opt_002","nombre":"Criterio de la Segunda Derivada","formulaLatex":"f'(c)=0 \\text{ y } f''(c)<0 \\Rightarrow \\text{máximo} \\quad f''(c)>0 \\Rightarrow \\text{mínimo}","descripcion":"Usa la segunda derivada para clasificar puntos críticos sin analizar el signo de f'.","ejemplo":"f(x)=x^3-3x: \\; f'(x)=3x^2-3=0 \\Rightarrow x=\\pm1; \\; f''(1)=6>0 \\Rightarrow \\text{mínimo}","temasRelacionados":["optimizacion"]}],"fraccionesParciales":[{"id":"f_fp_001","nombre":"Caso 1: Factores Lineales Distintos","formulaLatex":"\\frac{P(x)}{(x-a)(x-b)} = \\frac{A}{x-a}+\\frac{B}{x-b}","descripcion":"Cuando el denominador tiene factores lineales distintos, se descompone con una constante por cada factor.","ejemplo":"\\frac{1}{(x-1)(x+2)} = \\frac{A}{x-1}+\\frac{B}{x+2}","temasRelacionados":["fracciones-parciales-caso1"]},{"id":"f_fp_002","nombre":"Caso 2: Factores Lineales Repetidos","formulaLatex":"\\frac{P(x)}{(x-a)^n} = \\frac{A_1}{x-a}+\\frac{A_2}{(x-a)^2}+\\cdots+\\frac{A_n}{(x-a)^n}","descripcion":"Para factores lineales repetidos, se incluye una fracción por cada potencia.","ejemplo":"\\frac{1}{(x-1)^2(x+3)}: \\frac{A}{x-1}+\\frac{B}{(x-1)^2}+\\frac{C}{x+3}","temasRelacionados":["fracciones-parciales-caso2"]},{"id":"f_fp_003","nombre":"Caso 3: Factor Cuadrático Irreducible","formulaLatex":"\\frac{P(x)}{(x^2+bx+c)(\\ldots)} = \\frac{Ax+B}{x^2+bx+c}+\\cdots","descripcion":"Factores cuadráticos irreducibles (discriminante < 0) requieren numerador lineal.","ejemplo":"\\frac{1}{(x^2+4)(x-1)} = \\frac{Ax+B}{x^2+4}+\\frac{C}{x-1}","temasRelacionados":["fracciones-parciales-caso3"]}],"integralesDefinidas":[{"id":"f_def_001","nombre":"Teorema Fundamental del Cálculo","formulaLatex":"\\int_a^b f(x)\\,dx = F(b) - F(a), \\quad F'(x)=f(x)","descripcion":"La integral definida se evalúa como la diferencia de la antiderivada en los límites.","ejemplo":"\\int_0^1 x^2\\,dx = \\left[\\frac{x^3}{3}\\right]_0^1 = \\frac{1}{3}","temasRelacionados":["integrales-definidas"]},{"id":"f_def_002","nombre":"Área entre curvas","formulaLatex":"A = \\int_a^b [f(x)-g(x)]\\,dx, \\quad f(x) \\geq g(x) \\text{ en } [a,b]","descripcion":"El área entre dos curvas es la integral de la diferencia (superior menos inferior).","ejemplo":"\\text{Área entre } y=x \\text{ y } y=x^2: \\int_0^1(x-x^2)\\,dx = \\frac{1}{6}","temasRelacionados":["aplicaciones-integrales-definidas"]}]};
+
+</script>
+<script>
+/* =============================================
+   CalcQuest – Progress & Gamification System
+   ============================================= */
+
+const Progress = (() => {
+  const STORAGE_KEY = 'calcquest_data';
+
+  const RANKS = [
+    { name: 'Novato',           minXP: 0,    icon: '🌱', level: 1 },
+    { name: 'Aprendiz',         minXP: 100,  icon: '📚', level: 2 },
+    { name: 'Estudiante',       minXP: 300,  icon: '🔍', level: 3 },
+    { name: 'Analista',         minXP: 600,  icon: '⚡', level: 4 },
+    { name: 'Integrador',       minXP: 1000, icon: '∫',  level: 5 },
+    { name: 'Caballero Cálculo',minXP: 1800, icon: '⚔️', level: 6 },
+    { name: 'Maestro Cálculo',  minXP: 3000, icon: '👑', level: 7 },
+  ];
+
+  const ACHIEVEMENTS = [
+    { id: 'first_correct',   name: 'Primera Sangre',       desc: 'Resuelve tu primer ejercicio',    emoji: '🎯', condition: s => s.totalCorrect >= 1 },
+    { id: 'ten_correct',     name: 'Decena',                desc: 'Resuelve 10 ejercicios correctos',emoji: '🔟', condition: s => s.totalCorrect >= 10 },
+    { id: 'fifty_correct',   name: 'Cincuentón',            desc: '50 ejercicios correctos',         emoji: '💪', condition: s => s.totalCorrect >= 50 },
+    { id: 'streak_3',        name: 'En Racha',              desc: '3 días seguidos estudiando',      emoji: '🔥', condition: s => s.streak >= 3 },
+    { id: 'streak_7',        name: 'Semana Completa',       desc: '7 días seguidos',                 emoji: '📅', condition: s => s.streak >= 7 },
+    { id: 'first_boss',      name: 'Cazador de Jefes',      desc: 'Completa tu primera Batalla Jefe',emoji: '⚔️', condition: s => s.bossesBeaten >= 1 },
+    { id: 'three_bosses',    name: 'Exterminador',          desc: 'Vence 3 Batallas Jefe',           emoji: '🏆', condition: s => s.bossesBeaten >= 3 },
+    { id: 'first_exam',      name: 'Examinado',             desc: 'Completa tu primer Simulacro',    emoji: '📝', condition: s => s.examsCompleted >= 1 },
+    { id: 'exam_80',         name: 'Sobresaliente',         desc: 'Obtén 80%+ en un simulacro',      emoji: '🌟', condition: s => s.bestExamScore >= 80 },
+    { id: 'exam_100',        name: 'Perfección',            desc: 'Obtén 100% en un simulacro',      emoji: '💎', condition: s => s.bestExamScore >= 100 },
+    { id: 'master_anti',     name: 'Rey Antiderivadas',     desc: 'Domina Antiderivadas al 100%',    emoji: '🟢', condition: s => (s.mastery['antiderivativas'] || 0) >= 100 },
+    { id: 'master_sub',      name: 'Mago Sustitución',      desc: 'Domina Sustitución al 100%',      emoji: '🔮', condition: s => (s.mastery['sustitucion'] || 0) >= 100 },
+    { id: 'all_flashcards',  name: 'Memorista',             desc: 'Revisa todas las flashcards',     emoji: '🃏', condition: s => s.flashcardsReviewed >= 20 },
+    { id: 'xp_500',          name: 'Acumulador',            desc: 'Acumula 500 XP',                  emoji: '⚡', condition: s => s.totalXP >= 500 },
+    { id: 'xp_1000',         name: 'Millonario XP',         desc: 'Acumula 1000 XP',                 emoji: '💰', condition: s => s.totalXP >= 1000 },
+  ];
+
+  const DEFAULT_STATE = {
+    totalXP: 0,
+    currentLevelXP: 0,
+    streak: 0,
+    lastStudyDate: null,
+    totalCorrect: 0,
+    totalAttempted: 0,
+    bossesBeaten: 0,
+    examsCompleted: 0,
+    bestExamScore: 0,
+    flashcardsReviewed: 0,
+    completedExercises: [],
+    recentExercises: [],
+    mastery: {},
+    unlockedTopics: ['antiderivativas','integrales-inmediatas','optimizacion','concavidad'],
+    earnedAchievements: [],
+    examHistory: [],
+    theme: 'dark',
+    dailyChallengeCompleted: false,
+    dailyChallengeDate: null,
+  };
+
+  let state = null;
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      state = raw ? { ...DEFAULT_STATE, ...JSON.parse(raw) } : { ...DEFAULT_STATE };
+    } catch (e) {
+      state = { ...DEFAULT_STATE };
+    }
+    updateStreak();
+    return state;
+  }
+
+  function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function reset() {
+    state = { ...DEFAULT_STATE };
+    save();
+  }
+
+  function get() { return state; }
+
+  function updateStreak() {
+    const today = new Date().toDateString();
+    const last  = state.lastStudyDate;
+    if (!last) return;
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (last !== today && last !== yesterday.toDateString()) {
+      state.streak = 0;
+      save();
+    }
+  }
+
+  function markStudied() {
+    const today = new Date().toDateString();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (state.lastStudyDate !== today) {
+      if (state.lastStudyDate === yesterday.toDateString()) {
+        state.streak++;
+      } else if (state.lastStudyDate !== today) {
+        state.streak = 1;
+      }
+      state.lastStudyDate = today;
+      save();
+    }
+  }
+
+  function addXP(amount, source = '') {
+    state.totalXP += amount;
+    state.currentLevelXP += amount;
+    markStudied();
+
+    const newAchievements = checkAchievements();
+    save();
+
+    return { added: amount, total: state.totalXP, newAchievements };
+  }
+
+  function recordExercise(exerciseId, topic, correct, difficulty = 1) {
+    state.totalAttempted++;
+
+    if (correct) {
+      state.totalCorrect++;
+      if (!state.completedExercises.includes(exerciseId)) {
+        state.completedExercises.push(exerciseId);
+      }
+
+      // Update mastery
+      const current = state.mastery[topic] || 0;
+      const gain = Math.max(2, 5 - difficulty) * (difficulty === 1 ? 8 : difficulty === 2 ? 6 : 5);
+      state.mastery[topic] = Math.min(100, current + gain);
+
+      // XP
+      const xp = [0, 10, 20, 35, 50][difficulty] || 10;
+      addXP(xp);
+    }
+
+    // Track recent
+    state.recentExercises = [exerciseId, ...state.recentExercises.slice(0, 19)];
+    markStudied();
+
+    const newAchievements = checkAchievements();
+    save();
+
+    return newAchievements;
+  }
+
+  function recordBoss(topic, won) {
+    if (won) {
+      state.bossesBeaten++;
+      addXP(150);
+      // Unlock next topic
+      unlockNextTopic(topic);
+    }
+    markStudied();
+    save();
+    return checkAchievements();
+  }
+
+  function recordExam(score, total) {
+    const pct = Math.round((score / total) * 100);
+    state.examsCompleted++;
+    if (pct > state.bestExamScore) state.bestExamScore = pct;
+    state.examHistory.push({ date: new Date().toISOString(), score: pct });
+    addXP(Math.round(pct * 0.5));
+    markStudied();
+    save();
+    return checkAchievements();
+  }
+
+  function recordFlashcard() {
+    state.flashcardsReviewed++;
+    save();
+    return checkAchievements();
+  }
+
+  const TOPIC_ORDER = [
+    'antiderivativas', 'integrales-inmediatas', 'cambio-variable',
+    'optimizacion', 'concavidad',
+    'inversas-trigonometricas', 'sustitucion', 'integrales-definidas',
+    'integracion-por-partes', 'metodo-uv', 'vaca-sin-cola', 'metodo-tabular',
+    'fracciones-parciales-caso1', 'fracciones-parciales-caso2', 'fracciones-parciales-caso3',
+    'aplicaciones-integrales-definidas'
+  ];
+
+  function unlockNextTopic(currentTopic) {
+    const idx = TOPIC_ORDER.indexOf(currentTopic);
+    if (idx >= 0 && idx < TOPIC_ORDER.length - 1) {
+      const next = TOPIC_ORDER[idx + 1];
+      if (!state.unlockedTopics.includes(next)) {
+        state.unlockedTopics.push(next);
+      }
+    }
+  }
+
+  function checkAchievements() {
+    const newOnes = [];
+    for (const ach of ACHIEVEMENTS) {
+      if (!state.earnedAchievements.includes(ach.id) && ach.condition(state)) {
+        state.earnedAchievements.push(ach.id);
+        newOnes.push(ach);
+      }
+    }
+    if (newOnes.length) save();
+    return newOnes;
+  }
+
+  function getRank() {
+    let rank = RANKS[0];
+    for (const r of RANKS) {
+      if (state.totalXP >= r.minXP) rank = r;
+    }
+    return rank;
+  }
+
+  function getXPToNext() {
+    const rank = getRank();
+    const idx = RANKS.indexOf(rank);
+    if (idx >= RANKS.length - 1) return { current: state.totalXP, needed: state.totalXP, pct: 100, isMax: true };
+    const next = RANKS[idx + 1];
+    const pct = Math.round(((state.totalXP - rank.minXP) / (next.minXP - rank.minXP)) * 100);
+    return { current: state.totalXP - rank.minXP, needed: next.minXP - rank.minXP, pct: Math.min(pct, 100), nextRank: next };
+  }
+
+  function getMastery(topic) { return state.mastery[topic] || 0; }
+  function isTopicUnlocked(topic) { return state.unlockedTopics.includes(topic); }
+  function isExerciseDone(id) { return state.completedExercises.includes(id); }
+  function getAchievements() { return ACHIEVEMENTS.map(a => ({ ...a, earned: state.earnedAchievements.includes(a.id) })); }
+
+  return { load, save, reset, get, addXP, recordExercise, recordBoss, recordExam,
+           recordFlashcard, getRank, getXPToNext, getMastery, isTopicUnlocked,
+           isExerciseDone, getAchievements, RANKS, ACHIEVEMENTS, TOPIC_ORDER };
+})();
+
+</script>
+<script>
+/* =============================================
+   CalcQuest – Main Application
+   ============================================= */
+
+// ── Data Store ──
+const App = {
+  exercises: {},    // topic -> array
+  formulas:  {},    // category -> array
+  currentView: null,
+  currentExercise: null,
+  quizState: null,
+  flashState: null,
+  examState: null,
+  bossState: null,
+};
+
+// ── Topic Config ──
+const TOPICS = [
+  { id: 'antiderivativas',              name: 'Antiderivadas',                     icon: '∫', file: 'data/antiderivatives.json',       parcial: 1, desc: 'Regla de potencias y propiedades básicas' },
+  { id: 'integrales-inmediatas',        name: 'Integrales Inmediatas',             icon: '⚡', file: 'data/immediate_integrals.json',    parcial: 1, desc: 'Fórmulas directas: exp, trig, ln' },
+  { id: 'cambio-variable',              name: 'Cambio de Variable',                icon: '🔄', file: 'data/cambio_variable.json',        parcial: 1, desc: 'Integrales reducibles por cambio de variable' },
+  { id: 'optimizacion',                 name: 'Optimización',                      icon: '📈', file: 'data/optimization.json',           parcial: 1, desc: 'Máximos y mínimos de funciones' },
+  { id: 'concavidad',                   name: 'Concavidad',                        icon: '〰️', file: 'data/optimization.json',           parcial: 1, desc: 'Segunda derivada y puntos de inflexión' },
+  { id: 'inversas-trigonometricas',     name: 'Inversas Trigonométricas',          icon: '📐', file: 'data/inverse_trig.json',           parcial: 2, desc: 'arcsin, arctan, arcsec' },
+  { id: 'sustitucion',                  name: 'Sustitución',                       icon: '🔀', file: 'data/substitution.json',           parcial: 2, desc: 'Sustitución trigonométrica y algebraica' },
+  { id: 'integrales-definidas',         name: 'Integrales Definidas',              icon: '📊', file: 'data/definite_integrals.json',     parcial: 2, desc: 'Teorema Fundamental del Cálculo' },
+  { id: 'integracion-por-partes',       name: 'Integración por Partes',            icon: '✂️', file: 'data/integration_by_parts.json',   parcial: 2, desc: 'Fórmula ∫u dv = uv - ∫v du' },
+  { id: 'metodo-tabular',              name: 'Método Tabular',                    icon: '📋', file: 'data/metodo_tabular.json',          parcial: 2, desc: 'Integración por partes repetida' },
+  { id: 'fracciones-parciales-caso1',   name: 'Fracciones Parciales: Caso 1',      icon: '1️⃣', file: 'data/partial_fractions.json',      parcial: 2, desc: 'Factores lineales distintos' },
+  { id: 'fracciones-parciales-caso2',   name: 'Fracciones Parciales: Caso 2',      icon: '2️⃣', file: 'data/partial_fractions.json',      parcial: 2, desc: 'Factores lineales repetidos' },
+  { id: 'fracciones-parciales-caso3',   name: 'Fracciones Parciales: Caso 3',      icon: '3️⃣', file: 'data/partial_fractions.json',      parcial: 2, desc: 'Factores cuadráticos irreducibles' },
+  { id: 'aplicaciones-integrales-definidas', name: 'Aplicaciones de Integrales',  icon: '🌊', file: 'data/definite_integrals.json',     parcial: 2, desc: 'Áreas, volúmenes y más' },
+];
+
+const TECHNIQUES = [
+  { id: 'regla-potencia',           name: 'Regla de Potencias',          icon: '📐' },
+  { id: 'formula-inmediata',        name: 'Integral Inmediata',          icon: '⚡' },
+  { id: 'cambio-variable',          name: 'Cambio de Variable',          icon: '🔄' },
+  { id: 'sustitucion',              name: 'Sustitución (u-sub)',         icon: '🔀' },
+  { id: 'integracion-por-partes',   name: 'Integración por Partes',      icon: '✂️' },
+  { id: 'metodo-tabular',          name: 'Método Tabular',              icon: '📋' },
+  { id: 'fracciones-parciales',     name: 'Fracciones Parciales',        icon: '🧩' },
+  { id: 'formula-inversa-trig',     name: 'Fórmula Inversa Trig.',       icon: '📐' },
+  { id: 'teorema-fundamental',      name: 'Teorema Fundamental',         icon: '📊' },
+  { id: 'area-entre-curvas',        name: 'Área entre Curvas',           icon: '🌊' },
+  { id: 'optimizacion',             name: 'Optimización',                icon: '📈' },
+  { id: 'concavidad',               name: 'Concavidad / Inflexión',      icon: '〰️' },
+];
+
+// ── Data Loading ──
+async function loadAllData() {
+  App.exercises = JSON.parse(JSON.stringify(EXERCISE_DATA));
+  App.formulas  = JSON.parse(JSON.stringify(FORMULA_DATA));
+}
+
+function getExercisesForTopic(topicId, count = null, excludeRecent = false) {
+  let pool = App.exercises[topicId] || [];
+  if (excludeRecent) {
+    const recent = Progress.get().recentExercises.slice(0, 5);
+    pool = pool.filter(e => !recent.includes(e.id));
+    if (!pool.length) pool = App.exercises[topicId] || [];
+  }
+  pool = [...pool].sort(() => Math.random() - 0.5);
+  return count ? pool.slice(0, count) : pool;
+}
+
+function getAllExercises(count = 10) {
+  const all = Object.values(App.exercises).flat();
+  return [...all].sort(() => Math.random() - 0.5).slice(0, count);
+}
+
+// ── MathJax ──
+function renderMath(container = document) {
+  if (window.MathJax && MathJax.typesetPromise) {
+    const nodes = container === document ? [document.body] : [container];
+    MathJax.typesetPromise(nodes).catch(e => console.warn('MathJax error', e));
+  }
+}
+
+// ── Toast Notifications ──
+function showToast(msg, type = 'info', icon = '💡') {
+  const tc = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<span class="toast-icon">${icon}</span><span>${msg}</span>`;
+  tc.appendChild(t);
+  setTimeout(() => { t.classList.add('leaving'); setTimeout(() => t.remove(), 300); }, 3000);
+}
+
+function showXPGain(amount, x, y) {
+  const el = document.createElement('div');
+  el.className = 'xp-popup';
+  el.textContent = `+${amount} XP`;
+  el.style.left = `${x}px`;
+  el.style.top  = `${y}px`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1600);
+}
+
+function showAchievement(ach) {
+  showToast(`🏆 Logro desbloqueado: <strong>${ach.name}</strong> ${ach.emoji}`, 'xp', ach.emoji);
+}
+
+// ── Confetti ──
+function launchConfetti(count = 60) {
+  const colors = ['#6c63ff','#ff6584','#43d9ad','#ffd166','#ff9f43'];
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `
+      left: ${Math.random()*100}vw;
+      top: -20px;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      width: ${6+Math.random()*8}px;
+      height: ${6+Math.random()*8}px;
+      animation-duration: ${1.5+Math.random()*2}s;
+      animation-delay: ${Math.random()*0.5}s;
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+}
+
+// ── Sidebar & Nav ──
+function updateSidebarStats() {
+  const s = Progress.get();
+  const rank = Progress.getRank();
+  const xpInfo = Progress.getXPToNext();
+
+  document.getElementById('xp-bar-fill').style.width = `${xpInfo.pct}%`;
+  document.getElementById('xp-current').textContent = `${xpInfo.current} / ${xpInfo.needed} XP`;
+  document.getElementById('rank-icon').textContent = rank.icon;
+  document.getElementById('rank-name').textContent = rank.name;
+  document.getElementById('rank-level').textContent = `Nivel ${rank.level}`;
+  document.getElementById('stat-streak').textContent = s.streak;
+  document.getElementById('stat-correct').textContent = s.totalCorrect;
+  document.getElementById('stat-xp-total').textContent = s.totalXP;
+}
+
+function setActiveNav(view) {
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.view === view);
+  });
+}
+
+// ── Router ──
+function navigate(view, params = {}) {
+  App.currentView = view;
+  setActiveNav(view);
+  document.getElementById('page-content').innerHTML = '';
+
+  const views = {
+    'dashboard':      renderDashboard,
+    'mapa':           renderTopicMap,
+    'practica':       renderPractice,
+    'flashcards':     renderFlashcards,
+    'formulario':     renderFormulaBook,
+    'logros':         renderAchievements,
+    'examen':         renderExamSetup,
+    'configuracion':  renderSettings,
+    'topic':          () => renderTopicDetail(params.topic),
+    'boss':           () => renderBossBattle(params.topic),
+  };
+
+  const fn = views[view];
+  if (fn) fn();
+  else renderDashboard();
+
+  updateSidebarStats();
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Dashboard
+// ══════════════════════════════════════════════
+function renderDashboard() {
+  document.getElementById('topbar-title').textContent = 'Panel Principal';
+  const s = Progress.get();
+  const rank = Progress.getRank();
+  const accuracy = s.totalAttempted ? Math.round((s.totalCorrect / s.totalAttempted) * 100) : 0;
+
+  const masteryItems = TOPICS.slice(0, 6).map(t => {
+    const pct = Progress.getMastery(t.id);
+    const color = pct >= 80 ? 'green' : pct >= 50 ? 'gradient' : 'blue';
+    return `
+      <div class="mastery-item">
+        <span class="mastery-name">${t.icon} ${t.name}</span>
+        <div class="mastery-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill ${color}" style="width:${pct}%"></div></div>
+        </div>
+        <span class="mastery-pct">${pct}%</span>
+      </div>`;
+  }).join('');
+
+  const recentTopics = TOPICS.filter(t => Progress.isTopicUnlocked(t.id)).slice(0, 4);
+  const quickCards = recentTopics.map(t => `
+    <div class="card card-sm" style="cursor:pointer" onclick="navigate('topic', {topic:'${t.id}'})">
+      <div style="font-size:2rem;margin-bottom:8px">${t.icon}</div>
+      <div style="font-weight:700;font-size:0.9rem;color:var(--text)">${t.name}</div>
+      <div class="mt-2">
+        <div class="progress-bar"><div class="progress-fill gradient" style="width:${Progress.getMastery(t.id)}%"></div></div>
+      </div>
+      <div class="text-xs text-muted mt-2">${Progress.getMastery(t.id)}% dominio</div>
+    </div>`).join('');
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <div class="dashboard-hero">
+        <div class="hero-greeting">// Bienvenido de vuelta 👋</div>
+        <h1 class="hero-title"><span class="gradient-text">CalcQuest</span></h1>
+        <p>Rango: <strong>${rank.icon} ${rank.name}</strong> &nbsp;·&nbsp; ${s.totalXP} XP &nbsp;·&nbsp; Racha de ${s.streak} día${s.streak !== 1 ? 's' : ''} 🔥</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" onclick="navigate('practica')">🎮 Practicar Ahora</button>
+          <button class="btn btn-secondary btn-lg" onclick="navigate('examen')">📝 Simulacro</button>
+          <button class="btn btn-ghost btn-lg" onclick="navigate('mapa')">🗺️ Progreso</button>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-value">${s.totalCorrect}</div>
+          <div class="stat-label">Correctas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-value">${accuracy}%</div>
+          <div class="stat-label">Precisión</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-value">${s.streak}</div>
+          <div class="stat-label">Días Racha</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚔️</div>
+          <div class="stat-value">${s.bossesBeaten}</div>
+          <div class="stat-label">Jefes</div>
+        </div>
+      </div>
+
+      <!-- Quick Practice Widget -->
+      <div id="dash-quick-ex" style="margin-bottom:28px"></div>
+
+      <div class="grid-2" style="gap:24px">
+        <div class="card">
+          <h3 style="margin-bottom:16px">📊 Dominio por Tema</h3>
+          ${masteryItems}
+          <button class="btn btn-ghost btn-sm mt-4 w-full" onclick="navigate('mapa')">Ver todos los temas →</button>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:16px">⚡ Acceso Rápido</h3>
+          <div class="grid-2">${quickCards}</div>
+          <div class="mt-4" style="display:flex;gap:12px;flex-direction:column">
+            <button class="btn btn-secondary w-full" onclick="navigate('flashcards')">🃏 Flashcards</button>
+            <button class="btn btn-secondary w-full" onclick="navigate('formulario')">📚 Formulario</button>
+            <button class="btn btn-gold w-full" onclick="startDailyChallenge()">⭐ Desafío Diario</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  renderMath(document.getElementById('page-content'));
+  renderDashboardQuickEx();
+}
+
+// ══════════════════════════════════════════════
+//  Dashboard Quick Exercise Widget
+// ══════════════════════════════════════════════
+function renderDashboardQuickEx() {
+  const area = document.getElementById('dash-quick-ex');
+  if (!area) return;
+
+  // Pick a random exercise from unlocked topics
+  const unlocked = TOPICS.filter(t => Progress.isTopicUnlocked(t.id));
+  const pool = unlocked.flatMap(t => App.exercises[t.id] || []);
+  if (!pool.length) return;
+
+  const ex = pool[Math.floor(Math.random() * pool.length)];
+  const topic = TOPICS.find(t => t.id === ex.topic);
+  App.currentExercise = ex;
+
+  const diffLabel = ['','Fácil','Medio','Difícil','Experto'][ex.difficulty] || 'Medio';
+  const diffTag   = `tag-diff-${ex.difficulty}`;
+
+  area.innerHTML = `
+    <div class="quick-ex-card">
+      <div class="quick-ex-label">⚡ Ejercicio Rápido — practica ahora mismo</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <span style="font-size:1.6rem">${topic?.icon || '∫'}</span>
+        <div>
+          <div style="font-weight:700;font-size:1rem;color:var(--text)">${topic?.name || ex.topic}</div>
+          <span class="tag ${diffTag}">${diffLabel}</span>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="renderDashboardQuickEx()" title="Nuevo ejercicio">🔀 Otro</button>
+      </div>
+
+      <div class="exercise-question" id="dash-ex-q">\\[${ex.questionLatex}\\]</div>
+
+      <div id="dash-ex-tech" style="margin-bottom:12px">
+        <div style="font-size:0.82rem;color:var(--text3);margin-bottom:10px;font-family:var(--font-mono)">→ Identifica la técnica correcta:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          ${TECHNIQUES.map(t => `
+            <button class="btn btn-ghost btn-sm dash-tech-btn" data-tech="${t.id}"
+              onclick="dashSelectTech(this,'${t.id}','${ex.method}','${ex.id}')">
+              ${t.icon} ${t.name}
+            </button>`).join('')}
+        </div>
+      </div>
+
+      <div id="dash-ex-solve" class="hidden">
+        <div class="answer-area">
+          <input type="text" class="answer-input" id="dash-ex-input"
+            placeholder="Escribe tu respuesta…" style="font-size:0.9rem" />
+          <button class="btn btn-primary" onclick="dashCheckAnswer('${ex.id}','${ex.topic}')">✓ Verificar</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="dashShowHint(0)" id="dash-hint-btn">💡 Pista</button>
+          <button class="btn btn-ghost btn-sm" onclick="dashRevealAnswer('${ex.id}')">👁️ Respuesta</button>
+        </div>
+        <div id="dash-hint-area"></div>
+      </div>
+      <div id="dash-ex-feedback" class="mt-4"></div>
+    </div>
+  `;
+
+  renderMath(area);
+}
+
+let dashHintIdx = 0;
+
+function dashSelectTech(btn, techId, correctMethod, exId) {
+  document.querySelectorAll('.dash-tech-btn').forEach(b => b.classList.remove('btn-primary'));
+
+  const isCorrect = techId === correctMethod ||
+    (correctMethod.includes('fracciones') && techId === 'fracciones-parciales') ||
+    (correctMethod === 'cambio-variable' && techId === 'cambio-variable') ||
+    (correctMethod === 'teorema-fundamental' && techId === 'teorema-fundamental') ||
+    (correctMethod === 'area-entre-curvas' && techId === 'area-entre-curvas');
+
+  if (isCorrect) {
+    btn.classList.add('btn-primary');
+    showToast('¡Técnica correcta! Ahora resuelve.', 'success', '✅');
+    document.getElementById('dash-ex-tech').classList.add('hidden');
+    document.getElementById('dash-ex-solve').classList.remove('hidden');
+    dashHintIdx = 0;
+  } else {
+    btn.style.borderColor = 'var(--error)';
+    btn.style.color = 'var(--error)';
+    setTimeout(() => {
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 1200);
+    showToast('Técnica incorrecta. Intenta otra.', 'error', '❌');
+  }
+}
+
+function dashCheckAnswer(exId, topicId) {
+  const ex = App.currentExercise;
+  if (!ex) return;
+  const val = (document.getElementById('dash-ex-input')?.value || '').trim();
+  if (!val) return;
+
+  const correct = normalizeAnswer(val) === normalizeAnswer(ex.answerLatex) ||
+    normalizeAnswer(ex.answerLatex).includes(normalizeAnswer(val));
+
+  const fb = document.getElementById('dash-ex-feedback');
+  const input = document.getElementById('dash-ex-input');
+
+  if (correct) {
+    input?.classList.add('correct');
+    fb.innerHTML = `<div class="feedback-correct"><span>🎉</span><div><strong>¡Correcto!</strong><br><span style="font-size:0.82rem">Respuesta: \\(${ex.answerLatex}\\)</span></div></div>`;
+    const xp = [0,10,20,35,50][ex.difficulty] || 10;
+    const newAchs = Progress.recordExercise(exId, topicId, true, ex.difficulty);
+    updateSidebarStats();
+    newAchs.forEach(a => showAchievement(a));
+    showToast(`+${xp} XP ganados 🌟`, 'xp', '⭐');
+    // Load new exercise after delay
+    setTimeout(() => renderDashboardQuickEx(), 2500);
+  } else {
+    input?.classList.add('incorrect');
+    fb.innerHTML = `<div class="feedback-incorrect"><span>❌</span><strong>Incorrecto. ¡Inténtalo de nuevo!</strong></div>`;
+    Progress.recordExercise(exId, topicId, false, ex.difficulty);
+    updateSidebarStats();
+    setTimeout(() => {
+      input?.classList.remove('incorrect');
+      fb.innerHTML = '';
+    }, 1800);
+  }
+  renderMath(fb);
+}
+
+function dashShowHint(idx) {
+  const ex = App.currentExercise;
+  if (!ex?.hints?.length) return;
+  const hint = ex.hints[dashHintIdx];
+  if (!hint) return;
+  dashHintIdx++;
+
+  const area = document.getElementById('dash-hint-area');
+  const box = document.createElement('div');
+  box.className = 'hint-box mt-2';
+  box.innerHTML = `<div class="hint-title">Pista ${dashHintIdx}</div><div>${hint}</div>`;
+  area?.appendChild(box);
+
+  const btn = document.getElementById('dash-hint-btn');
+  if (btn && dashHintIdx >= ex.hints.length) { btn.disabled = true; btn.textContent = '💡 Sin más pistas'; }
+
+  renderMath(area);
+}
+
+function dashRevealAnswer(exId) {
+  const ex = App.currentExercise;
+  if (!ex) return;
+  const fb = document.getElementById('dash-ex-feedback');
+  fb.innerHTML = `
+    <div class="card" style="margin-top:12px;padding:16px">
+      <div style="font-size:0.8rem;color:var(--text3);font-family:var(--font-mono);margin-bottom:8px">RESPUESTA</div>
+      <div class="math-display">\\[${ex.answerLatex}\\]</div>
+      <button class="btn btn-ghost btn-sm mt-4" onclick="renderDashboardQuickEx()">🔀 Siguiente ejercicio</button>
+    </div>`;
+  renderMath(fb);
+  Progress.recordExercise(exId, ex.topic, false, ex.difficulty);
+  updateSidebarStats();
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Topic Map
+// ══════════════════════════════════════════════
+function renderTopicMap() {
+  document.getElementById('topbar-title').textContent = 'Mapa de Temas';
+
+  const p1Topics = TOPICS.filter(t => t.parcial === 1);
+  const p2Topics = TOPICS.filter(t => t.parcial === 2);
+
+  function renderNode(t) {
+    const unlocked = Progress.isTopicUnlocked(t.id);
+    const mastery  = Progress.getMastery(t.id);
+    const mastered = mastery >= 90;
+    const inProg   = mastery > 0 && !mastered;
+
+    const statusClass = !unlocked ? 'locked' : mastered ? 'mastered' : inProg ? 'in-progress' : '';
+    const iconClass   = !unlocked ? 'locked' : mastered ? 'mastered' : 'unlocked';
+    const lockIcon    = !unlocked ? '🔒' : t.icon;
+
+    return `
+      <div class="topic-node ${statusClass}" onclick="${unlocked ? `navigate('topic',{topic:'${t.id}'})` : "showToast('Completa los temas anteriores primero 🔒','error','🔒')"}">
+        <div class="topic-icon ${iconClass}">${lockIcon}</div>
+        <div class="topic-info">
+          <div class="topic-name">${t.name}</div>
+          <div class="topic-desc">${t.desc}</div>
+        </div>
+        <div class="topic-progress-wrap">
+          <div style="flex:1">
+            <div class="progress-bar"><div class="progress-fill ${mastered?'green':'gradient'}" style="width:${mastery}%"></div></div>
+          </div>
+          <span class="topic-pct">${mastery}%</span>
+        </div>
+        ${mastered ? '<span class="tag tag-success">✓ Dominado</span>' : ''}
+        ${!unlocked ? '<span class="tag tag-error">🔒</span>' : ''}
+      </div>`;
+  }
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <h2 style="margin-bottom:8px">🗺️ Mapa de Progreso</h2>
+      <p class="mb-6">Completa cada tema para desbloquear los siguientes. ¡Vence al Jefe Final de cada tema para avanzar!</p>
+      <div class="topic-map">
+        <div class="map-section-title">📘 Parcial 1</div>
+        ${p1Topics.map((t, i) => renderNode(t) + (i < p1Topics.length - 1 ? '<div class="topic-connector"></div>' : '')).join('')}
+        <div class="map-section-title" style="margin-top:32px">📗 Parcial 2</div>
+        ${p2Topics.map((t, i) => renderNode(t) + (i < p2Topics.length - 1 ? '<div class="topic-connector"></div>' : '')).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Topic Detail
+// ══════════════════════════════════════════════
+function renderTopicDetail(topicId) {
+  const topic = TOPICS.find(t => t.id === topicId);
+  if (!topic) { navigate('mapa'); return; }
+
+  document.getElementById('topbar-title').textContent = topic.name;
+  const mastery = Progress.getMastery(topicId);
+  const exercises = getExercisesForTopic(topicId);
+
+  // Related formulas
+  const relFormulas = [];
+  if (App.formulas) {
+    Object.values(App.formulas).forEach(cat => {
+      if (Array.isArray(cat)) {
+        cat.forEach(f => { if (f.temasRelacionados?.includes(topicId)) relFormulas.push(f); });
+      }
+    });
+  }
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+        <button class="btn btn-ghost btn-sm" onclick="navigate('mapa')">← Volver</button>
+        <div style="font-size:2.5rem">${topic.icon}</div>
+        <div>
+          <h2 style="margin:0">${topic.name}</h2>
+          <p style="margin:0">${topic.desc}</p>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div class="stat-value" style="font-size:1.5rem;color:var(--primary)">${mastery}%</div>
+          <div class="text-xs text-muted">dominio</div>
+        </div>
+      </div>
+
+      <div class="tab-bar" id="topic-tabs">
+        <button class="tab-btn active" onclick="switchTopicTab('teoria',this)">📖 Teoría</button>
+        <button class="tab-btn" onclick="switchTopicTab('practica',this)">🎮 Practicar</button>
+        <button class="tab-btn" onclick="switchTopicTab('formulas',this)">📐 Fórmulas</button>
+        <button class="tab-btn" onclick="switchTopicTab('boss',this)">⚔️ Batalla Jefe</button>
+      </div>
+
+      <div id="topic-tab-content">
+        <!-- teoria loaded by default -->
+      </div>
+    </div>
+  `;
+
+  loadTopicTab('teoria', topicId, exercises, relFormulas);
+}
+
+function switchTopicTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topicId = TOPICS.find(t => document.getElementById('topbar-title').textContent === t.name)?.id
+    || App.currentTopicId;
+  const exercises = getExercisesForTopic(topicId);
+  const relFormulas = [];
+  if (App.formulas) {
+    Object.values(App.formulas).forEach(cat => {
+      if (Array.isArray(cat)) cat.forEach(f => { if (f.temasRelacionados?.includes(topicId)) relFormulas.push(f); });
+    });
+  }
+  loadTopicTab(tab, topicId, exercises, relFormulas);
+}
+
+function loadTopicTab(tab, topicId, exercises, formulas) {
+  const c = document.getElementById('topic-tab-content');
+  App.currentTopicId = topicId;
+
+  if (tab === 'teoria') {
+    const theoryMap = {
+      'antiderivativas': `
+        <h3>¿Qué es una antiderivada?</h3>
+        <p>Una antiderivada (o integral indefinida) de \\(f(x)\\) es una función \\(F(x)\\) tal que \\(F'(x) = f(x)\\).</p>
+        <div class="math-display">\\[\\int f(x)\\,dx = F(x) + C\\]</div>
+        <h4 class="mt-4">Regla de Potencias</h4>
+        <div class="math-display">\\[\\int x^n\\,dx = \\frac{x^{n+1}}{n+1}+C, \\quad n \\neq -1\\]</div>
+        <p><strong>Ejemplo:</strong></p>
+        <div class="math-display">\\[\\int x^3\\,dx = \\frac{x^4}{4}+C\\]</div>`,
+      'sustitucion': `
+        <h3>Sustitución (Cambio de Variable)</h3>
+        <p>Técnica para integrar funciones compuestas. Si identificas una función interna \\(u = g(x)\\), el método consiste en:</p>
+        <ol style="margin:12px 0 12px 24px;color:var(--text2)">
+          <li>Elegir \\(u = g(x)\\)</li>
+          <li>Calcular \\(du = g'(x)\\,dx\\)</li>
+          <li>Reescribir la integral completamente en términos de \\(u\\)</li>
+          <li>Integrar en \\(u\\)</li>
+          <li>Sustituir de vuelta a \\(x\\)</li>
+        </ol>
+        <div class="math-display">\\[\\int f(g(x))\\,g'(x)\\,dx = \\int f(u)\\,du\\]</div>`,
+      'integracion-por-partes': `
+        <h3>Integración por Partes</h3>
+        <p>Derivada del producto en reversa. Se usa cuando la integración directa no es posible.</p>
+        <div class="math-display">\\[\\int u\\,dv = uv - \\int v\\,du\\]</div>
+        <h4 class="mt-4">Criterio LIATE para elegir u:</h4>
+        <ul style="margin:8px 0 8px 24px;color:var(--text2)">
+          <li><strong>L</strong>ogarítmica: \\(\\ln x\\)</li>
+          <li><strong>I</strong>nversa trigonométrica: \\(\\arctan x\\)</li>
+          <li><strong>A</strong>lgebraica: \\(x^n\\)</li>
+          <li><strong>T</strong>rigonométrica: \\(\\sin x, \\cos x\\)</li>
+          <li><strong>E</strong>xponencial: \\(e^x\\)</li>
+        </ul>`,
+      'integrales-inmediatas': `
+        <h3>Integrales Inmediatas</h3>
+        <p>Son integrales que se resuelven directamente aplicando una fórmula conocida, sin manipulación adicional.</p>
+        <h4 class="mt-4">Fórmulas esenciales:</h4>
+        <div class="math-display">\\[\\int e^x\\,dx = e^x+C\\]</div>
+        <div class="math-display">\\[\\int \\sin x\\,dx = -\\cos x+C\\]</div>
+        <div class="math-display">\\[\\int \\cos x\\,dx = \\sin x+C\\]</div>
+        <div class="math-display">\\[\\int \\frac{1}{x}\\,dx = \\ln|x|+C\\]</div>
+        <div class="math-display">\\[\\int \\sec^2 x\\,dx = \\tan x+C\\]</div>`,
+      'cambio-variable': `
+        <h3>Cambio de Variable</h3>
+        <p>Técnica para simplificar integrales identificando una función interna.</p>
+        <ol style="margin:12px 0 12px 24px;color:var(--text2)">
+          <li>Elige \\(u = g(x)\\) (función interna)</li>
+          <li>Calcula \\(du = g'(x)\\,dx\\)</li>
+          <li>Reescribe la integral en términos de \\(u\\)</li>
+          <li>Integra</li>
+          <li>Sustituye de vuelta a \\(x\\)</li>
+        </ol>
+        <div class="math-display">\\[\\int f(g(x))\\,g'(x)\\,dx = \\int f(u)\\,du\\]</div>`,
+      'optimizacion': `
+        <h3>Optimización</h3>
+        <p>Proceso de encontrar el valor máximo o mínimo de una función.</p>
+        <ol style="margin:12px 0 12px 24px;color:var(--text2)">
+          <li>Construye la función objetivo \\(f(x)\\)</li>
+          <li>Deriva e iguala a cero: \\(f'(x)=0\\)</li>
+          <li>Clasifica: si \\(f''(x_0)>0\\) → mínimo; \\(f''(x_0)<0\\) → máximo</li>
+        </ol>
+        <div class="math-display">\\[f'(x_0)=0 \\text{ y } f''(x_0)<0 \\Rightarrow \\text{máximo local}\\]</div>`,
+      'concavidad': `
+        <h3>Concavidad y Puntos de Inflexión</h3>
+        <p>La segunda derivada determina si la función es cóncava hacia arriba o hacia abajo.</p>
+        <div class="math-display">\\[f''(x)>0 \\Rightarrow \\text{cóncava arriba (sonriente \\smile)}\\]</div>
+        <div class="math-display">\\[f''(x)<0 \\Rightarrow \\text{cóncava abajo (triste \\frown)}\\]</div>
+        <h4 class="mt-4">Punto de inflexión:</h4>
+        <p>Punto donde \\(f''(x)=0\\) <strong>y cambia de signo</strong>. No todo cero de \\(f''\\) es punto de inflexión.</p>`,
+      'inversas-trigonometricas': `
+        <h3>Integrales con Inversas Trigonométricas</h3>
+        <p>Cuando el integrando tiene la forma adecuada, se aplican estas fórmulas directamente:</p>
+        <div class="math-display">\\[\\int \\frac{du}{\\sqrt{a^2-u^2}} = \\arcsin\\frac{u}{a}+C\\]</div>
+        <div class="math-display">\\[\\int \\frac{du}{a^2+u^2} = \\frac{1}{a}\\arctan\\frac{u}{a}+C\\]</div>
+        <div class="math-display">\\[\\int \\frac{du}{u\\sqrt{u^2-a^2}} = \\frac{1}{a}\\operatorname{arcsec}\\frac{|u|}{a}+C\\]</div>
+        <p class="mt-2">La clave es identificar \\(a\\) y \\(u\\) correctamente en el integrando.</p>`,
+      'integrales-definidas': `
+        <h3>Integrales Definidas</h3>
+        <p>Calculan el área neta bajo una curva entre dos límites \\(a\\) y \\(b\\).</p>
+        <div class="math-display">\\[\\int_a^b f(x)\\,dx = F(b)-F(a), \\quad F'(x)=f(x)\\]</div>
+        <h4 class="mt-4">Propiedades:</h4>
+        <div class="math-display">\\[\\int_a^b [f+g]\\,dx = \\int_a^b f\\,dx + \\int_a^b g\\,dx\\]</div>
+        <div class="math-display">\\[\\int_a^b cf\\,dx = c\\int_a^b f\\,dx\\]</div>
+        <div class="math-display">\\[\\int_a^a f\\,dx = 0, \\quad \\int_a^b f\\,dx = -\\int_b^a f\\,dx\\]</div>`,
+      'metodo-tabular': `
+        <h3>Método Tabular (DI-Method)</h3>
+        <p>Versión eficiente de la integración por partes cuando se necesitan múltiples aplicaciones.</p>
+        <p class="mt-2"><strong>Procedimiento:</strong></p>
+        <ul style="margin:8px 0 8px 24px;color:var(--text2)">
+          <li>Columna <strong>D</strong>: deriva repetidamente hasta llegar a 0</li>
+          <li>Columna <strong>I</strong>: antideriva repetidamente en cada fila</li>
+          <li>Signos alternan: \\(+, -, +, -, \\ldots\\)</li>
+          <li>Multiplica diagonalmente y suma</li>
+        </ul>
+        <div class="math-display">\\[\\int x^2 e^x\\,dx = x^2 e^x - 2xe^x + 2e^x+C\\]</div>`,
+      'fracciones-parciales-caso1': `
+        <h3>Fracciones Parciales – Caso 1</h3>
+        <p><strong>Factores lineales distintos:</strong> el denominador se factoriza en \\((a_1x+b_1)(a_2x+b_2)\\cdots\\)</p>
+        <div class="math-display">\\[\\frac{P(x)}{(x-a)(x-b)} = \\frac{A}{x-a} + \\frac{B}{x-b}\\]</div>
+        <p class="mt-2">Multiplica por el denominador y sustituye valores convenientes de \\(x\\) para resolver \\(A, B, \\ldots\\)</p>`,
+      'fracciones-parciales-caso2': `
+        <h3>Fracciones Parciales – Caso 2</h3>
+        <p><strong>Factores lineales repetidos:</strong> si \\((x-a)^n\\) aparece, incluye un término por cada potencia.</p>
+        <div class="math-display">\\[\\frac{P(x)}{(x-a)^2(x-b)} = \\frac{A}{x-a} + \\frac{B}{(x-a)^2} + \\frac{C}{x-b}\\]</div>
+        <p class="mt-2">El factor \\(\\frac{B}{(x-a)^2}\\) se integra como \\(B\\int(x-a)^{-2}\\,dx = -\\frac{B}{x-a}+C\\).</p>`,
+      'fracciones-parciales-caso3': `
+        <h3>Fracciones Parciales – Caso 3</h3>
+        <p><strong>Factor cuadrático irreducible:</strong> \\(ax^2+bx+c\\) con \\(\\Delta = b^2-4ac < 0\\)</p>
+        <div class="math-display">\\[\\frac{P(x)}{(x-a)(x^2+px+q)} = \\frac{A}{x-a} + \\frac{Bx+C}{x^2+px+q}\\]</div>
+        <p class="mt-2">Para integrar la fracción cuadrática, completa el cuadrado y aplica la fórmula del arctan.</p>`,
+      'aplicaciones-integrales-definidas': `
+        <h3>Aplicaciones de Integrales Definidas</h3>
+        <h4>Área entre curvas:</h4>
+        <div class="math-display">\\[A = \\int_a^b [f(x)-g(x)]\\,dx \\quad (f \\geq g \\text{ en } [a,b])\\]</div>
+        <h4 class="mt-4">Volumen – Método de discos:</h4>
+        <div class="math-display">\\[V = \\pi\\int_a^b [f(x)]^2\\,dx\\]</div>
+        <h4 class="mt-4">Estrategia:</h4>
+        <ol style="margin:8px 0 8px 24px;color:var(--text2)">
+          <li>Encuentra los límites (raíces o intersecciones)</li>
+          <li>Determina cuál función es mayor</li>
+          <li>Integra</li>
+        </ol>`,
+      'default': `<h3>Teoría del tema</h3>
+        <p>Estudia las fórmulas relacionadas y practica los ejercicios para dominar este tema.</p>`
+    };
+    c.innerHTML = `
+      <div class="card">
+        ${theoryMap[topicId] || theoryMap['default']}
+        <div class="mt-4">
+          <button class="btn btn-primary" onclick="switchTopicTab('practica', document.querySelectorAll('.tab-btn')[1])">
+            ▶ Empezar a Practicar
+          </button>
+        </div>
+      </div>`;
+  }
+
+  else if (tab === 'practica') {
+    if (!exercises.length) {
+      c.innerHTML = '<div class="card text-center"><p>No hay ejercicios disponibles para este tema aún.</p></div>';
+    } else {
+      c.innerHTML = '<div id="exercise-area"></div>';
+      loadNextExercise(exercises, 0, topicId);
+    }
+  }
+
+  else if (tab === 'formulas') {
+    if (!formulas.length) {
+      c.innerHTML = '<div class="card text-center"><p>Fórmulas próximamente.</p></div>';
+    } else {
+      c.innerHTML = `<div class="formula-grid">
+        ${formulas.map(f => `
+          <div class="formula-card">
+            <div class="formula-header">
+              <span>📐</span>
+              <span class="formula-name">${f.nombre}</span>
+            </div>
+            <div class="formula-body">
+              <div class="math-display">\\[${f.formulaLatex}\\]</div>
+              <div class="formula-desc">${f.descripcion}</div>
+              <div class="formula-example"><strong>Ejemplo:</strong><br>\\(${f.ejemplo}\\)</div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    }
+  }
+
+  else if (tab === 'boss') {
+    c.innerHTML = `
+      <div class="card text-center">
+        <div style="font-size:4rem;margin-bottom:16px">⚔️</div>
+        <h3>Batalla Jefe: ${TOPICS.find(t=>t.id===topicId)?.name}</h3>
+        <p class="mt-2">Demuestra que dominas el tema. Responde <strong>5 preguntas</strong> con errores limitados.</p>
+        <ul style="text-align:left;margin:16px auto;max-width:300px;color:var(--text2)">
+          <li>⏱️ Sin tiempo límite</li>
+          <li>❤️ 3 vidas</li>
+          <li>🏆 Desbloquea el siguiente tema</li>
+          <li>⭐ 150 XP de recompensa</li>
+        </ul>
+        <button class="btn btn-primary btn-lg" onclick="navigate('boss',{topic:'${topicId}'})">⚔️ ¡Iniciar Batalla!</button>
+      </div>`;
+  }
+
+  renderMath(c);
+}
+
+// ══════════════════════════════════════════════
+//  Exercise Engine
+// ══════════════════════════════════════════════
+function loadNextExercise(exercises, index, topicId) {
+  const area = document.getElementById('exercise-area');
+  if (!area) return;
+  if (index >= exercises.length) {
+    area.innerHTML = `
+      <div class="card text-center">
+        <div style="font-size:3rem;margin-bottom:16px">🎉</div>
+        <h3>¡Completaste todos los ejercicios!</h3>
+        <p class="mt-2">Tu dominio del tema ha mejorado. ¡Sigue practicando!</p>
+        <div class="mt-4" style="display:flex;gap:12px;justify-content:center">
+          <button class="btn btn-primary" onclick="loadNextExercise([...${JSON.stringify(exercises)}], 0, '${topicId}')">🔄 Repetir</button>
+          <button class="btn btn-gold" onclick="navigate('boss',{topic:'${topicId}'})">⚔️ Batalla Jefe</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const ex = exercises[index];
+  App.currentExercise = ex;
+
+  const diffLabel = ['','Fácil','Medio','Difícil','Experto'][ex.difficulty] || 'Medio';
+  const diffTag   = `tag-diff-${ex.difficulty}`;
+
+  const techOptions = TECHNIQUES.map(t => `
+    <div class="technique-card" data-tech="${t.id}" onclick="selectTechnique(this,'${t.id}','${ex.method}')">
+      <div class="technique-icon">${t.icon}</div>
+      <div class="technique-name">${t.name}</div>
+    </div>`).join('');
+
+  area.innerHTML = `
+    <div class="exercise-card">
+      <div class="exercise-header">
+        <span class="tag ${diffTag}">${diffLabel}</span>
+        <span class="tag tag-primary">${ex.topic}</span>
+        <span style="margin-left:auto;font-size:0.8rem;color:var(--text3);font-family:var(--font-mono)">${index+1} / ${exercises.length}</span>
+      </div>
+      <div class="exercise-body">
+        <h4 style="margin-bottom:12px">Identifica la técnica:</h4>
+        <div class="exercise-question">\\[${ex.questionLatex}\\]</div>
+
+        <div id="tech-phase">
+          <p class="text-sm text-muted mb-4">¿Cuál es el método correcto para resolver esta integral?</p>
+          <div class="technique-grid">${techOptions}</div>
+        </div>
+
+        <div id="solve-phase" class="hidden">
+          <h4 style="margin-bottom:8px">Resuelve la integral:</h4>
+          <div class="answer-area">
+            <input type="text" class="answer-input" id="answer-input" placeholder="Escribe tu respuesta en LaTeX o texto..." />
+            <button class="btn btn-primary" onclick="checkAnswer('${ex.id}','${topicId}',${index},${JSON.stringify(exercises).replace(/'/g,"\\'")})" >✓ Verificar</button>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+            <button class="btn btn-ghost btn-sm" onclick="showHint(0)" id="hint-btn">💡 Pista 1</button>
+            <button class="btn btn-ghost btn-sm" onclick="showSolution('${ex.id}','${topicId}',${index},${JSON.stringify(exercises).replace(/'/g,"\\'")})" >👁️ Ver Solución</button>
+          </div>
+          <div id="hint-area"></div>
+          <div id="feedback-area" class="mt-4"></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderMath(area);
+}
+
+let currentHintIndex = 0;
+
+function selectTechnique(el, techId, correctMethod) {
+  document.querySelectorAll('.technique-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+
+  setTimeout(() => {
+    const isCorrect = techId === correctMethod ||
+      (correctMethod === 'formula-inmediata' && techId === 'formula-inmediata') ||
+      (correctMethod === 'sustitucion' && techId === 'sustitucion') ||
+      (correctMethod === 'cambio-variable' && techId === 'sustitucion') ||
+      (correctMethod === 'cambio-variable' && techId === 'cambio-variable') ||
+      (correctMethod === 'teorema-fundamental' && techId === 'teorema-fundamental') ||
+      (correctMethod === 'area-entre-curvas' && techId === 'area-entre-curvas') ||
+      (correctMethod === 'metodo-tabular' && techId === 'metodo-tabular') ||
+      (correctMethod.includes('fracciones') && techId === 'fracciones-parciales') ||
+      (correctMethod.includes('fracciones-parciales') && techId.includes('fracciones'));
+
+    if (isCorrect) {
+      el.classList.add('correct');
+      showToast('¡Técnica correcta! Ahora resuelve la integral.', 'success', '✅');
+      document.getElementById('tech-phase').classList.add('hidden');
+      document.getElementById('solve-phase').classList.remove('hidden');
+      currentHintIndex = 0;
+    } else {
+      el.classList.add('incorrect');
+      const reason = getTechniqueExplanation(techId, App.currentExercise?.method || correctMethod);
+      showToast(`Técnica incorrecta. ${reason}`, 'error', '❌');
+      setTimeout(() => {
+        el.classList.remove('incorrect', 'selected');
+      }, 1500);
+    }
+    renderMath(document.getElementById('exercise-area'));
+  }, 200);
+}
+
+function getTechniqueExplanation(chosen, correct) {
+  const explanations = {
+    'sustitucion': 'La sustitución se usa cuando hay una función compuesta con su derivada.',
+    'integracion-por-partes': 'Por partes se usa cuando hay un producto de funciones de tipos diferentes.',
+    'fracciones-parciales': 'Fracciones parciales se usa para integrales de funciones racionales.',
+    'formula-inmediata': 'Las fórmulas inmediatas son para integrales directas: exp, trig, ln.',
+    'regla-potencia': 'La regla de potencias aplica a x^n donde n ≠ -1.',
+    'formula-inversa-trig': 'Las fórmulas inversas trig se usan cuando el denominador es √(a²-u²) o a²+u².',
+  };
+  return explanations[correct] || 'Revisa las características de la integral.';
+}
+
+function showHint(idx) {
+  const ex = App.currentExercise;
+  if (!ex?.hints?.length) return;
+
+  const hints = ex.hints;
+  if (currentHintIndex >= hints.length) {
+    showToast('No hay más pistas disponibles.', 'info', '💡');
+    return;
+  }
+
+  const hintArea = document.getElementById('hint-area');
+  const hint = hints[currentHintIndex];
+  currentHintIndex++;
+
+  const box = document.createElement('div');
+  box.className = 'hint-box mt-2';
+  box.innerHTML = `<div class="hint-title">Pista ${currentHintIndex}</div><div>\\(${hint.includes('\\') ? hint : hint}\\)</div>`;
+  hintArea.appendChild(box);
+
+  const btn = document.getElementById('hint-btn');
+  if (btn && currentHintIndex < hints.length) {
+    btn.textContent = `💡 Pista ${currentHintIndex + 1}`;
+  } else if (btn) {
+    btn.textContent = '💡 Sin más pistas';
+    btn.disabled = true;
+  }
+
+  renderMath(hintArea);
+}
+
+function checkAnswer(exId, topicId, index, exercises) {
+  const input = document.getElementById('answer-input');
+  const val   = (input?.value || '').trim();
+  if (!val) { showToast('Escribe tu respuesta primero.', 'error', '⚠️'); return; }
+
+  const ex = App.currentExercise || exercises.find(e => e.id === exId);
+  if (!ex) return;
+
+  // Smart answer check
+  const correct = normalizeAnswer(val) === normalizeAnswer(ex.answerLatex) ||
+    val.toLowerCase().includes(normalizeAnswer(ex.answerLatex).toLowerCase()) ||
+    normalizeAnswer(ex.answerLatex).includes(normalizeAnswer(val));
+
+  const feedback = document.getElementById('feedback-area');
+
+  if (correct) {
+    input.classList.add('correct');
+    feedback.innerHTML = `
+      <div class="feedback-correct">
+        <span>🎉</span>
+        <div>
+          <strong>¡Correcto!</strong><br>
+          <span style="font-size:0.85rem">Respuesta: \\(${ex.answerLatex}\\)</span>
+        </div>
+      </div>`;
+
+    const newAchs = Progress.recordExercise(exId, topicId, true, ex.difficulty);
+    updateSidebarStats();
+    newAchs.forEach(a => showAchievement(a));
+
+    // XP popup
+    const xp = [0,10,20,35,50][ex.difficulty] || 10;
+    showToast(`+${xp} XP ganados 🌟`, 'xp', '⭐');
+
+    setTimeout(() => {
+      loadNextExercise(exercises, index + 1, topicId);
+    }, 2000);
+  } else {
+    input.classList.add('incorrect');
+    feedback.innerHTML = `
+      <div class="feedback-incorrect">
+        <span>❌</span>
+        <div>
+          <strong>Incorrecto.</strong><br>
+          <span style="font-size:0.85rem">Revisa tu respuesta e inténtalo de nuevo.</span>
+        </div>
+      </div>`;
+    Progress.recordExercise(exId, topicId, false, ex.difficulty);
+    updateSidebarStats();
+    setTimeout(() => {
+      input.classList.remove('incorrect');
+      feedback.innerHTML = '';
+    }, 2000);
+  }
+  renderMath(feedback);
+}
+
+function showSolution(exId, topicId, index, exercises) {
+  const ex = App.currentExercise || exercises.find(e => e.id === exId);
+  if (!ex) return;
+
+  const steps = (ex.steps || []).map((s, i) => `
+    <div class="step-item" id="step-${i}">
+      <div class="step-num">${i+1}</div>
+      <div class="step-content">\\[${s}\\]</div>
+    </div>`).join('');
+
+  const feedback = document.getElementById('feedback-area');
+  feedback.innerHTML = `
+    <div class="card" style="margin-top:16px">
+      <h4 style="margin-bottom:12px">📖 Solución Paso a Paso</h4>
+      <div class="step-list">${steps}</div>
+      <div class="mt-4">
+        <button class="btn btn-secondary btn-sm" onclick="loadNextExercise(${JSON.stringify(exercises).replace(/'/g,"\\'")} , ${index+1}, '${topicId}')">→ Siguiente ejercicio</button>
+      </div>
+    </div>`;
+
+  // Animate steps
+  setTimeout(() => {
+    document.querySelectorAll('.step-item').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 200);
+    });
+  }, 100);
+
+  renderMath(feedback);
+  Progress.recordExercise(exId, topicId, false, ex.difficulty);
+}
+
+function normalizeAnswer(ans) {
+  return (ans || '').replace(/\s+/g,'').replace(/\+C$/,'').replace(/\\,/g,'').toLowerCase();
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Practice Mode
+// ══════════════════════════════════════════════
+function renderPractice() {
+  document.getElementById('topbar-title').textContent = 'Modo Práctica';
+
+  const unlockedTopics = TOPICS.filter(t => Progress.isTopicUnlocked(t.id));
+
+  const topicBtns = unlockedTopics.map(t => `
+    <button class="btn btn-secondary" onclick="startTopicPractice('${t.id}')" style="justify-content:flex-start;gap:10px">
+      <span style="font-size:1.3rem">${t.icon}</span>
+      <span>${t.name}</span>
+      <span class="mastery-pct" style="margin-left:auto">${Progress.getMastery(t.id)}%</span>
+    </button>`).join('');
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <h2 style="margin-bottom:8px">🎮 Modo Práctica</h2>
+      <p class="mb-6">Elige un tema para practicar o inicia una sesión mixta.</p>
+
+      <div class="grid-2" style="gap:24px">
+        <div class="card">
+          <h3 style="margin-bottom:16px">Práctica por Tema</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">${topicBtns}</div>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:16px">Modos Especiales</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="card card-sm" style="cursor:pointer" onclick="startMixedPractice()">
+              <div style="font-size:1.5rem;margin-bottom:8px">🎲</div>
+              <div style="font-weight:700">Práctica Mixta</div>
+              <p class="text-sm text-muted">Ejercicios de todos los temas mezclados al azar.</p>
+            </div>
+            <div class="card card-sm" style="cursor:pointer" onclick="startWeaknessPractice()">
+              <div style="font-size:1.5rem;margin-bottom:8px">🎯</div>
+              <div style="font-weight:700">Practicar Debilidades</div>
+              <p class="text-sm text-muted">Ejercicios de los temas con menor dominio.</p>
+            </div>
+            <div class="card card-sm" style="cursor:pointer" onclick="navigate('examen')">
+              <div style="font-size:1.5rem;margin-bottom:8px">📝</div>
+              <div style="font-weight:700">Simulacro de Examen</div>
+              <p class="text-sm text-muted">Examen cronometrado con todos los temas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="practice-area" class="mt-6"></div>
+    </div>
+  `;
+}
+
+function startTopicPractice(topicId) {
+  const exercises = getExercisesForTopic(topicId, null, true);
+  if (!exercises.length) { showToast('No hay ejercicios disponibles para este tema.','error','❌'); return; }
+  navigate('topic', { topic: topicId });
+  setTimeout(() => {
+    switchTopicTab('practica', document.querySelectorAll('.tab-btn')[1]);
+  }, 100);
+}
+
+function startMixedPractice() {
+  const exercises = getAllExercises(10);
+  const area = document.getElementById('practice-area') || document.getElementById('page-content');
+  area.innerHTML = '<div id="exercise-area"></div>';
+  loadNextExercise(exercises, 0, 'mixto');
+  renderMath(area);
+}
+
+function startWeaknessPractice() {
+  const weakTopics = TOPICS.filter(t => Progress.isTopicUnlocked(t.id))
+    .sort((a,b) => Progress.getMastery(a.id) - Progress.getMastery(b.id))
+    .slice(0, 3).map(t => t.id);
+
+  const exercises = weakTopics.flatMap(id => getExercisesForTopic(id, 3)).sort(() => Math.random() - 0.5);
+  if (!exercises.length) { showToast('No hay ejercicios disponibles.','error','❌'); return; }
+
+  const area = document.getElementById('practice-area') || document.getElementById('page-content');
+  area.innerHTML = '<div id="exercise-area"></div>';
+  loadNextExercise(exercises, 0, 'debilidades');
+  renderMath(area);
+}
+
+function startDailyChallenge() {
+  const s = Progress.get();
+  const today = new Date().toDateString();
+  if (s.dailyChallengeDate === today && s.dailyChallengeCompleted) {
+    showToast('¡Ya completaste el desafío de hoy! Vuelve mañana 🌟','xp','⭐');
+    return;
+  }
+  const exercises = getAllExercises(5);
+  navigate('practica');
+  setTimeout(() => {
+    const area = document.getElementById('practice-area');
+    if (area) {
+      area.innerHTML = `
+        <div class="card" style="border-color:var(--gold);background:rgba(255,209,102,0.05)">
+          <h3 style="color:var(--gold)">⭐ Desafío Diario</h3>
+          <p class="text-sm text-muted mb-4">Completa estos 5 ejercicios para ganar bonus XP</p>
+          <div id="exercise-area"></div>
+        </div>`;
+      loadNextExercise(exercises, 0, 'daily');
+      renderMath(area);
+    }
+  }, 200);
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Boss Battle
+// ══════════════════════════════════════════════
+function renderBossBattle(topicId) {
+  const topic = TOPICS.find(t => t.id === topicId);
+  if (!topic) { navigate('mapa'); return; }
+
+  document.getElementById('topbar-title').textContent = `⚔️ Batalla Jefe: ${topic.name}`;
+
+  const exercises = getExercisesForTopic(topicId, 5);
+  if (exercises.length < 3) {
+    showToast('No hay suficientes ejercicios para la batalla jefe.','error','❌');
+    navigate('topic', { topic: topicId });
+    return;
+  }
+
+  App.bossState = { exercises, current: 0, lives: 3, score: 0, topicId };
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <div class="boss-battle-header">
+        <div class="boss-title">⚔️ BATALLA JEFE</div>
+        <h2 style="margin-bottom:4px">${topic.name}</h2>
+        <p class="text-muted">Demuestra tu dominio total del tema</p>
+        <div style="display:flex;justify-content:center;gap:24px;margin-top:16px">
+          <div><span id="boss-lives">❤️❤️❤️</span></div>
+          <div class="font-mono" style="color:var(--gold)">Pregunta <span id="boss-q-num">1</span>/5</div>
+          <div class="font-mono" style="color:var(--accent2)">Puntaje: <span id="boss-score">0</span></div>
+        </div>
+      </div>
+      <div id="boss-exercise-area"></div>
+    </div>
+  `;
+
+  loadBossQuestion();
+}
+
+function loadBossQuestion() {
+  const bs = App.bossState;
+  if (!bs) return;
+
+  if (bs.current >= bs.exercises.length || bs.lives <= 0) {
+    endBossBattle();
+    return;
+  }
+
+  document.getElementById('boss-q-num').textContent = bs.current + 1;
+  document.getElementById('boss-lives').textContent = '❤️'.repeat(bs.lives) + '🖤'.repeat(3 - bs.lives);
+  document.getElementById('boss-score').textContent = bs.score;
+
+  const ex = bs.exercises[bs.current];
+  App.currentExercise = ex;
+
+  const area = document.getElementById('boss-exercise-area');
+  area.innerHTML = `
+    <div class="exercise-card">
+      <div class="exercise-body">
+        <div class="exercise-question">\\[${ex.questionLatex}\\]</div>
+        <div class="answer-area">
+          <input type="text" class="answer-input" id="boss-answer" placeholder="Tu respuesta..." />
+          <button class="btn btn-primary" onclick="checkBossAnswer()">✓ Responder</button>
+        </div>
+        <div id="boss-feedback" class="mt-4"></div>
+      </div>
+    </div>
+  `;
+  renderMath(area);
+}
+
+function checkBossAnswer() {
+  const bs = App.bossState;
+  const ex = bs.exercises[bs.current];
+  const val = (document.getElementById('boss-answer')?.value || '').trim();
+  if (!val) return;
+
+  const correct = normalizeAnswer(val) === normalizeAnswer(ex.answerLatex) ||
+    normalizeAnswer(ex.answerLatex).includes(normalizeAnswer(val));
+
+  const fb = document.getElementById('boss-feedback');
+
+  if (correct) {
+    bs.score++;
+    fb.innerHTML = `<div class="feedback-correct"><span>🎉</span><strong>¡Correcto! +1 punto</strong></div>`;
+    setTimeout(() => {
+      bs.current++;
+      loadBossQuestion();
+    }, 1200);
+  } else {
+    bs.lives--;
+    fb.innerHTML = `<div class="feedback-incorrect"><span>❌</span><div><strong>Incorrecto.</strong> Respuesta: \\(${ex.answerLatex}\\)</div></div>`;
+    document.getElementById('boss-lives').textContent = '❤️'.repeat(bs.lives) + '🖤'.repeat(3 - bs.lives);
+
+    if (bs.lives <= 0) {
+      setTimeout(() => endBossBattle(), 1500);
+    } else {
+      setTimeout(() => {
+        bs.current++;
+        loadBossQuestion();
+      }, 2000);
+    }
+  }
+  renderMath(fb);
+}
+
+function endBossBattle() {
+  const bs = App.bossState;
+  const won = bs.score >= 3 && bs.lives > 0;
+
+  if (won) {
+    launchConfetti();
+    const newAchs = Progress.recordBoss(bs.topicId, true);
+    updateSidebarStats();
+    newAchs.forEach(a => showAchievement(a));
+  }
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page text-center">
+      <div style="font-size:5rem;margin-bottom:16px">${won ? '🏆' : '💀'}</div>
+      <h2>${won ? '¡Victoria!' : 'Derrotado'}</h2>
+      <p class="mt-2">${won ? `Obtuviste ${bs.score}/5 puntos. ¡Tema dominado!` : `Solo ${bs.score}/5 puntos. ¡Sigue practicando!`}</p>
+      ${won ? '<p class="mt-2" style="color:var(--gold)">+150 XP · Siguiente tema desbloqueado</p>' : ''}
+      <div class="hero-actions" style="justify-content:center;margin-top:24px">
+        ${won ? '' : `<button class="btn btn-secondary" onclick="renderBossBattle('${bs.topicId}')">🔄 Intentar de Nuevo</button>`}
+        <button class="btn btn-primary" onclick="navigate('mapa')">🗺️ Ver Mapa</button>
+        <button class="btn btn-ghost" onclick="navigate('dashboard')">🏠 Inicio</button>
+      </div>
+    </div>
+  `;
+  renderMath(document.getElementById('page-content'));
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Exam Simulator
+// ══════════════════════════════════════════════
+function renderExamSetup() {
+  document.getElementById('topbar-title').textContent = 'Simulacro de Examen';
+  document.getElementById('page-content').innerHTML = `
+    <div class="page text-center">
+      <div class="exam-header">
+        <div style="font-size:3rem;margin-bottom:16px">📝</div>
+        <h2>Simulacro de Examen</h2>
+        <p class="mt-2">Condiciones reales de examen: sin pistas, tiempo límite, temas mixtos.</p>
+      </div>
+
+      <div class="grid-3 mb-6" style="max-width:700px;margin:0 auto 24px">
+        <div class="card text-center">
+          <div style="font-size:2rem">10</div>
+          <div class="text-sm text-muted">Preguntas</div>
+        </div>
+        <div class="card text-center">
+          <div style="font-size:2rem">30:00</div>
+          <div class="text-sm text-muted">Tiempo límite</div>
+        </div>
+        <div class="card text-center">
+          <div style="font-size:2rem">Todos</div>
+          <div class="text-sm text-muted">Temas</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-lg" onclick="startExam()">📝 Iniciar Simulacro</button>
+      <button class="btn btn-ghost btn-lg" onclick="navigate('dashboard')" style="margin-left:12px">Cancelar</button>
+    </div>
+  `;
+}
+
+function startExam() {
+  const exercises = getAllExercises(10);
+  App.examState = {
+    exercises,
+    answers: new Array(exercises.length).fill(null),
+    current: 0,
+    startTime: Date.now(),
+    timeLimit: 30 * 60 * 1000,
+    finished: false,
+  };
+
+  renderExamQuestion();
+  startExamTimer();
+}
+
+function startExamTimer() {
+  if (App.examTimer) clearInterval(App.examTimer);
+  App.examTimer = setInterval(() => {
+    if (!App.examState || App.examState.finished) { clearInterval(App.examTimer); return; }
+    const elapsed = Date.now() - App.examState.startTime;
+    const remaining = App.examState.timeLimit - elapsed;
+
+    if (remaining <= 0) {
+      clearInterval(App.examTimer);
+      finishExam();
+      return;
+    }
+
+    const mins = Math.floor(remaining / 60000);
+    const secs = Math.floor((remaining % 60000) / 1000);
+    const timerEl = document.getElementById('exam-timer');
+    if (timerEl) {
+      timerEl.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+      if (remaining < 5 * 60000) timerEl.classList.add('urgent');
+    }
+  }, 1000);
+}
+
+function renderExamQuestion() {
+  const es = App.examState;
+  const ex = es.exercises[es.current];
+  document.getElementById('topbar-title').textContent = `Examen – Pregunta ${es.current + 1} / ${es.exercises.length}`;
+
+  const dots = es.exercises.map((_, i) => {
+    let cls = '';
+    if (i === es.current) cls = 'current';
+    else if (es.answers[i] !== null) cls = 'correct';
+    return `<div class="dot ${cls}"></div>`;
+  }).join('');
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <div class="exam-header">
+        <div id="exam-timer" class="exam-timer">30:00</div>
+        <div class="exam-progress-dots">${dots}</div>
+        <p class="text-sm text-muted mt-2">Pregunta ${es.current+1} de ${es.exercises.length}</p>
+      </div>
+
+      <div class="exercise-card">
+        <div class="exercise-body">
+          <div class="exercise-question">\\[${ex.questionLatex}\\]</div>
+          <div class="answer-area">
+            <input type="text" class="answer-input" id="exam-answer" placeholder="Tu respuesta..."
+              value="${es.answers[es.current] || ''}" />
+          </div>
+          <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
+            ${es.current > 0 ? `<button class="btn btn-ghost" onclick="examNav(-1)">← Anterior</button>` : ''}
+            ${es.current < es.exercises.length - 1
+              ? `<button class="btn btn-primary" onclick="examNav(1)">Siguiente →</button>`
+              : `<button class="btn btn-gold btn-lg" onclick="finishExam()">✓ Entregar Examen</button>`}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  renderMath(document.getElementById('page-content'));
+}
+
+function examNav(dir) {
+  const es = App.examState;
+  const val = (document.getElementById('exam-answer')?.value || '').trim();
+  es.answers[es.current] = val;
+  es.current = Math.max(0, Math.min(es.exercises.length - 1, es.current + dir));
+  renderExamQuestion();
+}
+
+function finishExam() {
+  const es = App.examState;
+  es.finished = true;
+  clearInterval(App.examTimer);
+
+  // Save last answer
+  const val = (document.getElementById('exam-answer')?.value || '').trim();
+  if (val) es.answers[es.current] = val;
+
+  let score = 0;
+  const results = es.exercises.map((ex, i) => {
+    const ans = es.answers[i] || '';
+    const correct = ans && (normalizeAnswer(ans) === normalizeAnswer(ex.answerLatex) ||
+      normalizeAnswer(ex.answerLatex).includes(normalizeAnswer(ans)));
+    if (correct) score++;
+    return { ex, answer: ans, correct };
+  });
+
+  const pct = Math.round((score / es.exercises.length) * 100);
+  const newAchs = Progress.recordExam(score, es.exercises.length);
+  updateSidebarStats();
+  newAchs.forEach(a => showAchievement(a));
+
+  if (pct >= 80) launchConfetti();
+
+  const elapsed = Date.now() - es.startTime;
+  const mins = Math.floor(elapsed / 60000);
+  const secs = Math.floor((elapsed % 60000) / 1000);
+
+  const resultRows = results.map((r, i) => `
+    <div class="mastery-item">
+      <span class="tag ${r.correct ? 'tag-success' : 'tag-error'}">${r.correct ? '✓' : '✗'}</span>
+      <span class="mastery-name" style="font-size:0.85rem">P${i+1}: \\(${r.ex.questionLatex.substring(0,40)}...\\)</span>
+      <span class="text-xs text-muted">${r.answer || '(sin respuesta)'}</span>
+    </div>`).join('');
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page text-center">
+      <div class="exam-header">
+        <div style="font-size:4rem;margin-bottom:8px">${pct >= 80 ? '🌟' : pct >= 60 ? '📊' : '📉'}</div>
+        <h2>Resultado del Examen</h2>
+        <div class="exam-timer" style="font-size:4rem;color:${pct>=80?'var(--success)':pct>=60?'var(--gold)':'var(--error)'}">${pct}%</div>
+        <p>${score} / ${es.exercises.length} correctas · ${mins}:${String(secs).padStart(2,'0')} min</p>
+      </div>
+
+      <div class="grid-3 mb-6">
+        <div class="stat-card"><div class="stat-value" style="color:var(--success)">${score}</div><div class="stat-label">Correctas</div></div>
+        <div class="stat-card"><div class="stat-value" style="color:var(--error)">${es.exercises.length - score}</div><div class="stat-label">Incorrectas</div></div>
+        <div class="stat-card"><div class="stat-value" style="color:var(--gold)">${Math.round(score * 5)}</div><div class="stat-label">XP Ganados</div></div>
+      </div>
+
+      <div class="card" style="text-align:left;margin-bottom:24px">
+        <h3 style="margin-bottom:16px">Detalle de Respuestas</h3>
+        ${resultRows}
+      </div>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary btn-lg" onclick="renderExamSetup()">🔄 Nuevo Examen</button>
+        <button class="btn btn-ghost btn-lg" onclick="navigate('dashboard')">🏠 Inicio</button>
+      </div>
+    </div>
+  `;
+  renderMath(document.getElementById('page-content'));
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Flashcards
+// ══════════════════════════════════════════════
+function renderFlashcards() {
+  document.getElementById('topbar-title').textContent = 'Flashcards';
+
+  const cards = buildFlashcards();
+  App.flashState = { cards, index: 0, flipped: false, reviewed: new Set() };
+
+  renderFlashcardView();
+}
+
+function buildFlashcards() {
+  const cards = [];
+  if (!App.formulas) return cards;
+  Object.values(App.formulas).forEach(cat => {
+    if (!Array.isArray(cat)) return;
+    cat.forEach(f => {
+      cards.push({
+        front: f.nombre,
+        back: f.formulaLatex,
+        desc: f.descripcion,
+        example: f.ejemplo,
+      });
+    });
+  });
+  return cards.sort(() => Math.random() - 0.5);
+}
+
+function renderFlashcardView() {
+  const fs = App.flashState;
+  if (!fs || !fs.cards.length) {
+    document.getElementById('page-content').innerHTML = '<div class="page"><div class="card text-center"><p>No hay flashcards disponibles.</p></div></div>';
+    return;
+  }
+
+  const card = fs.cards[fs.index];
+  const pct = Math.round((fs.reviewed.size / fs.cards.length) * 100);
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page text-center">
+      <h2 style="margin-bottom:8px">🃏 Flashcards</h2>
+      <p class="text-muted mb-6">Haz clic en la tarjeta para voltearla · ${fs.reviewed.size}/${fs.cards.length} revisadas</p>
+      <div style="max-width:500px;margin:0 auto 24px">
+        <div class="progress-bar"><div class="progress-fill gradient" style="width:${pct}%"></div></div>
+      </div>
+
+      <div class="flashcard-container" onclick="flipCard()">
+        <div class="flashcard ${fs.flipped ? 'flipped' : ''}" id="flashcard">
+          <div class="flashcard-face flashcard-front">
+            <div class="flashcard-label">Fórmula</div>
+            <div class="flashcard-content" style="font-weight:700;font-size:1.3rem">${card.front}</div>
+            <div style="color:var(--text3);font-size:0.8rem;margin-top:16px">Haz clic para ver la fórmula</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="flashcard-label">Resultado</div>
+            <div class="flashcard-content">\\[${card.back}\\]</div>
+            <div style="color:var(--text3);font-size:0.78rem;margin-top:12px">${card.desc}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-secondary" onclick="flashNav(-1)">← Anterior</button>
+        <button class="btn btn-success" onclick="markKnown()">✓ La sé</button>
+        <button class="btn btn-error" style="background:var(--error);color:white" onclick="markUnknown()">✗ Repasar</button>
+        <button class="btn btn-secondary" onclick="flashNav(1)">Siguiente →</button>
+      </div>
+
+      <div style="margin-top:16px;color:var(--text3);font-family:var(--font-mono);font-size:0.8rem">
+        ${fs.index + 1} / ${fs.cards.length}
+      </div>
+    </div>
+  `;
+  renderMath(document.getElementById('page-content'));
+}
+
+function flipCard() {
+  App.flashState.flipped = !App.flashState.flipped;
+  const el = document.getElementById('flashcard');
+  if (el) el.classList.toggle('flipped', App.flashState.flipped);
+}
+
+function flashNav(dir) {
+  const fs = App.flashState;
+  fs.index = (fs.index + dir + fs.cards.length) % fs.cards.length;
+  fs.flipped = false;
+  Progress.recordFlashcard();
+  updateSidebarStats();
+  renderFlashcardView();
+}
+
+function markKnown() {
+  App.flashState.reviewed.add(App.flashState.index);
+  showToast('¡Marcada como aprendida! 🎉', 'success', '✅');
+  flashNav(1);
+}
+
+function markUnknown() {
+  showToast('Marcada para repasar 📌', 'info', '📌');
+  flashNav(1);
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Formula Book
+// ══════════════════════════════════════════════
+function renderFormulaBook() {
+  document.getElementById('topbar-title').textContent = 'Formulario';
+
+  const categories = {
+    'antiderivadas':        { label: 'Antiderivadas', icon: '∫' },
+    'integralesInmediatas': { label: 'Integrales Inmediatas', icon: '⚡' },
+    'inversionTrigonometrica': { label: 'Inversas Trigonométricas', icon: '📐' },
+    'integracionPorPartes': { label: 'Integración por Partes', icon: '✂️' },
+    'concavidad':           { label: 'Concavidad', icon: '〰️' },
+    'optimizacion':         { label: 'Optimización', icon: '📈' },
+    'fraccionesParciales':  { label: 'Fracciones Parciales', icon: '🧩' },
+    'integralesDefinidas':  { label: 'Integrales Definidas', icon: '📊' },
+  };
+
+  let html = '';
+  for (const [key, meta] of Object.entries(categories)) {
+    const data = App.formulas?.[key];
+    if (!data?.length) continue;
+
+    const cards = data.map(f => `
+      <div class="formula-card">
+        <div class="formula-header">
+          <span>${meta.icon}</span>
+          <span class="formula-name">${f.nombre}</span>
+        </div>
+        <div class="formula-body">
+          <div class="math-display">\\[${f.formulaLatex}\\]</div>
+          <div class="formula-desc">${f.descripcion}</div>
+          <div class="formula-example">
+            <strong>Ejemplo:</strong><br>\\(${f.ejemplo}\\)
+          </div>
+        </div>
+      </div>`).join('');
+
+    html += `
+      <div style="margin-bottom:32px">
+        <h3 style="margin-bottom:16px">${meta.icon} ${meta.label}</h3>
+        <div class="formula-grid">${cards}</div>
+      </div>`;
+  }
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <h2 style="margin-bottom:8px">📚 Formulario Completo</h2>
+      <p class="mb-6">Todas las fórmulas que necesitas para el examen.</p>
+      ${html || '<div class="card text-center"><p>Cargando fórmulas...</p></div>'}
+    </div>
+  `;
+  renderMath(document.getElementById('page-content'));
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Achievements
+// ══════════════════════════════════════════════
+function renderAchievements() {
+  document.getElementById('topbar-title').textContent = 'Logros';
+  const achs = Progress.getAchievements();
+  const earned = achs.filter(a => a.earned).length;
+
+  const cards = achs.map(a => `
+    <div class="achievement-card ${a.earned ? 'earned' : 'locked'}">
+      <span class="achievement-emoji">${a.emoji}</span>
+      <div class="achievement-name">${a.name}</div>
+      <div class="achievement-desc">${a.desc}</div>
+      ${a.earned ? '<div class="tag tag-success" style="margin-top:8px;display:inline-flex">✓ Obtenido</div>' : ''}
+    </div>`).join('');
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+        <div>
+          <h2 style="margin-bottom:4px">🏆 Logros</h2>
+          <p>${earned} / ${achs.length} obtenidos</p>
+        </div>
+        <div class="stat-card" style="text-align:center;padding:16px 24px">
+          <div class="stat-value">${Math.round(earned/achs.length*100)}%</div>
+          <div class="stat-label">Completado</div>
+        </div>
+      </div>
+      <div style="margin-bottom:20px">
+        <div class="progress-bar" style="height:12px">
+          <div class="progress-fill gradient" style="width:${Math.round(earned/achs.length*100)}%"></div>
+        </div>
+      </div>
+      <div class="achievement-grid">${cards}</div>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════════════
+//  VIEW: Settings
+// ══════════════════════════════════════════════
+function renderSettings() {
+  document.getElementById('topbar-title').textContent = 'Configuración';
+  const s = Progress.get();
+
+  document.getElementById('page-content').innerHTML = `
+    <div class="page">
+      <h2 style="margin-bottom:24px">⚙️ Configuración</h2>
+      <div class="card" style="max-width:600px">
+        <h3 style="margin-bottom:20px">Apariencia</h3>
+        <div class="mastery-item">
+          <span class="mastery-name">Modo Oscuro</span>
+          <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            ${s.theme === 'dark' ? '☀️ Cambiar a Claro' : '🌙 Cambiar a Oscuro'}
+          </button>
+        </div>
+      </div>
+
+      <div class="card" style="max-width:600px;margin-top:20px">
+        <h3 style="margin-bottom:20px">Progreso</h3>
+        <div class="mastery-item">
+          <span class="mastery-name">XP Total</span>
+          <span class="font-mono">${s.totalXP} XP</span>
+        </div>
+        <div class="mastery-item">
+          <span class="mastery-name">Ejercicios completados</span>
+          <span class="font-mono">${s.completedExercises.length}</span>
+        </div>
+        <div class="mastery-item">
+          <span class="mastery-name">Racha actual</span>
+          <span class="font-mono">${s.streak} días 🔥</span>
+        </div>
+        <div class="mastery-item">
+          <span class="mastery-name">Reiniciar progreso</span>
+          <button class="btn btn-danger btn-sm" onclick="confirmReset()">⚠️ Reiniciar Todo</button>
+        </div>
+      </div>
+
+      <div class="card" style="max-width:600px;margin-top:20px">
+        <h3 style="margin-bottom:12px">Acerca de CalcQuest</h3>
+        <p class="text-sm text-muted">Plataforma de aprendizaje de Cálculo Integral interactiva y gamificada.</p>
+        <p class="text-sm text-muted mt-2">Versión 1.0 · Hecho con ❤️ para estudiantes de Cálculo</p>
+      </div>
+    </div>
+  `;
+}
+
+function toggleTheme() {
+  const s = Progress.get();
+  s.theme = s.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', s.theme);
+  Progress.save();
+  renderSettings();
+  showToast(`Tema cambiado a ${s.theme === 'dark' ? 'oscuro 🌙' : 'claro ☀️'}`, 'success', '🎨');
+}
+
+function confirmReset() {
+  if (confirm('¿Seguro que quieres reiniciar TODO tu progreso? Esta acción no se puede deshacer.')) {
+    Progress.reset();
+    showToast('Progreso reiniciado.', 'info', '🔄');
+    updateSidebarStats();
+    navigate('dashboard');
+  }
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+async function init() {
+  // Load progress
+  const s = Progress.load();
+
+  // Apply theme
+  document.documentElement.setAttribute('data-theme', s.theme || 'dark');
+
+  // Wire nav items
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const view  = el.dataset.view;
+      const topic = el.dataset.topic;
+      if (topic) navigate(view, { topic });
+      else navigate(view);
+      // Mobile: close sidebar
+      document.getElementById('sidebar').classList.remove('open');
+    });
+  });
+
+  // Mobile menu toggle
+  document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+  });
+
+  // Load data
+  await loadAllData();
+
+  // Hide loading screen
+  const loading = document.getElementById('loading-screen');
+  if (loading) {
+    loading.style.opacity = '0';
+    loading.style.transition = 'opacity 400ms';
+    setTimeout(() => loading.remove(), 400);
+  }
+
+  // Navigate to dashboard
+  navigate('dashboard');
+  updateSidebarStats();
+}
+
+// Start when DOM ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+</script>
+<script>
+  if (window.innerWidth <= 768) document.getElementById('menu-toggle').style.display = 'flex';
+  window.addEventListener('resize', () => {
+    const mt = document.getElementById('menu-toggle');
+    if (mt) mt.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const ai = document.getElementById('answer-input') || document.getElementById('boss-answer') || document.getElementById('exam-answer') || document.getElementById('dash-ex-input');
+      if (ai && document.activeElement === ai) {
+        const btn = ai.closest('.answer-area')?.querySelector('.btn-primary');
+        if (btn) btn.click();
+      }
+    }
+    if (e.key === 'Escape') document.getElementById('sidebar')?.classList.remove('open');
+  });
+
+  document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
