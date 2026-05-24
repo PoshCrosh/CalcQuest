@@ -6,76 +6,6 @@ Una experiencia gamificada tipo Duolingo + Khan Academy para estudiantes de cál
 
 ---
 
-## 🚀 Cómo publicar en GitHub Pages
-
-1. Crea un nuevo repositorio en GitHub (ej. `calcquest`)
-2. Sube todos los archivos de este proyecto al repositorio
-3. Ve a **Settings → Pages → Source → Deploy from branch → main → / (root)**
-4. Tu sitio estará en: `https://TU_USUARIO.github.io/calcquest/`
-
-> **Nota:** Los archivos JSON se cargan mediante `fetch()`, por lo que el sitio debe servirse desde un servidor HTTP (GitHub Pages, Live Server en VS Code, etc.). No abre correctamente desde `file://`.
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-calcquest/
-├── index.html                    # Aplicación principal (SPA)
-├── README.md                     # Esta documentación
-│
-├── css/
-│   └── styles.css                # Todos los estilos (dark/light mode)
-│
-├── js/
-│   ├── progress.js               # Sistema de progreso y gamificación
-│   └── app.js                    # Lógica principal de la aplicación
-│
-├── data/                         # Ejercicios en formato JSON
-│   ├── antiderivatives.json      # Antiderivadas (regla de potencias)
-│   ├── immediate_integrals.json  # Integrales inmediatas
-│   ├── cambio_variable.json      # Cambio de variable
-│   ├── substitution.json         # Sustitución
-│   ├── integration_by_parts.json # Integración por partes
-│   ├── metodo_tabular.json       # Método tabular (DI)
-│   ├── inverse_trig.json         # Inversas trigonométricas
-│   ├── definite_integrals.json   # Integrales definidas + aplicaciones
-│   ├── partial_fractions.json    # Fracciones parciales (3 casos)
-│   └── optimization.json         # Optimización + concavidad
-│
-└── knowledge/
-    └── formulas.json             # Base de datos de fórmulas
-```
-
----
-
-## ➕ Cómo agregar ejercicios
-
-Edita el archivo JSON correspondiente al tema. Cada ejercicio sigue este formato:
-
-```json
-{
-  "id": "tema_001",
-  "difficulty": 2,
-  "topic": "nombre-del-tema",
-  "questionLatex": "\\int x^2\\,dx",
-  "answerLatex": "\\frac{x^3}{3}+C",
-  "method": "regla-potencia",
-  "hints": [
-    "Pista 1",
-    "Pista 2"
-  ],
-  "commonMistakes": [
-    "Error frecuente"
-  ],
-  "steps": [
-    "Paso 1",
-    "Paso 2",
-    "\\frac{x^3}{3}+C"
-  ]
-}
-```
-
 ### Campos
 
 | Campo | Tipo | Descripción |
@@ -109,11 +39,6 @@ Edita el archivo JSON correspondiente al tema. Cada ejercicio sigue este formato
 | `fracciones-parciales-caso3` | Fracciones parciales – Caso 3 |
 | `aplicaciones-integrales-definidas` | Aplicaciones (área, volumen) |
 
-### Métodos disponibles
-
-`regla-potencia`, `formula-inmediata`, `cambio-variable`, `sustitucion`, `integracion-por-partes`, `metodo-tabular`, `fracciones-parciales-caso1`, `fracciones-parciales-caso2`, `fracciones-parciales-caso3`, `formula-inversa-trig`, `teorema-fundamental`, `area-entre-curvas`, `optimizacion`, `concavidad`
-
----
 
 ## 🎮 Funcionalidades
 
@@ -166,24 +91,5 @@ Edita el archivo JSON correspondiente al tema. Cada ejercicio sigue este formato
 - Ejercicio experto: **50 XP**
 - Batalla Jefe ganada: **150 XP**
 - Simulacro de examen: **score% × 0.5 XP**
-
----
-
-## 🔧 Desarrollo Local
-
-```bash
-# Opción 1: Python
-python -m http.server 8080
-
-# Opción 2: Node.js
-npx serve .
-
-# Opción 3: VS Code
-# Instala la extensión "Live Server" y haz clic en "Go Live"
-```
-
-Abre en el navegador: `http://localhost:8080`
-
----
 
 *Hecho con ❤️ para estudiantes de Cálculo Integral*
